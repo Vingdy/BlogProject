@@ -1,0 +1,25 @@
+<div class="main-box">
+    <div class="button-box">
+        <button type="button" class="write-button" (click)="ToWriteBlogEssay()" *ngIf="Role>5">有想法了？</button>
+    </div>
+    <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
+    <div class="essay-listbox" *ngFor="let array of BlogEssayArray">
+        <div class="title-box">
+            {{array.title}}
+        </div>
+        <div class="content-box">
+            <div [innerHTML]="array.content"></div>
+            <a [routerLink]="['/oneblogessay']"  [queryParams] = "{essayid:array.id}" class="link-text">
+                查看全部
+            </a>
+        </div>
+        <div class="time-box">
+            {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
+            <span class="divider">|</span>
+            {{array.tag}}
+        </div>
+    </div>
+    <div class="page-box">
+        <page [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
+    </div>
+</div>

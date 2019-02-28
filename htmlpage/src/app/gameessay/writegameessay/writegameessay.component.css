@@ -1,0 +1,135 @@
+
+.main-box{
+    position: absolute;
+    background-color:rgba(255,255,255,0.7);
+    width: 60%;
+    left:50%; 
+    top:20px; 
+    transform: translateX(-50%);
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+}
+.content-box{
+    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+    width:94%;
+    margin:40px auto
+}
+.input-box{
+    margin-top:10px;
+    margin-bottom:15px;
+}
+.label{
+    float: left;
+    font-size:18px;
+    padding:0 auto;
+    width:15%;
+    height:32px;
+    text-align:center;
+}
+.input{
+    width: 60%;
+    color: #222;
+    font-size: 12px;
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 12px;
+    border: 0;
+    background-color: hsla(0,0%,100%,0.88);
+    display: block;
+    height: 32px;
+    border-radius: 4px;
+    border-color:hsla(100%,100%,100%,.88);
+}
+.button-box{
+    text-align:center;
+}
+.back-box{
+    margin-top:5px;
+    margin-bottom:0px;
+    width:100%;
+    height:30px;
+}
+.back-icon{
+    width:30px;
+    height:30px;
+    top:5px;
+    left:10px;
+    float:left;
+}
+.write-button{
+    position: relative;
+    top:10px;
+    right:10px;
+    bottom:10px;
+    width: 181px;
+    height: 38px;
+    background-color:rgba(59,180,242);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    transition: 0.5s linear;
+    margin-left:10px;
+    margin-right:10px;
+}
+.write-button:hover{
+    width:181px;
+    height:38px;
+    background-color:#19a7f0;
+    color:#FFFFFF;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width:1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    margin-left:10px;
+    margin-right:10px;
+}
+.disable-write-button{
+    position: relative;
+    top:10px;
+    right:10px;
+    bottom:10px;
+    width: 181px;
+    height: 38px;
+    background-color:rgb(155, 165, 170);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    transition: 0.5s linear;
+    margin-left:10px;
+    margin-right:10px;
+}
+.small-alert{
+    padding-left: 20px;
+    width:60%;
+    height:32px;
+    margin-left:15%;
+    padding-top:3px;
+}

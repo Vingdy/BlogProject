@@ -1,0 +1,4 @@
+server/bin
+server/pkg
+html/node_modules
+html/e2e

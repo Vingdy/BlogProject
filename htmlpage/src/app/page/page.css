@@ -1,0 +1,10 @@
+.text{
+    font-size: 12px;
+    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: rgba(59,180,242);
+    border-color: rgba(59,180,242);
+}

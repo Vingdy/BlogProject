@@ -1,0 +1,25 @@
+<nav style="text-align: center">
+    <ul class="pagination pagination-sm justify-content-center">
+    <li class="page-item" (click)=ChangePage(1)>
+            <a class="page-link" aria-label="Next">
+                <span aria-hidden="true" class="text">第一页</span>
+            </a>
+            </li>
+    <li class="page-item" (click)=ChangePage(this.CurrentPage-1)>
+      <a class="page-link" aria-label="Previous">
+        <span aria-hidden="true" class="text">上一页</span>
+      </a>
+    </li>
+    <li [ngClass]="{'page-item':this.CurrentPage!=item,'page-item active':this.CurrentPage==item}" *ngFor="let item of PageList" (click)=ChangePage(item)><a class="page-link">{{item}}</a></li>
+    <li class="page-item" (click)=ChangePage(this.CurrentPage+1)>
+      <a class="page-link" aria-label="Next">
+        <span aria-hidden="true" class="text">下一页</span>
+      </a>
+    </li>
+    <li class="page-item" (click)=ChangePage(this.PageCount-1)>
+            <a class="page-link" aria-label="Next">
+              <span aria-hidden="true" class="text">最后一页</span>
+            </a>
+          </li>
+  </ul>
+</nav>

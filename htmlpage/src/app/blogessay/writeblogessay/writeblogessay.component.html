@@ -1,0 +1,36 @@
+<div class="main-box">
+        <div class="content-box">
+            <div class="input-box">
+                <label class="label">标题</label>
+                <input type="text" class="input" [(ngModel)]="NewBlogEssay.title" #title="ngModel" required >
+                <div *ngIf="title.invalid && (title.dirty || title.touched)" class="small-alert alert-danger">
+                    <div *ngIf="title?.errors.required">
+                        标题不能为空
+                    </div>
+                </div>
+            </div>
+            <quill-editor [(ngModel)]="NewBlogEssay.content" [modules]="quillconfig" 
+            (onEditorCreated)="EditorCreated($event)" [style]="{'height':'360px'}"
+            placeholder="输入内容" #content="ngModel" required 
+            ></quill-editor>
+            <div *ngIf="content.invalid && (content.dirty || content.touched)" class="alert alert-danger">
+                <div *ngIf="content?.errors.required">
+                    内容不能为空
+                </div>
+            </div>
+            <div class="input-box">
+                <label class="label">标签</label>
+                <input type="text" class="input" [(ngModel)]="NewBlogEssay.tag"  #tag="ngModel" required >
+                <div *ngIf="tag.invalid && (tag.dirty || tag.touched)" class="small-alert alert-danger">
+                    <div *ngIf="tag?.errors.required">
+                        标签不能为空
+                    </div>
+                </div>
+            </div>
+            <div class="button-box">
+                <button type="button" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
+                 [disabled]="!(!title.invalid&&!tag.invalid)" (click)="NewBlogEssayPush(this.NewBlogEssay)">完成</button>
+                <button type="button" class="write-button" (click)="ToBackEssay()">返回</button>
+            </div>
+        </div>
+    </div>

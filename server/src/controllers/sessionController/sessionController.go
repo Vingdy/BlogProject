@@ -1,0 +1,49 @@
+package sessionController
+
+import (
+	"net/http"
+	"log"
+	"utils/feedback"
+	"session"
+	"constant"
+	"logger"
+)
+
+//func ActionLogger() http.HandlerFunc {
+//	return middleWare.MiddleWareHandler(actionLogger, controller.Permission{
+//		LevelLim: constant.USER_PLAYER,
+//	})
+//}
+
+func GetRole(w http.ResponseWriter, r *http.Request) {
+	if r.Method=="OPTIONS"{
+		return
+	}
+	if w==nil || r==nil{
+		log.Println("gate fail: w or r nil")
+		return
+	}
+	fb := feedback.NewFeedBack(w)
+	if r.Method == http.MethodOptions {
+		fb.FbCode(0).Response()
+		return
+	}
+	sess, err := session.GetSession(r)
+	if err != nil {
+		log.Println("gateway judge session fail: " + err.Error())
+		fb.FbCode(constant.SYS_ERR).Response()
+		return
+	}
+	if sess == nil {
+		fb.FbCode(constant.SESSION_EXPIRED).Response()
+		return
+	}
+	role:=sess.Role
+	msg:="GetRole Success"
+	logger.Logger.Error(msg)
+	log.Println(msg)
+	fb.FbCode(constant.SUCCESS).FbData(role).FbMsg("获取权限等级成功").Response()
+	defer r.Body.Close()
+}
+
+

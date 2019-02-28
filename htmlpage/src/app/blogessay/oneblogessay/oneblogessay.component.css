@@ -1,0 +1,49 @@
+
+.main-box{
+    position: absolute;
+    background-color:rgba(255,255,255,0.7);
+    width: 60%;
+    left:50%; 
+    top:20px; 
+    transform: translateX(-50%);
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+}
+.input-box{
+    margin-top:10px;
+    margin-bottom:15px;
+}
+.label{
+    font-size:18px;
+    padding:0 auto;
+    width:15%;
+    height:32px;
+    text-align:center;
+}
+.title-box{
+    font-size: 26px;
+    text-align: center;
+    word-break: break-word;
+    font-weight: 400;
+}
+.data-box{
+    margin: 3px 0 30px 0;
+    color: #999;
+    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+.divider{
+    margin: 0 0.5em;
+}
+.content-box{
+    width:94%;
+    margin:20px auto;
+    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.back-icon-box{
+    position: absolute;
+}
+.back-icon{
+    width:30px;
+    height:30px;
+}

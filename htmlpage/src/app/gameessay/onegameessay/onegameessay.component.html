@@ -1,0 +1,18 @@
+<div class="main-box">
+        <div class="content-box">
+            <a><div class="back-icon-box" [routerLink]="['/showblogessay']"  [queryParams] = "{CurrentPage:this.ToBackList()}">
+                <img class="back-icon" src="../../../assets/返回.png">
+            </div></a>
+            <div class="title-box">
+                {{this.GameEssayInfo.title}}
+            </div>
+            <div class="data-box">
+                {{this.GameEssayInfo.time| date:'yyyy/MM/dd HH:mm:ss'}}
+                <span class="divider">|</span>
+                {{this.GameEssayInfo.tag}}
+            </div>
+            <div class="content-box">
+                <div [innerHTML]="this.GameEssayInfo.content">
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,16 @@
+<div class="main-box">
+        <div class="content-box">
+            <quill-editor [(ngModel)]="NewSentence.content" [modules]="quillconfig"
+             [style]="{'height':'360px'}" placeholder="输入内容" #content="ngModel" required ></quill-editor>
+            <div *ngIf="content.invalid && (content.dirty || content.touched)" class="alert alert-danger">
+                    <div *ngIf="content?.errors.required">
+                        内容不能为空
+                    </div>
+                </div>
+            <div class="button-box">
+                <button type="button" [ngClass]="{'write-button':!content.invalid,'disable-write-button':content.invalid}"
+                 [disabled]="content.invalid" (click)="NewSentencePush(this.NewSentence)">完成</button>
+                <button type="button" class="write-button" (click)="ToBackEssay()">返回</button>
+            </div>
+        </div>
+    </div>

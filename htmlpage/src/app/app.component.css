@@ -1,0 +1,269 @@
+.top-nav-box{
+    height:72px;
+    width:100%;
+    background-color:hsla(0,0%,100%,0.6);
+    position: absolute;
+    z-index: 99;
+    min-width: 1180px;
+    border: none;
+}
+.top-nav-left-box{
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    width: 50%;
+    min-width: 700px;
+    padding-right: 10px; /*据右边距可能要改动*/
+}
+.top-nav-title-box{
+    float: left;
+    margin-left: 10%;
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 21px;
+    width: 50%;
+    word-wrap: break-word;
+}
+.top-nav-title-content{
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.top-nav-route-main-box{
+    float: left;
+    border-width: 0px;
+    position: relative;
+    min-width: 300px;
+    left:50%;
+    top: 0px;
+    width:72%;
+    height:72px;
+}
+/* .top-nav-route-box{
+    padding:1px;
+    width:100px;
+    height:75px;
+
+    line-height: 32px;
+    text-align: center;
+} */
+.top-nav-route-content{
+    border-width: 0px;
+    padding:0px;
+    width:16%;
+    height:72px;
+    line-height: 76px;
+    font-family: 'Arial Normal', 'Arial';
+    font-style: normal;
+    font-size: 16.5px;
+    color: #515151;
+    text-align: center;
+    outline: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.top-nav-route-content:hover{
+    border-width: 0px;
+    padding:0px;
+    width:16%;
+    height:72px;
+    line-height: 76px;
+    font-family: 'Arial Normal', 'Arial';
+    font-style: normal;
+    font-size: 16.5px;
+    color: #000000;
+    text-align: center;
+    outline: none;
+    display: inline-block;
+    cursor: pointer;
+  transition: 0.5s linear;
+  background-color:hsla(0,0%,100%,0.6);
+}
+.main-content{
+    z-index: 100;
+    position: relative;
+    top:72px;
+    width:100%;
+    min-width: 1000px;
+    height:100%;
+    min-height: 880px;
+}
+.top-nav-right-box{
+    /* left:82%; */
+    margin-left:0%;
+    position: absolute;
+    right: 10%;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    padding-right: 0px; /*据右边距可能要改动*/
+    text-align: right;
+    float: right;
+    display: block;
+}
+.top-nav-button-box{
+    position: relative;
+    display: inline-block;
+    line-height: 72px;
+}
+.top-nav-button{
+    width:181px;
+    height:38px;
+    background-color:rgba(73, 80, 96, 1);
+    color:#FFFFFF;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width:1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    transition: 0.5s linear;
+}
+.top-nav-button:hover{
+    width:181px;
+    height:38px;
+    background-color:rgba(104, 115, 138, 1);
+    color:#FFFFFF;
+    /* background: inherit;//背景透明 */
+    box-sizing: border-box;
+    border-style: solid;
+    border-width:1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer
+}
+.top-nav-icon-box{
+    position: relative;
+    display: inline-block;
+    top: 15px;
+    left:15.8px;
+}
+.top-nav-icon{
+    width:40.8px;
+    height:40.8px;
+    cursor: pointer;
+    text-align: center;
+    display: table-cell; /*图片居中*/
+}
+.top-nav-dropmeun-box{
+    width:160px;
+    height:106px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top:40px;
+    right: -140%;
+
+}
+.top-nav-dropmeun-table{
+    width:160px;
+    height:30px;
+    border-top:none;/*必须在其他边框属性下方*/
+    font-size:14px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    border-color: #C9C9C9;
+}
+.top-nav-dropmeun-block{
+    width:160px;
+    height:16px;
+    border:none;
+    background-color: rgba(73, 80, 96, 1);
+}
+
+.top-nav-dropmeun-table:hover {
+    color: rgb(64,158,255);
+    background-color: rgb(245,247,250);
+}
+.background{
+    top:0;
+    position: fixed;
+    width:100%;
+    height:100%;
+    z-index: -1;
+}
+.login-main-box{
+    position: fixed;
+    width:300px;
+    height:400px;
+    top:200px;
+    right:0px;
+    text-align: center;
+    background-color:hsla(0,100%,100%,0.88);
+    border-radius: 5px;
+    box-shadow: -3px 4px 15px #333333;
+    z-index: 9999;
+}
+.login-box{
+    position: absolute;
+    width:260px;
+    height:360px;
+    margin:20px 20px;
+}
+.login-title{
+    margin-top:60px;
+    font-size:18px;
+    font-weight:bold;
+    font-family: YouYuan;
+}
+.login-div{
+    margin-top:30px;
+}
+.login-label{
+    font-family: YouYuan;
+}
+.login-input{
+    margin:0 10px;
+    padding:0 12px;
+    font-size: 12px;
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    background-color: hsla(100%,0%,100%,0.88);
+    border-radius: 4px;
+}
+.login-button{
+    margin-top: 30px;
+    bottom: 10px;
+    width: 141px;
+    height: 38px;
+    background-color: rgba(59,180,242);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+}
+.icon-box{
+    position: absolute;
+    top:170px;
+    left:-5px;
+    text-align: left;
+}
+.back-icon{
+    width:30px;
+    height:50px;
+}

@@ -1,0 +1,60 @@
+<img src="../../assets/63d9f2d3572c11dfdda62717642762d0f703c28b.jpg" class="background">
+<div class="top-nav-box" style="top:0;">
+    <div class="top-nav-left-box">
+        <div class="top-nav-title-box">
+            <div class="top-nav-title-content">
+                左糖
+            </div>
+        </div>
+        <div class="top-nav-route-main-box">
+            <!-- <div class="top-nav-route-content" (click)="ToMain()">
+                主页
+            </div> -->
+            <div class="top-nav-route-content" (click)="ToBlogEssay()">
+                随笔
+            </div>
+            <!-- <div class="top-nav-route-content" (click)="ToDrawing()">
+                绘画
+            </div> -->
+            <div class="top-nav-route-content" (click)="ToGameEssay()">
+                游戏
+            </div>
+            <!-- <div class="top-nav-route-content" (click)="ToDance()">
+                舞蹈
+            </div> -->
+            <div class="top-nav-route-content" (click)="ToSentence()">
+                想法
+            </div>
+            <div class="top-nav-route-content" (click)="ToTest()">
+                测试
+            </div>
+        </div>
+    </div>
+    <div class="top-nav-right-box">
+        <div class="top-nav-button-box">
+            <button type="button"  class="top-nav-button" (click)="ChangeLoginBox()" *ngIf="Role==0">主人登录</button>
+            <button type="button"  class="top-nav-button" (click)="LogOut()" *ngIf="Role>5">退出</button>
+        </div>
+    </div>
+
+</div>
+<div class="main-content">
+<router-outlet></router-outlet>
+</div>
+<div class="login-main-box" [@EnterLeave]="IsShowLoginBox?'open':'closed'">
+    <div class="icon-box">
+        <img class="back-icon" src="../assets/YDUI-前进.png" (click)="HideLoginBox()">
+    </div>
+    <div class="login-box">
+        <label class="login-title">是时候了</label>
+        <div class="login-div">
+            <label class="login-label">账号</label>
+            <input type="text" class="login-input" [(ngModel)]="LoginAccount">
+        </div>
+        <div class="login-div">
+            <label class="login-label">密码</label>
+            <input type="text" class="login-input" [(ngModel)]="LoginPassword">
+        </div>
+        <button type="button" class="login-button" (click)="Login()">登录</button>
+    </div>
+</div>
