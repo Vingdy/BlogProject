@@ -1,6 +1,6 @@
 <div class="main-box">
         <div class="content-box">
-            <a><div class="back-icon-box" [routerLink]="['/showblogessay']"  [queryParams] = "{CurrentPage:this.ToBackList()}">
+            <a><div class="back-icon-box" [routerLink]="['/blogessay']"  [queryParams] = "{CurrentPage:this.ToBackList()}">
                 <img class="back-icon" src="../../../assets/返回.png">
             </div></a>
             <div class="title-box">
@@ -12,7 +12,7 @@
                 {{this.BlogEssayInfo.tag}}
             </div>
             <div class="content-box">
-                <div [innerHTML]="this.BlogEssayInfo.content">
+                <div [innerHTML]="this.BlogEssayInfo.content | safeHtml">
             </div>
         </div>
     </div>

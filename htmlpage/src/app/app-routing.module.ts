@@ -15,6 +15,9 @@ import { OneGameEssayComponent } from './gameessay/onegameessay/onegameessay.com
 import { ShowSentenceComponent } from './sentence/showsentence/showsentence.component'
 import { WriteSentenceComponent } from './sentence/writesentence/writesentence.component'
 
+import { ShowDrawpictureComponent } from './drawpicture/showdrawpicture/showdrawpicture.component'
+import { WriteDrawpictureComponent } from './drawpicture/writedrawpicture/writedrawpicture.component'
+
 import { RouteguardService } from './service/routeguard.service' 
 
 export const AppRoute: Routes = [
@@ -61,6 +64,15 @@ export const AppRoute: Routes = [
         path:'writesentence',
         component: WriteSentenceComponent,
         canActivate: [RouteguardService]
+    },
+    {
+        path:"drawpicture",
+        component:ShowDrawpictureComponent,
+    },
+    {
+        path:"writedrawpicture",
+        component:WriteDrawpictureComponent,
+        canActivate:[RouteguardService]
     },
     {
         path: '**',// 错误路由重定向[写在最后一个]

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http'
-import { HttpHeaders,HttpClient,HttpResponse,HttpErrorResponse,HttpRequest } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 
 import { SITE_HOST_URL,GET_ALL_BLOG_ESSAY,WRITE_BLOG_ESSAY,GET_ONE_BLOG_ESSAY,UPLOAD_IMAGE } from '../config/api';
 

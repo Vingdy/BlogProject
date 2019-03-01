@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"errors"
 	"utils"
+	"fmt"
 )
 
 var file = make(map[string]bool)
@@ -26,6 +27,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 
 	//获取文件
 	File, FileHeader, err := r.FormFile("file")
+	//fmt.Println(File)
+	fmt.Println(FileHeader.Filename)
 	if err!=nil{
 		msg:="获取前端图片失败"
 		log.Println(msg)

@@ -133,3 +133,15 @@
     margin-left:15%;
     padding-top:3px;
 }
+.cover{
+    margin:20px 0;
+    text-align: center;
+}
+.back-icon-box{
+    position: absolute;
+    margin:10px 10px;
+}
+.back-icon{
+    width:30px;
+    height:30px;
+}

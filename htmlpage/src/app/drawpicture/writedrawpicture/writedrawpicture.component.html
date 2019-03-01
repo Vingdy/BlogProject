@@ -1,0 +1,31 @@
+<div class="main-box">
+    <a><div class="back-icon-box" [routerLink]="['/drawpicture']">
+        <img class="back-icon" src="../../../assets/返回.png">
+    </div></a>
+    <div class="content-box">
+        <a class="file">选择图片
+            <input type="file" class="myFileUpload" accept="image/*" id="newUpload" (change)="fileChangeListener($event)">
+        </a>
+        <div class="show-image-box" id="img">
+        <img src="{{ImageData}}" class="show-image">
+        <div class="button-box">
+            <button type="button" class="write-button" *ngIf="IsChooseImage" (click)="UpLoadDrawpicture()">上传</button>
+            <button type="button" class="write-button" *ngIf="IsChooseImage" (click)="UpLoadDrawpictureCancel()">取消</button>
+        </div>
+        </div>
+        <div class="input-box">
+            <label class="label">标题</label>
+                <input type="text" class="input" [(ngModel)]="NewDrawpicture.title" #title="ngModel" required >
+                <div *ngIf="title.invalid && (title.dirty || title.touched)" class="small-alert alert-danger">
+                    <div *ngIf="title?.errors.required">
+                        标题不能为空
+                    </div>
+                </div>
+        </div>
+        <div class="button-box">
+            <button type="button" [ngClass]="{'write-button':!title.invalid,'disable-write-button':title.invalid}"
+            [disabled]="title.invalid" (click)="NewDrawpicturePush(this.NewDrawpicture)">完成</button>
+            <button type="button" class="write-button" (click)="ToBackDrawpicture()">返回</button>
+        </div>
+    </div>
+</div>

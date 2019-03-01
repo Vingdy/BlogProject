@@ -48,7 +48,7 @@ export class ShowBlogEssayComponent implements OnInit {
           this.Role=0
       })
     this.limit="5"
-    this.offset="0"
+    this.offset=((this.CurrentPage-1)*5).toString()
     this.searchstring=""
     this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset).subscribe(
       fb=>{

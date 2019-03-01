@@ -36,9 +36,11 @@
     margin: 0 0.5em;
 }
 .content-box{
-    width:94%;
-    margin:20px auto;
+    max-width:100%;
+    margin:20px 20px;
     font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+    /* max-width: 100%;
+    max-height: 100%; */
 }
 .back-icon-box{
     position: absolute;
@@ -46,4 +48,10 @@
 .back-icon{
     width:30px;
     height:30px;
+}
+.content-image{
+    text-align: center;
+    margin: 20px 20px;
+    max-width: 70%;
+    max-height: 70%;
 }

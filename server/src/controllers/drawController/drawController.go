@@ -1,19 +1,19 @@
-package gameController
+package drawController
 
 import (
-	"net/http"
-	"utils/feedback"
-	"io/ioutil"
-	"log"
 	"logger"
 	"constant"
-	"encoding/json"
-	"models/gameModel"
+	"log"
+	"net/http"
+	"utils/feedback"
 	"net/url"
+	"models/drawModel"
+	"io/ioutil"
+	"encoding/json"
 	"strconv"
 )
 
-func WriteGameEssay(w http.ResponseWriter,r *http.Request){
+func WriteDrawPicture(w http.ResponseWriter,r *http.Request){
 	fb:=feedback.NewFeedBack(w)
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -23,8 +23,8 @@ func WriteGameEssay(w http.ResponseWriter,r *http.Request){
 		fb.FbCode(constant.PARA_ERR).FbMsg("请求body获取错误").Response()
 		return
 	}
-	var essayinfo constant.GameEssayInfo
-	err = json.Unmarshal(body, &essayinfo)
+	var drawinfo constant.DrawPictureInfo
+	err = json.Unmarshal(body, &drawinfo)
 	if err != nil {
 		msg := "json Unmarshal failed:" + err.Error()
 		log.Println(msg)
@@ -33,28 +33,28 @@ func WriteGameEssay(w http.ResponseWriter,r *http.Request){
 		//fb.Response(w, constant.PARA_ERR, "请求body解析json错误", nil)
 		return
 	}
-	gamewrite,err:=gameModel.WriteGameEssay(essayinfo.Title,essayinfo.Cover,essayinfo.Author,essayinfo.Content,essayinfo.Time,essayinfo.Tag)
+	drawwrite,err:=drawModel.WriteDrawPicture(drawinfo.Title,drawinfo.Src,drawinfo.Time)
 	if err!=nil {
-		msg := "gameModel WriteGameEssay run fail:"+err.Error()
+		msg := "drawModel WriteDrawPicture run fail:"+err.Error()
 		log.Println(msg)
 		logger.Logger.Error(msg)
-		fb.FbCode(constant.SYS_ERR).FbMsg("WriteGameEssay运行错误").Response()
+		fb.FbCode(constant.SYS_ERR).FbMsg("WriteDrawPicture运行错误").Response()
 		return
 	}
-	if !gamewrite{
-		msg:="WriteGame success"
+	if !drawwrite{
+		msg:="WriteDraw success"
 		log.Println(msg)
 		logger.Logger.Info(msg)
-		fb.FbCode(constant.EVENT_NOT_FOUND).FbMsg("游戏上传失败").Response()
+		fb.FbCode(constant.EVENT_NOT_FOUND).FbMsg("摸鱼图上传失败").Response()
 		return
 	}
-	msg:="WriteGame success"
+	msg:="WriteDraw success"
 	log.Println(msg)
 	logger.Logger.Info(msg)
-	fb.FbCode(constant.SUCCESS).FbMsg("游戏上传成功").Response()
+	fb.FbCode(constant.SUCCESS).FbMsg("摸鱼图上传成功").Response()
 }
 
-func GetAllGameEssay(w http.ResponseWriter,r *http.Request){
+func GetAllDrawPicture(w http.ResponseWriter,r *http.Request){
 	fb:=feedback.NewFeedBack(w)
 	queryForm,err:=url.ParseQuery(r.URL.RawQuery)
 	//member:=queryForm["member"][0]
@@ -78,46 +78,42 @@ func GetAllGameEssay(w http.ResponseWriter,r *http.Request){
 		//fmt.Fprintln(w,string(data))
 		return
 	}
-	Allgameinfo,AllgameCounter,err:=gameModel.GetAllGameEssay(limitint,offsetint)
+	Alldrawinfo,AlldrawCounter,err:=drawModel.GetAllDrawPicture(limitint,offsetint)
 	if err!=nil {
-		msg := "gameModel GetAllGameEssay run fail:"+err.Error()
+		msg := "drawModel GetAllDrawPicture run fail:"+err.Error()
 		log.Println(msg)
 		logger.Logger.Error(msg)
-		fb.FbCode(constant.SYS_ERR).FbMsg("GetAllGameEssay运行错误").Response()
+		fb.FbCode(constant.SYS_ERR).FbMsg("GetAllDrawPicture运行错误").Response()
 		return
 	}
-	//fmt.Println(Allgameinfo)
-	if AllgameCounter==0{
-		msg:="GetAllGameinfo is empty"
+	//fmt.Println(Alldrawinfo)
+	if AlldrawCounter==0{
+		msg:="GetAllBloginfo is empty"
 		logger.Logger.Info(msg)
 		log.Println(msg)
-		fb.FbCode(constant.FILE_HAS_NOT_EXISTED).FbMsg("游戏列表为空").FbTotal(0).Response()
+		fb.FbCode(constant.FILE_HAS_NOT_EXISTED).FbMsg("摸鱼图列表为空").FbTotal(0).Response()
 		return
 	}
-	msg:="GetAllGameinfo success"
-	logger.Logger.Info(msg)
+	msg:="GetAllDrawinfo success"
 	log.Println(msg)
-	//fmt.Println(Allgameinfo)
-	fb.FbCode(constant.SUCCESS).FbMsg("游戏列表获取成功").FbData(Allgameinfo).FbTotal(AllgameCounter).Response()
+	logger.Logger.Info(msg)
+	fb.FbCode(constant.SUCCESS).FbMsg("摸鱼图列表获取成功").FbData(Alldrawinfo).FbTotal(AlldrawCounter).Response()
 }
 
-func GetOneGameEssay(w http.ResponseWriter,r *http.Request){
+func GetOneDrawPicture(w http.ResponseWriter,r *http.Request){
 	fb:=feedback.NewFeedBack(w)
 	queryForm,err:=url.ParseQuery(r.URL.RawQuery)
-	essayid:=queryForm["essayid"][0]
-	Onegameinfo,err:=gameModel.GetOneGameEssay(essayid)
+	essayid:=queryForm["pictureid"][0]
+	Onedrawinfo,err:=drawModel.GetOneDrawPicture(essayid)
 	if err!=nil {
-		msg := "gameModel GetOneGameEssay run fail:"+err.Error()
+		msg := "drawModel GetOneDrawPicture run fail:"+err.Error()
 		log.Println(msg)
 		logger.Logger.Error(msg)
-		fb.FbCode(constant.SYS_ERR).FbMsg("GetOneGameEssay运行错误").Response()
+		fb.FbCode(constant.SYS_ERR).FbMsg("GetOneDrawPicture运行错误").Response()
 		return
 	}
-	msg:="GetOneGameinfo success"
+	msg:="GetOneDrawinfo success"
 	logger.Logger.Info(msg)
 	log.Println(msg)
-	//fmt.Println(Onegameinfo)
-	fb.FbCode(constant.SUCCESS).FbMsg("该游戏获取成功").FbData(Onegameinfo).Response()
+	fb.FbCode(constant.SUCCESS).FbMsg("该摸鱼图获取成功").FbData(Onedrawinfo).Response()
 }
-
-

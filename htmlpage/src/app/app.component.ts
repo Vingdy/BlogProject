@@ -71,22 +71,29 @@ export class AppComponent implements OnInit {
   ToMain(){
   }
   ToBlogEssay(){
-      this.router.navigate([ROUTES.showblogessay.route])
+    this.router.navigate([ROUTES.showblogessay.route])
   }
   ToGameEssay(){
-      this.router.navigate([ROUTES.showgameessay.route])
+    this.router.navigate([ROUTES.showgameessay.route])
   }
   ToDrawing(){        
-
+    this.router.navigate([ROUTES.showdrawpicture.route])
   }
   ToDance(){
   }
   ToSentence(){
-      this.router.navigate([ROUTES.showsentence.route])
+    this.router.navigate([ROUTES.showsentence.route])
   }
   ToTest(){
     console.log(this.Role)
     console.log(LoginStatus.isLogin)
+    if(LoginStatus.isLogin)
+    {
+      this.toastrservice.success('已登陆')
+    }
+    else{
+      this.toastrservice.warning('未登陆')
+    }
   }
   Login(){
     this.NewLogin={loginaccount:this.LoginAccount,loginpassword:this.LoginPassword}

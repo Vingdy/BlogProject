@@ -1,4 +1,7 @@
 <div class="main-box">
+        <a><div class="back-icon-box" [routerLink]="['/sentence']">
+            <img class="back-icon" src="../../../assets/返回.png">
+        </div></a>
         <div class="content-box">
             <quill-editor [(ngModel)]="NewSentence.content" [modules]="quillconfig"
              [style]="{'height':'360px'}" placeholder="输入内容" #content="ngModel" required ></quill-editor>

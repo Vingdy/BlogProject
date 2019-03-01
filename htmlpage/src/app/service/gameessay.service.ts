@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http'
-import { HttpHeaders,HttpClient,HttpResponse,HttpErrorResponse,HttpRequest } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 
 import { SITE_HOST_URL,GET_ALL_GAME_ESSAY,WRITE_GAME_ESSAY,GET_ONE_GAME_ESSAY,UPLOAD_IMAGE } from '../config/api';
 
@@ -10,7 +10,6 @@ import { GameEssayStruct } from '../data/gameessayStruct'
 export class GameEssayService {
     constructor(private http: Http,
         private httpclient:HttpClient
-        // public httpservice:HttpService
     ) { }
     GetAllGameEssayInfo(limit:string,offset:string){
         return this.httpclient.get(SITE_HOST_URL+GET_ALL_GAME_ESSAY+"?limit="+limit+"&offset="+offset);

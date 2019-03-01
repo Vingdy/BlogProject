@@ -11,6 +11,10 @@ export const GET_ONE_GAME_ESSAY="/api/getonegameessay"
 export const GET_ALL_SENTENCE="/api/getallsentence"
 export const WRITE_SENTENCE="/api/writesentence"
 
+export const GET_ALL_DRAWPICTURE="/api/getalldrawpicture"
+export const WRITE_DRAWPICTURE="/api/writedrawpicture"
+export const GET_ONE_DRAWPICTURE="/api/getonedrawpicture"
+
 export const LOGIN="/api/login"
 export const LOGOUT="/api/logout"
 export const UPLOAD_IMAGE="/api/uploadimage"

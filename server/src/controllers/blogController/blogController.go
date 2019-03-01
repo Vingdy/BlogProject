@@ -90,6 +90,7 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 	if AllblogCounter==0{
 		msg:="GetAllBloginfo is empty"
 		logger.Logger.Info(msg)
+		log.Println(msg)
 		fb.FbCode(constant.FILE_HAS_NOT_EXISTED).FbMsg("博客列表为空").FbTotal(0).Response()
 		return
 	}

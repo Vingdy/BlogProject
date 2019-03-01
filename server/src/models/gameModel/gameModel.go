@@ -7,17 +7,17 @@ import (
 	"logger"
 )
 
-func WriteGameEssay(title string,author string,content string,time string,tag string)(essayinsertok bool, err error){
+func WriteGameEssay(title string,cover string,author string,content string,time string,tag string)(essayinsertok bool, err error){
 	//essayinfo=[]*constant.GameEssayInfo{}
 	//var args = []interface{}{}
-	InsertSql:="insert into game(title,author,content,time,tag) values($1,$2,$3,$4,$5);"
+	InsertSql:="insert into game(title,cover,author,content,time,tag) values($1,$2,$3,$4,$5,$6);"
 	stmt,err:=db.Db.Prepare(InsertSql)
 	if err != nil {
 		log.Println("GameModel WriteGame Inserysql prepare fail")
 		return false, err
 	}
 	defer stmt.Close()
-	_,err = stmt.Exec(title,author,content,time,tag)
+	_,err = stmt.Exec(title,cover,author,content,time,tag)
 	if err!=nil{
 		log.Println("GameModel WriteGame exce fail")
 		return false, err
@@ -44,7 +44,7 @@ func GetAllGameEssay(limit int,offset int)(essayinfo []*constant.GameEssayInfo,e
 	}
 	essayinfo=[]*constant.GameEssayInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,author,content,time,tag from game"
+	QuerySql:="select id,title,cover,author,content,time,tag from game"
 	if limit==-1{
 		QuerySql+=";"
 	}else{
@@ -60,7 +60,7 @@ func GetAllGameEssay(limit int,offset int)(essayinfo []*constant.GameEssayInfo,e
 	for rows.Next() {
 		//fmt.Println("have")
 		var newessayinfo constant.GameEssayInfo
-		err := rows.Scan(&newessayinfo.Id,&newessayinfo.Title,&newessayinfo.Author,&newessayinfo.Content,&newessayinfo.Time,&newessayinfo.Tag)
+		err := rows.Scan(&newessayinfo.Id,&newessayinfo.Title,&newessayinfo.Cover,&newessayinfo.Author,&newessayinfo.Content,&newessayinfo.Time,&newessayinfo.Tag)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -85,7 +85,7 @@ func GetOneGameEssay(gameid string)(essayinfo []*constant.GameEssayInfo,err erro
 	//}
 	essayinfo=[]*constant.GameEssayInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,author,content,time,tag from game where id = $1"
+	QuerySql:="select id,title,cover,author,content,time,tag from game where id = $1"
 	args=append(args,gameid)
 	//if limit==-1{
 	//	QuerySql+=";"
@@ -102,7 +102,7 @@ func GetOneGameEssay(gameid string)(essayinfo []*constant.GameEssayInfo,err erro
 	for rows.Next() {
 		//fmt.Println("have")
 		var newessayinfo constant.GameEssayInfo
-		err := rows.Scan(&newessayinfo.Id,&newessayinfo.Title,&newessayinfo.Author,&newessayinfo.Content,&newessayinfo.Time,&newessayinfo.Tag)
+		err := rows.Scan(&newessayinfo.Id,&newessayinfo.Title,&newessayinfo.Cover,&newessayinfo.Author,&newessayinfo.Content,&newessayinfo.Time,&newessayinfo.Tag)
 		if err != nil {
 			log.Fatalln(err)
 		}

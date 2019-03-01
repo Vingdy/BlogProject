@@ -112,3 +112,11 @@
     margin-left:10px;
     margin-right:10px;
 }
+.back-icon-box{
+    position: absolute;
+    margin:10px 10px;
+}
+.back-icon{
+    width:30px;
+    height:30px;
+}

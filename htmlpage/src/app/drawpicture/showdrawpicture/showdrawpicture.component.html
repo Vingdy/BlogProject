@@ -1,0 +1,20 @@
+<div class="main-box">
+        <div class="button-box">
+            <button type="button" class="write-button" (click)="ToWriteDrawpicture()" *ngIf="Role>5">有想法了？</button>
+        </div>
+        <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
+        <div class="essay-listbox" *ngFor="let array of DrawpictureArray">
+            <div class="title-box">
+                {{array.title}}
+            </div>
+            <div class="image-box">
+                <img src="{{array.src}}" class="show-image">
+            </div>
+            <div class="time-box">
+                {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
+            </div>
+        </div>
+        <div class="page-box">
+            <page [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
+        </div>
+    </div>

@@ -25,19 +25,26 @@ import { OneGameEssayComponent } from './gameessay/onegameessay/onegameessay.com
 import { ShowSentenceComponent } from './sentence/showsentence/showsentence.component'
 import { WriteSentenceComponent } from './sentence/writesentence/writesentence.component'
 
+import { ShowDrawpictureComponent } from './drawpicture/showdrawpicture/showdrawpicture.component'
+import { WriteDrawpictureComponent } from './drawpicture/writedrawpicture/writedrawpicture.component'
+
 import { BlogEssayService } from './service/blogessay.service'
 import { GameEssayService } from './service/gameessay.service'
 import { SentenceService } from './service/sentence.service'
 import { LoginService } from './service/login.service'
 import { SessionService } from './service/session.service'
 import { RouteguardService } from './service/routeguard.service'
+import { DrawpictureService } from './service/drawpicture.service'
 
 // import { SingletonService } from './data/loginStatus'
 
 import { QuillModule } from 'ngx-quill'
 import { ToastrModule } from 'ngx-toastr';
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 import { PageComponent } from './page/page'
+
+import { SafeHtmlPipe } from './pipe/html.pipe'
 
 
 // import { ElModule } from 'element-angular'
@@ -63,6 +70,10 @@ import { PageComponent } from './page/page'
     OneGameEssayComponent,
     ShowSentenceComponent,
     WriteSentenceComponent,
+    ImageCropperComponent,
+    SafeHtmlPipe,
+    ShowDrawpictureComponent,
+    WriteDrawpictureComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +93,7 @@ import { PageComponent } from './page/page'
     LoginService,
     SessionService,
     RouteguardService,
+    DrawpictureService,
 ],
   bootstrap: [AppComponent]
 })

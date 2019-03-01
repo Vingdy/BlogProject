@@ -11,4 +11,7 @@ export const ROUTES = {
 
     showsentence:{name:'想法',route:'sentence'},
     writesentence:{name:'写想法',route:'writesentence'},
+
+    showdrawpicture:{name:'摸鱼',route:'drawpicture'},
+    writedrawpicture:{name:'上传摸鱼',route:'writedrawpicture'},
 }

@@ -54,14 +54,11 @@ export class WriteSentenceComponent implements OnInit {
       }(sentenceinfo.content)
       sentenceinfo.time=Date.now().toString()
       sentenceinfo.time=this.datePipe.transform(sentenceinfo.time, 'yyyy-MM-dd HH:mm:ss')
-      console.log(sentenceinfo.time)
       this.sentenceservice.WriteNewSentence(sentenceinfo).subscribe(
         fb=>{
-          console.log(fb)
           this.toastrservice.success('上传成功')
         },
         err=>{
-          console.log(err)
           this.toastrservice.error('上传失败')
         }
       )

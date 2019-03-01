@@ -86,7 +86,7 @@ export class WriteBlogEssayComponent implements OnInit {
              this.blogessayservice.imageHandler(data).subscribe(fb => {
               const range = this.editor.getSelection(true);
               const index = range.index + range.length;
-              let img = '<img src="'+fb["link"]+'">';
+              let img = '<img src="'+fb["link"]+'" style="max-width:100%;">';
               if (!this.NewBlogEssay.content){
                 this.NewBlogEssay.content=img
               }
@@ -128,4 +128,11 @@ export class WriteBlogEssayComponent implements OnInit {
     ToBackEssay(){
       this.router.navigate([ROUTES.showblogessay.route])
     }
+    // ToBackList(){
+    //   let CurrentPage=Number((Number(this.essayid)/5).toFixed(0))
+    //   let Para=(Number(this.essayid)/5)
+    //   if(CurrentPage-Para<0){
+    //       CurrentPage+=1
+    //     return CurrentPage
+    // }
 }

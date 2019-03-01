@@ -1,6 +1,16 @@
 <div class="main-box">
+        <a><div class="back-icon-box" [routerLink]="['/gameessay']">
+            <img class="back-icon" src="../../../assets/返回.png">
+        </div></a>
         <div class="content-box">
             <div class="input-box">
+                <button type="button" class="write-button" (click)="IsChangeCover()">上传封面图</button>
+                <div class="cover">
+                    <img-cropper #cropper [image]="data" [settings]="cropperSettings" *ngIf="ChangeCover"></img-cropper><br>
+                    <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight" *ngIf="OpenCover">
+                <button type="button" class="write-button" (click)="ChangeCoverOK()" *ngIf="ChangeCover">确认</button>
+                <button type="button" class="write-button" (click)="ChangeCoverCancel()" *ngIf="ChangeCover">取消</button>
+                </div>
                 <label class="label">标题</label>
                 <input type="text" class="input" [(ngModel)]="NewGameEssay.title" #title="ngModel" required >
                 <div *ngIf="title.invalid && (title.dirty || title.touched)" class="small-alert alert-danger">

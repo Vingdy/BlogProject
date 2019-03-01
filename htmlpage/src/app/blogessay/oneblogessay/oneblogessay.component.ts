@@ -1,5 +1,6 @@
-import { Component,OnInit,Injectable } from '@angular/core';
+import { Component,OnInit,Injectable,Pipe } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { BlogEssayStruct } from '../../data/blogessayStruct'
 
@@ -25,6 +26,7 @@ export class OneBlogEssayComponent implements OnInit {
     private blogessayservice:BlogEssayService,
     private activatedRoute:ActivatedRoute,
     private sessionservice:SessionService,
+    private domsanitizer: DomSanitizer,
   ) { }
   ngOnInit(){
     this.sessionservice.GetRole().subscribe(
@@ -43,6 +45,7 @@ export class OneBlogEssayComponent implements OnInit {
     this.blogessayservice.GetOneBlogEssayInfo(this.essayid).subscribe(
         fb=>{
             this.BlogEssayInfo=fb["data"][0]
+            // this.BlogEssayInfo.content=this.domsanitizer.bypassSecurityTrustHtml(this.BlogEssayInfo.content)
             this.BlogEssayInfo.time=this.BlogEssayInfo.time.replace('Z','+08:00')
         },
         err=>{

@@ -18,6 +18,7 @@ import (
 	"controllers/imgController"
 	"utils"
 	"controllers/sessionController"
+	"controllers/drawController"
 )
 
 //多路复用器根据请求返回特定的处理器
@@ -47,6 +48,10 @@ func SetRouter() *mux.Router {
 
 	Router.HandleFunc("/api/writesentence", AllowOrigin(sentenceController.WriteSentence)).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getallsentence", AllowOrigin(sentenceController.GetAllSentence)).Methods("GET","OPTIONS")
+
+	Router.HandleFunc("/api/writedrawpicture", AllowOrigin(drawController.WriteDrawPicture)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/getalldrawpicture", AllowOrigin(drawController.GetAllDrawPicture)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getonedrawpicture", AllowOrigin(drawController.GetOneDrawPicture)).Methods("GET","OPTIONS")
 
 	Router.HandleFunc("/api/uploadimage",AllowOrigin(imgController.UploadPic)).Methods("POST","OPTIONS")
 

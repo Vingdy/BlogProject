@@ -7,6 +7,9 @@
             <div class="title-box">
                 {{array.title}}
             </div>
+            <div class="cover-box">
+                <img src={{array.cover}} class="cover-image">
+            </div>
             <div class="content-box">
                 <div [innerHTML]="array.content"></div>
                 <a [routerLink]="['/onegameessay']"  [queryParams] = "{essayid:array.id}" class="link-text">

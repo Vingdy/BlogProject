@@ -22,13 +22,14 @@
     color: #21759b;
     text-align: center;
 }
-.content-box{
+.image-box{
     font-size: 12px;
     padding-left:5px;
     padding-right:5px;
     margin-bottom: 5px;
 }
 .link-text{
+    padding-left:5px;
     padding-right:5px;
     display:inline;
     font-size: 12px;
@@ -38,9 +39,11 @@
     padding-left:5px;
     padding-right:5px;
     margin-bottom: 10px;
+    text-align: right;
 }
 .button-box{
     text-align: right;
+    white-space: pre;
 }
 .write-button{
     position: relative;
@@ -86,19 +89,12 @@
 .page-box{
     text-align: center;
 }
-.divider{
-    margin: 0 0.5em;
-}
 .empty{
     position: relative;
     margin:30px 43%;
     font-size:20px;
 }
-.cover-box{
-    margin:5px 10px;
-    text-align: center;
-}
-.cover-image{
+.show-image{
     max-width: 100%;
     max-height: 100%;
 }
