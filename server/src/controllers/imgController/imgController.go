@@ -130,7 +130,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	//返回前端上传图片的地址
 	pic:=Pic{}
 
-	pic.Link="http://localhost:8080/static/"+CreateFileid+"."+fileSuffix
+	pic.Link="http://111.230.186.233:80/static/"+CreateFileid+"."+fileSuffix
+	//pic.Link="http://localhost:80/static/"+CreateFileid+"."+fileSuffix
 	data,_:=json.Marshal(pic)
 
 	w.Write(data)

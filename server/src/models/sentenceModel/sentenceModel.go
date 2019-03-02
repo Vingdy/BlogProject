@@ -4,13 +4,12 @@ import (
 	"log"
 	"db"
 	"constant"
-	"logger"
 )
 
 func WriteSentence(content string,time string)(essayinsertok bool, err error){
 	//essayinfo=[]*constant.SentenceInfo{}
 	//var args = []interface{}{}
-	InsertSql:="insert into sentence(content,time) values($1,$2);"
+	InsertSql:="insert into blog.sentence(content,time) values($1,$2);"
 	stmt,err:=db.Db.Prepare(InsertSql)
 	if err != nil {
 		log.Println("SentenceModel WriteSentence Inserysql prepare fail")
@@ -36,7 +35,7 @@ func WriteSentence(content string,time string)(essayinsertok bool, err error){
 
 func GetAllSentenceInfo(limit int,offset int)(essayinfo []*constant.SentenceInfo,essaynumber int,err error){
 	var Count int
-	CountSql:="select count(*) from sentence"
+	CountSql:="select count(*) from blog.sentence"
 	err= db.Db.QueryRow(CountSql).Scan(&Count)
 	if err!=nil{
 		log.Println("sentenceModel GetAllSentenceInfo CountSql exec fail")
@@ -44,7 +43,7 @@ func GetAllSentenceInfo(limit int,offset int)(essayinfo []*constant.SentenceInfo
 	}
 	essayinfo=[]*constant.SentenceInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,content,time from sentence"
+	QuerySql:="select id,content,time from blog.sentence"
 	if limit==-1{
 		QuerySql+=";"
 	}else{
@@ -54,7 +53,7 @@ func GetAllSentenceInfo(limit int,offset int)(essayinfo []*constant.SentenceInfo
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("sentenceModel GetAllSentenceInfo QuerySql exec fail")
-		logger.Logger.Error("sentenceModel GetAllSentenceInfo QuerySql exec fail")
+		//logger.Logger.Error("sentenceModel GetAllSentenceInfo QuerySql exec fail")
 		return
 	}
 	for rows.Next() {
@@ -66,7 +65,7 @@ func GetAllSentenceInfo(limit int,offset int)(essayinfo []*constant.SentenceInfo
 		}
 		essayinfo = append(essayinfo,&newsentenceinfo)
 	}
-	if essayinfo==nil{
+	if Count==0{
 		return nil,Count,err
 	}
 	rows.Close()

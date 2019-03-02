@@ -16,24 +16,46 @@ import (
 	"controllers/gameController"
 	"controllers/sentenceController"
 	"controllers/imgController"
-	"utils"
 	"controllers/sessionController"
 	"controllers/drawController"
+	//"utils"
+	"utils"
 )
+
+var path,err=utils.GetProDir()
 
 //多路复用器根据请求返回特定的处理器
 
 func SetRouter() *mux.Router {
 	Router:=mux.NewRouter()
 
-	path,err:=utils.GetProDir()
 	if err!=nil{
 		return Router
 	}
-	path+=`\files`
-	fmt.Println(path)
-	filesever:=http.StripPrefix("/static/", http.FileServer(http.Dir(path)))
+
+	//path+=`\files`
+	//fmt.Println(path)
+	filesever:=http.StripPrefix("/static/", http.FileServer(http.Dir(path+`\files`)))
 	Router.PathPrefix("/static/").HandlerFunc(filesever.ServeHTTP)
+
+
+	Router.PathPrefix("/static").Handler(http.StripPrefix("/static",http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+		//http.FileServer(http.Dir("F:\\CST\\会议视频系统\\Videoconference\\html\\dist")).ServeHTTP(w,r)
+		http.FileServer(http.Dir(path+`/dist/htmlpage`)).ServeHTTP(w,r)
+		//http.FileServer(http.Dir("/root/videoconference/html")).ServeHTTP(w,r)
+	})))
+	Router.PathPrefix("/assets").Handler(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+		//http.FileServer(http.Dir("F:\\CST\\会议视频系统\\Videoconference\\html\\dist")).ServeHTTP(w,r)
+		http.FileServer(http.Dir(path+`/dist/htmlpage`)).ServeHTTP(w,r)
+		//http.FileServer(http.Dir("/root/videoconference/html")).ServeHTTP(w,r)
+	}))
+	Router.NotFoundHandler =  http.HandlerFunc(notFound)
+	//Router.PathPrefix("/assets").Handler(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+	//	//http.FileServer(http.Dir("F:\\CST\\会议视频系统\\Videoconference\\html\\dist")).ServeHTTP(w,r)
+	//	http.FileServer(http.Dir("D:\\SoloWork\\web-show\\blog\\htmlpage\\dist")).ServeHTTP(w,r)
+	//	//http.FileServer(http.Dir("/root/videoconference/html")).ServeHTTP(w,r)
+	//}))
+
 
 	Router.HandleFunc("/api/login", AllowOrigin(loginController.Login)).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/logout", AllowOrigin(loginController.LogOut)).Methods("GET","OPTIONS")
@@ -76,9 +98,10 @@ func MiddleWareHandler(next http.Handler)http.Handler{
 //		next.ServeHTTP(w, r)
 //	})
 //}
-
-type Permission struct {
-	LevelLim int
+func notFound(w http.ResponseWriter, r *http.Request){
+	//http.ServeFile(w,r,"F:\\CST\\会议视频系统\\Videoconference\\html\\dist\\index.html")
+	http.ServeFile(w,r,path+`/dist/htmlpage`)
+	//http.ServeFile(w,r,"/root/videoconference/html")
 }
 
 func GateWay(next http.HandlerFunc)http.HandlerFunc {

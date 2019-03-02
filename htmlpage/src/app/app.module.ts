@@ -40,7 +40,7 @@ import { DrawpictureService } from './service/drawpicture.service'
 
 import { QuillModule } from 'ngx-quill'
 import { ToastrModule } from 'ngx-toastr';
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+import { ImageCropperModule } from 'ng2-img-cropper';
 
 import { PageComponent } from './page/page'
 
@@ -70,7 +70,7 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     OneGameEssayComponent,
     ShowSentenceComponent,
     WriteSentenceComponent,
-    ImageCropperComponent,
+    // ImageCropperComponent,
     SafeHtmlPipe,
     ShowDrawpictureComponent,
     WriteDrawpictureComponent,
@@ -84,6 +84,7 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     AppRouteModule,
     QuillModule,
     ToastrModule.forRoot(),
+    ImageCropperModule
     // NgZorroAntdModule
   ],
   providers: [
@@ -95,6 +96,9 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     RouteguardService,
     DrawpictureService,
 ],
+exports:[
+  ImageCropperModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

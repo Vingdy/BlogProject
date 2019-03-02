@@ -5,27 +5,27 @@ import (
 	"log"
 	"routers"
 	"db"
-	"logger"
 	"utils"
 	"cache"
+	"fmt"
 )
 
 //var sessionMgr *session.SessionManager = nil
 
 func main() {
-	db.InitDB("localhost","5432", "postgres", "VingB2by","test","postgres")
+	db.InitDB("localhost","5432", "postgres", "VingB2by","blog","postgres")
 	cache.Init()
 	proDir,err:= utils.GetProDir()
 	//fmt.Println(err)
 	if err != nil {
 		log.Panicln("Get ProDir err: " + err.Error())
 	}
-	//fmt.Println(proDir)
-	err=logger.InitLogger(proDir)
-	if err != nil {
-		log.Panicln("InitLogger err: " + err.Error())
-	}
-	log.Println("====开始监听8080端口=====")
+	fmt.Println(proDir)
+	//err=logger.InitLogger(proDir)
+	//if err != nil {
+	//	log.Panicln("InitLogger err: " + err.Error())
+	//}
+	//log.Println("====开始监听9090端口=====")
 	//http.HandleFunc("/", login.Login)\
 	//ExePath, err := utils.InitDirectories()
 	//if err != nil {
@@ -38,8 +38,8 @@ func main() {
 	//Init()
 
 	defer db.Db.Close()
-	defer logger.Close()
-	err=http.ListenAndServe(":"+"8080", routers.SetRouter())
+	//defer logger.Close()
+	err=http.ListenAndServe(":"+"80", routers.SetRouter())
 	if err != nil{
 		log.Println("开启8080端口服务")
 	}

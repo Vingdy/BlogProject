@@ -26,8 +26,8 @@ export class WriteGameEssayComponent implements OnInit {
     OpenCover:boolean
     ChangeCover:boolean
 
-    // @ViewChild('cropper', undefined)
-    // cropper:ImageCropperComponent;
+    @ViewChild('cropper', undefined)
+    cropper:ImageCropperComponent;
 
     CoverImage:any=new Image()
 

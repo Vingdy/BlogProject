@@ -4,13 +4,12 @@ import (
 	"db"
 	"log"
 	"constant"
-	"logger"
 )
 
 func WriteBlogEssay(title string,author string,content string,time string,tag string)(essayinsertok bool, err error){
 	//essayinfo=[]*constant.EssayInfo{}
 	//var args = []interface{}{}
-	InsertSql:="insert into essay(title,author,content,time,tag) values($1,$2,$3,$4,$5);"
+	InsertSql:="insert into blog.essay(title,author,content,time,tag) values($1,$2,$3,$4,$5);"
 	stmt,err:=db.Db.Prepare(InsertSql)
 	if err != nil {
 		log.Println("BlogModel WriteBlogEssay Inserysql prepare fail")
@@ -36,7 +35,7 @@ func WriteBlogEssay(title string,author string,content string,time string,tag st
 
 func GetAllBlogEssay(limit int,offset int)(essayinfo []*constant.BlogEssayInfo,essaynumber int,err error){
 	var Count int
-	CountSql:="select count(*) from essay"
+	CountSql:="select count(*) from blog.essay"
 	err= db.Db.QueryRow(CountSql).Scan(&Count)
 	if err!=nil{
 		log.Println("blogModel GetAllBlogEssay CountSql exec fail")
@@ -44,7 +43,7 @@ func GetAllBlogEssay(limit int,offset int)(essayinfo []*constant.BlogEssayInfo,e
 	}
 	essayinfo=[]*constant.BlogEssayInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,author,content,time,tag from essay"
+	QuerySql:="select id,title,author,content,time,tag from blog.essay"
 	if limit==-1{
 		QuerySql+=";"
 	}else{
@@ -54,7 +53,7 @@ func GetAllBlogEssay(limit int,offset int)(essayinfo []*constant.BlogEssayInfo,e
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("blogModel GetAllBlogEssay QuerySql exec fail")
-		logger.Logger.Error("blogModel GetAllBlogEssay QuerySql exec fail")
+		//logger.Logger.Error("blogModel GetAllBlogEssay QuerySql exec fail")
 		return
 	}
 	for rows.Next() {
@@ -83,7 +82,7 @@ func GetOneBlogEssay(blogid string)(essayinfo []*constant.BlogEssayInfo,err erro
 	//}
 	essayinfo=[]*constant.BlogEssayInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,author,content,time,tag from essay where id = $1"
+	QuerySql:="select id,title,author,content,time,tag from blog.essay where id = $1"
 	args=append(args,blogid)
 	//if limit==-1{
 	//	QuerySql+=";"
@@ -94,7 +93,7 @@ func GetOneBlogEssay(blogid string)(essayinfo []*constant.BlogEssayInfo,err erro
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("blogModel GetOneBlogEssay QuerySql exec fail")
-		logger.Logger.Error("blogModel GetOneBlogEssay QuerySql exec fail")
+		//logger.Logger.Error("blogModel GetOneBlogEssay QuerySql exec fail")
 		return
 	}
 	for rows.Next() {

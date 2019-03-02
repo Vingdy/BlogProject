@@ -4,13 +4,12 @@ import (
 	"db"
 	"log"
 	"constant"
-	"logger"
 )
 
 func WriteGameEssay(title string,cover string,author string,content string,time string,tag string)(essayinsertok bool, err error){
 	//essayinfo=[]*constant.GameEssayInfo{}
 	//var args = []interface{}{}
-	InsertSql:="insert into game(title,cover,author,content,time,tag) values($1,$2,$3,$4,$5,$6);"
+	InsertSql:="insert into blog.game(title,cover,author,content,time,tag) values($1,$2,$3,$4,$5,$6);"
 	stmt,err:=db.Db.Prepare(InsertSql)
 	if err != nil {
 		log.Println("GameModel WriteGame Inserysql prepare fail")
@@ -36,7 +35,7 @@ func WriteGameEssay(title string,cover string,author string,content string,time 
 
 func GetAllGameEssay(limit int,offset int)(essayinfo []*constant.GameEssayInfo,essaynumber int,err error){
 	var Count int
-	CountSql:="select count(*) from game"
+	CountSql:="select count(*) from blog.game"
 	err= db.Db.QueryRow(CountSql).Scan(&Count)
 	if err!=nil{
 		log.Println("gameModel GetAllGameEssay CountSql exec fail")
@@ -44,7 +43,7 @@ func GetAllGameEssay(limit int,offset int)(essayinfo []*constant.GameEssayInfo,e
 	}
 	essayinfo=[]*constant.GameEssayInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,cover,author,content,time,tag from game"
+	QuerySql:="select id,title,cover,author,content,time,tag from blog.game"
 	if limit==-1{
 		QuerySql+=";"
 	}else{
@@ -54,7 +53,7 @@ func GetAllGameEssay(limit int,offset int)(essayinfo []*constant.GameEssayInfo,e
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("gameModel GetAllGameEssay QuerySql exec fail")
-		logger.Logger.Error("gameModel GetAllGameEssay QuerySql exec fail")
+		//logger.Logger.Error("gameModel GetAllGameEssay QuerySql exec fail")
 		return
 	}
 	for rows.Next() {
@@ -85,7 +84,7 @@ func GetOneGameEssay(gameid string)(essayinfo []*constant.GameEssayInfo,err erro
 	//}
 	essayinfo=[]*constant.GameEssayInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,cover,author,content,time,tag from game where id = $1"
+	QuerySql:="select id,title,cover,author,content,time,tag from blog.game where id = $1"
 	args=append(args,gameid)
 	//if limit==-1{
 	//	QuerySql+=";"
@@ -96,7 +95,7 @@ func GetOneGameEssay(gameid string)(essayinfo []*constant.GameEssayInfo,err erro
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("gameModel GetOneGameEssay QuerySql exec fail")
-		logger.Logger.Error("gameModel GetOneGameEssay QuerySql exec fail")
+		//logger.Logger.Error("gameModel GetOneGameEssay QuerySql exec fail")
 		return
 	}
 	for rows.Next() {

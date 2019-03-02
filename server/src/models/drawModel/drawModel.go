@@ -3,14 +3,13 @@ package drawModel
 import (
 	"db"
 	"log"
-	"logger"
 	"constant"
 )
 
 func WriteDrawPicture(title string,src string,time string)(drawpictureinsertok bool, err error){
 	//drawpictureinfo=[]*constant.EssayInfo{}
 	//var args = []interface{}{}
-	InsertSql:="insert into drawpicture(title,src,time) values($1,$2,$3);"
+	InsertSql:="insert into blog.drawpicture(title,src,time) values($1,$2,$3);"
 	stmt,err:=db.Db.Prepare(InsertSql)
 	if err != nil {
 		log.Println("DrawModel WriteDrawPicture Inserysql prepare fail")
@@ -27,7 +26,7 @@ func WriteDrawPicture(title string,src string,time string)(drawpictureinsertok b
 
 func GetAllDrawPicture(limit int,offset int)(drawpictureinfo []*constant.DrawPictureInfo,drawpicturenumber int,err error){
 	var Count int
-	CountSql:="select count(*) from drawpicture"
+	CountSql:="select count(*) from blog.drawpicture"
 	err= db.Db.QueryRow(CountSql).Scan(&Count)
 	if err!=nil{
 		log.Println("drawModel GetAllDrawPicture CountSql exec fail")
@@ -35,7 +34,7 @@ func GetAllDrawPicture(limit int,offset int)(drawpictureinfo []*constant.DrawPic
 	}
 	drawpictureinfo=[]*constant.DrawPictureInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,src,time from drawpicture"
+	QuerySql:="select id,title,src,time from blog.drawpicture"
 	if limit==-1{
 		QuerySql+=";"
 	}else{
@@ -45,7 +44,7 @@ func GetAllDrawPicture(limit int,offset int)(drawpictureinfo []*constant.DrawPic
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("drawModel GetAllDrawPicture QuerySql exec fail")
-		logger.Logger.Error("drawModel GetAllDrawPicture QuerySql exec fail")
+		//logger.Logger.Error("drawModel GetAllDrawPicture QuerySql exec fail")
 		return
 	}
 	for rows.Next() {
@@ -74,7 +73,7 @@ func GetOneDrawPicture(drawid string)(drawpictureinfo []*constant.DrawPictureInf
 	//}
 	drawpictureinfo=[]*constant.DrawPictureInfo{}
 	var args = []interface{}{}
-	QuerySql:="select id,title,src,time from drawpicture where id = $1"
+	QuerySql:="select id,title,src,time from blog.drawpicture where id = $1"
 	args=append(args,drawid)
 	//if limit==-1{
 	//	QuerySql+=";"
@@ -85,7 +84,7 @@ func GetOneDrawPicture(drawid string)(drawpictureinfo []*constant.DrawPictureInf
 	rows,err:=db.Db.Query(QuerySql,args...)
 	if err!=nil{
 		log.Println("drawModel GetOneDrawPicture QuerySql exec fail")
-		logger.Logger.Error("drawModel GetOneDrawPicture QuerySql exec fail")
+		//logger.Logger.Error("drawModel GetOneDrawPicture QuerySql exec fail")
 		return
 	}
 	for rows.Next() {
