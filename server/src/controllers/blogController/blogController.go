@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"utils/feedback"
 	"io/ioutil"
-	"log"
 	"constant"
 	"encoding/json"
 	"models/blogModel"
 	"net/url"
 	"strconv"
+	"logger"
 )
 
 func WriteBlogEssay(w http.ResponseWriter,r *http.Request){
@@ -17,8 +17,9 @@ func WriteBlogEssay(w http.ResponseWriter,r *http.Request){
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		msg := "ReadAll failed:" + err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("请求body获取错误").Response()
 		return
 	}
@@ -26,8 +27,9 @@ func WriteBlogEssay(w http.ResponseWriter,r *http.Request){
 	err = json.Unmarshal(body, &essayinfo)
 	if err != nil {
 		msg := "json Unmarshal failed:" + err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("请求body解析json错误").Response()
 		//fb.Response(w, constant.PARA_ERR, "请求body解析json错误", nil)
 		return
@@ -35,25 +37,29 @@ func WriteBlogEssay(w http.ResponseWriter,r *http.Request){
 	blogwrite,err:=blogModel.WriteBlogEssay(essayinfo.Title,essayinfo.Author,essayinfo.Content,essayinfo.Time,essayinfo.Tag)
 	if err!=nil {
 		msg := "blogModel WriteBlogEssay run fail:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("WriteBlogEssay运行错误").Response()
 		return
 	}
 	if !blogwrite{
 		msg:="WriteBlog success"
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Info(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.EVENT_NOT_FOUND).FbMsg("博客上传失败").Response()
 		return
 	}
 	msg:="WriteBlog success"
-	log.Println(msg)
+	//log.Println(msg)
 	//logger.Logger.Info(msg)
+	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("博客上传成功").Response()
 }
 
 func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
+	//logger.Info("test")
 	fb:=feedback.NewFeedBack(w)
 	queryForm,err:=url.ParseQuery(r.URL.RawQuery)
 	//member:=queryForm["member"][0]
@@ -62,8 +68,9 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 	limitint, err := strconv.Atoi(limit)
 	if err!=nil{
 		msg:="limit to int failed:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("limit转换错误").Response()
 		//data:=model.FeedBackErrorHandle(501,msg)
 		//fmt.Fprintln(w,string(data))
@@ -73,8 +80,9 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 	if err!=nil{
 		msg:="offset to int failed:"+err.Error()
 		//logger.Logger.Error(msg)
-		log.Println(msg)
+		//log.Println(msg)
 		//data:=model.FeedBackErrorH
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("offset转换错误").Response()
 		//fmt.Fprintln(w,string(data))
 		return
@@ -82,8 +90,9 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 	Allbloginfo,AllblogCounter,err:=blogModel.GetAllBlogEssay(limitint,offsetint)
 	if err!=nil {
 		msg := "blogModel GetAllBlogEssay run fail:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("GetAllBlogEssay运行错误").Response()
 		return
 	}
@@ -91,13 +100,16 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 	if AllblogCounter==0{
 		msg:="GetAllBloginfo is empty"
 		//logger.Logger.Info(msg)
-		log.Println(msg)
+		//log.Println(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.FILE_HAS_NOT_EXISTED).FbMsg("博客列表为空").FbTotal(0).Response()
 		return
 	}
 	msg:="GetAllBloginfo success"
-	log.Println(msg)
+	//log.Println(msg)
+
 	//logger.Logger.Info(msg)
+	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("博客列表获取成功").FbData(Allbloginfo).FbTotal(AllblogCounter).Response()
 }
 
@@ -108,14 +120,16 @@ func GetOneBlogEssay(w http.ResponseWriter,r *http.Request){
 	Onebloginfo,err:=blogModel.GetOneBlogEssay(essayid)
 	if err!=nil {
 		msg := "blogModel GetOneBlogEssay run fail:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("GetOneBlogEssay运行错误").Response()
 		return
 	}
 	msg:="GetOneBloginfo success"
 	//logger.Logger.Info(msg)
-	log.Println(msg)
+	//log.Println(msg)
+	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("该博客获取成功").FbData(Onebloginfo).Response()
 }
 

@@ -13,6 +13,7 @@ import (
 	"errors"
 	"utils"
 	"fmt"
+	"logger"
 )
 
 var file = make(map[string]bool)
@@ -31,8 +32,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	fmt.Println(FileHeader.Filename)
 	if err!=nil{
 		msg:="获取前端图片失败"
-		log.Println(msg)
-		log.Println(err)
+		//log.Println(msg)
+		//log.Println(err)
+		logger.Info(msg)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -51,16 +53,18 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	if FileHeader.Size/1024 <= 10240 {
 		if !file[fileSuffix]{
 			msg:="图片格式不符合要求"
-			log.Println(msg)
-			log.Println(err)
+			//log.Println(msg)
+			//log.Println(err)
+			logger.Info(msg)
 			//data:=model.FeedBackErrorHandle(601,msg)
 			//fmt.Fprintln(w,string(data))
 			return
 		}
 	}else{
 		msg:="图片大小不符合要求"
-		log.Println(msg)
-		log.Println(err)
+		//log.Println(msg)
+		//log.Println(err)
+		logger.Info(msg)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -70,8 +74,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	FileByte, err := ioutil.ReadAll(File)
 	if err!=nil{
 		msg:="读取字节错误"
-		log.Println(msg)
-		log.Println(err)
+		//log.Println(msg)
+		//log.Println(err)
+		logger.Info(msg)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -81,8 +86,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	FileId, err := GetFileMD5(FileByte)
 	if err!=nil{
 		msg:="图片名字加密错误"
-		log.Println(msg)
-		log.Println(err)
+		//log.Println(msg)
+		//log.Println(err)
+		logger.Info(msg)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -92,8 +98,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	CreateFileid,err:=Substr(FileId,0,250);
 	if err!=nil{
 		msg:="命名图片错误"
-		log.Println(msg)
-		log.Println(err)
+		//log.Println(msg)
+		//log.Println(err)
+		logger.Info(msg)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -108,8 +115,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	err = utils.Mkdir(PATH)
 	if err!=nil{
 		msg:="创建存放文件的文件夹失败"
-		log.Println(msg)
-		log.Println(err)
+		//log.Println(msg)
+		//log.Println(err)
+		logger.Info(msg)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -120,8 +128,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	//fmt.Println(PATH)
 	if err!=nil{
 		msg:="创建文件错误"
-		log.Println(msg)
-		log.Println(err)
+		logger.Info(msg)
+		//log.Println(msg)
+		//log.Println(err)
 		//data:=model.FeedBackErrorHandle(601,msg)
 		//fmt.Fprintln(w,string(data))
 		return
@@ -130,8 +139,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	//返回前端上传图片的地址
 	pic:=Pic{}
 
-	pic.Link="http://111.230.186.233:80/static/"+CreateFileid+"."+fileSuffix
-	//pic.Link="http://localhost:80/static/"+CreateFileid+"."+fileSuffix
+	//pic.Link="http://111.230.186.233:80/static/"+CreateFileid+"."+fileSuffix
+	pic.Link="http://localhost:80/static/"+CreateFileid+"."+fileSuffix
 	data,_:=json.Marshal(pic)
 
 	w.Write(data)

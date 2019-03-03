@@ -7,21 +7,30 @@ import (
 	"db"
 	"utils"
 	"cache"
+	"logger"
+	"conf"
 	"fmt"
+	"constant"
 )
 
 //var sessionMgr *session.SessionManager = nil
 
 func main() {
-	db.InitDB("localhost","5432", "postgres", "VingB2by","blog","postgres")
-	cache.Init()
 	proDir,err:= utils.GetProDir()
 	//fmt.Println(err)
 	if err != nil {
 		log.Panicln("Get ProDir err: " + err.Error())
 	}
-	fmt.Println(proDir)
-	//err=logger.InitLogger(proDir)
+	conf.Init(proDir,constant.BUILD_TYPE_DEV)
+	fmt.Println(conf.App.DBHost)
+	fmt.Println(conf.App.DBDriver)
+	db.InitDB(conf.App.DBHost,conf.App.DBPort, conf.App.DBUser, conf.App.DBPassword,conf.App.DBName,conf.App.DBDriver)
+	cache.Init()
+
+	//fmt.Println(proDir)
+	err=logger.InitLogger(proDir)
+	//logger.Info("a")
+	//logger.Info("b")
 	//if err != nil {
 	//	log.Panicln("InitLogger err: " + err.Error())
 	//}

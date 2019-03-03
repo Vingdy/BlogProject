@@ -62,11 +62,6 @@ type srvFile struct {
 
 	LocationCacheStay time.Duration `toml:"LocationCacheStay"`
 
-	SMSSentAPIUrl string `toml:"SMSSentAPIUrl"`
-	TplID         int    `json:"TplID"`
-	SMSAppID      string `json:"SMSAppID"`
-	SMSAppKey     string `json:"SMSAppKey"`
-
 	TemplateDir string
 	ProDir      string
 
@@ -97,8 +92,8 @@ func Init(proDir string, buildType string) {
 	App.ProDir = proDir
 	App.TemplateDir = proDir + "/dist/"
 
-	App.LogDir = proDir + "/log/"
-	App.FileDir = proDir + "/file/"
+	App.LogDir = proDir + "/logs/"
+	App.FileDir = proDir + "/files/"
 
 	App.AppEnv = buildType
 

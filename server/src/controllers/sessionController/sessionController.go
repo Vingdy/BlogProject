@@ -6,6 +6,7 @@ import (
 	"utils/feedback"
 	"session"
 	"constant"
+	"logger"
 )
 
 //func ActionLogger() http.HandlerFunc {
@@ -40,7 +41,8 @@ func GetRole(w http.ResponseWriter, r *http.Request) {
 	role:=sess.Role
 	msg:="GetRole Success"
 	//logger.Logger.Error(msg)
-	log.Println(msg)
+	logger.Info(msg)
+	//log.Println(msg)
 	fb.FbCode(constant.SUCCESS).FbData(role).FbMsg("获取权限等级成功").Response()
 	defer r.Body.Close()
 }

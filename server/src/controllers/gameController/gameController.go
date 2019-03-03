@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"utils/feedback"
 	"io/ioutil"
-	"log"
 	"constant"
 	"encoding/json"
 	"models/gameModel"
 	"net/url"
 	"strconv"
+	"logger"
 )
 
 func WriteGameEssay(w http.ResponseWriter,r *http.Request){
@@ -17,8 +17,9 @@ func WriteGameEssay(w http.ResponseWriter,r *http.Request){
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		msg := "ReadAll failed:" + err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("请求body获取错误").Response()
 		return
 	}
@@ -26,8 +27,9 @@ func WriteGameEssay(w http.ResponseWriter,r *http.Request){
 	err = json.Unmarshal(body, &essayinfo)
 	if err != nil {
 		msg := "json Unmarshal failed:" + err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("请求body解析json错误").Response()
 		//fb.Response(w, constant.PARA_ERR, "请求body解析json错误", nil)
 		return
@@ -35,21 +37,24 @@ func WriteGameEssay(w http.ResponseWriter,r *http.Request){
 	gamewrite,err:=gameModel.WriteGameEssay(essayinfo.Title,essayinfo.Cover,essayinfo.Author,essayinfo.Content,essayinfo.Time,essayinfo.Tag)
 	if err!=nil {
 		msg := "gameModel WriteGameEssay run fail:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("WriteGameEssay运行错误").Response()
 		return
 	}
 	if !gamewrite{
 		msg:="WriteGame success"
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Info(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.EVENT_NOT_FOUND).FbMsg("游戏上传失败").Response()
 		return
 	}
 	msg:="WriteGame success"
-	log.Println(msg)
+	//log.Println(msg)
 	//logger.Logger.Info(msg)
+	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("游戏上传成功").Response()
 }
 
@@ -62,8 +67,9 @@ func GetAllGameEssay(w http.ResponseWriter,r *http.Request){
 	limitint, err := strconv.Atoi(limit)
 	if err!=nil{
 		msg:="limit to int failed:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("limit转换错误").Response()
 		//data:=model.FeedBackErrorHandle(501,msg)
 		//fmt.Fprintln(w,string(data))
@@ -74,7 +80,8 @@ func GetAllGameEssay(w http.ResponseWriter,r *http.Request){
 		msg:="offset to int failed:"+err.Error()
 		//logger.Logger.Error(msg)
 		//data:=model.FeedBackErrorH
-		log.Println(msg)
+		//log.Println(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("offset转换错误").Response()
 		//fmt.Fprintln(w,string(data))
 		return
@@ -82,8 +89,9 @@ func GetAllGameEssay(w http.ResponseWriter,r *http.Request){
 	Allgameinfo,AllgameCounter,err:=gameModel.GetAllGameEssay(limitint,offsetint)
 	if err!=nil {
 		msg := "gameModel GetAllGameEssay run fail:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("GetAllGameEssay运行错误").Response()
 		return
 	}
@@ -91,14 +99,17 @@ func GetAllGameEssay(w http.ResponseWriter,r *http.Request){
 	if AllgameCounter==0{
 		msg:="GetAllGameinfo is empty"
 		//logger.Logger.Info(msg)
-		log.Println(msg)
+		//log.Println(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.FILE_HAS_NOT_EXISTED).FbMsg("游戏列表为空").FbTotal(0).Response()
 		return
 	}
 	msg:="GetAllGameinfo success"
 	//logger.Logger.Info(msg)
-	log.Println(msg)
+	//log.Println(msg)
+
 	//fmt.Println(Allgameinfo)
+	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("游戏列表获取成功").FbData(Allgameinfo).FbTotal(AllgameCounter).Response()
 }
 
@@ -109,15 +120,17 @@ func GetOneGameEssay(w http.ResponseWriter,r *http.Request){
 	Onegameinfo,err:=gameModel.GetOneGameEssay(essayid)
 	if err!=nil {
 		msg := "gameModel GetOneGameEssay run fail:"+err.Error()
-		log.Println(msg)
+		//log.Println(msg)
 		//logger.Logger.Error(msg)
+		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("GetOneGameEssay运行错误").Response()
 		return
 	}
 	msg:="GetOneGameinfo success"
 	//logger.Logger.Info(msg)
-	log.Println(msg)
+	//log.Println(msg)
 	//fmt.Println(Onegameinfo)
+	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("该游戏获取成功").FbData(Onegameinfo).Response()
 }
 
