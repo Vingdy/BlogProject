@@ -17,6 +17,7 @@ import { BuildingComponent } from './building/building.component'
 import { ShowBlogEssayComponent } from './blogessay/showblogessay/showblogessay.component'
 import { WriteBlogEssayComponent } from './blogessay/writeblogessay/writeblogessay.component'
 import { OneBlogEssayComponent } from './blogessay/oneblogessay/oneblogessay.component'
+// import { UpdateBlogEssayComponent } from './blogessay/updateblogessay/updateblogessay.component'
 
 import { ShowGameEssayComponent } from './gameessay/showgameessay/showgameessay.component'
 import { WriteGameEssayComponent } from './gameessay/writegameessay/writegameessay.component'
@@ -41,19 +42,16 @@ import { DrawpictureService } from './service/drawpicture.service'
 import { QuillModule } from 'ngx-quill'
 import { ToastrModule } from 'ngx-toastr';
 import { ImageCropperModule } from 'ng2-img-cropper';
+import { ModalModule } from 'ngx-bootstrap';
+import { BsModalService,BsModalRef } from 'ngx-bootstrap/modal';
+// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { PageComponent } from './page/page'
+import { ModalComponent } from './modal/modal-pop.component'
 
 import { SafeHtmlPipe } from './pipe/html.pipe'
 
 
-// import { ElModule } from 'element-angular'
-// import 'element-angular/theme/index.css'
-// import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-// // 注册语言包
-// import { registerLocaleData } from '@angular/common';
-// import zh from '@angular/common/locales/zh';
-// registerLocaleData(zh);
 
 
 @NgModule({
@@ -70,10 +68,10 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     OneGameEssayComponent,
     ShowSentenceComponent,
     WriteSentenceComponent,
-    // ImageCropperComponent,
     SafeHtmlPipe,
     ShowDrawpictureComponent,
     WriteDrawpictureComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +82,9 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     AppRouteModule,
     QuillModule,
     ToastrModule.forRoot(),
-    ImageCropperModule
+    ImageCropperModule,
+    ModalModule.forRoot(),
+    
     // NgZorroAntdModule
   ],
   providers: [
@@ -95,10 +95,15 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     SessionService,
     RouteguardService,
     DrawpictureService,
+    // BsModalRef,
+    // BsModalService,
 ],
 exports:[
   ImageCropperModule,
   ],
+  entryComponents: [
+    ModalComponent,
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

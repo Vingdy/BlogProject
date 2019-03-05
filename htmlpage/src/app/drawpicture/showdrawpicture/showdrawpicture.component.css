@@ -2,9 +2,9 @@
 .main-box{
     position: absolute;
     background-color:rgba(255,255,255,0.7);
-    width: 60%;
+    width: 50%;
     left:50%; 
-    top:20px; 
+    /* top:20px;  */
     transform: translateX(-50%);
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
 }
@@ -27,6 +27,7 @@
     padding-left:5px;
     padding-right:5px;
     margin-bottom: 5px;
+    text-align: center;
 }
 .link-text{
     padding-left:5px;
@@ -91,10 +92,53 @@
 }
 .empty{
     position: relative;
-    margin:30px 43%;
+    margin:30px 42%;
     font-size:20px;
 }
 .show-image{
     max-width: 100%;
     max-height: 100%;
+}
+.tag-filing-box{
+    position: relative;
+    background-color:rgba(255,255,255,0.7);
+    width:13%;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    padding:10px;
+    margin-top:20px;
+    margin-left:77%; 
+}
+.tag-filing{
+    font-size: 12px;
+}
+.time-filing-box{
+    position: relative;
+    background-color:rgba(255,255,255,0.7);
+    width:13%;
+    left:77%; 
+    top:20px; 
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    padding:10px;
+}
+.time-filing{
+    font-size: 12px;
+}
+.check:hover{
+    text-decoration : underline;
+    font-weight: bold;
+    cursor: pointer;
+}
+.divider{
+    margin: 0 0.5em;
+}
+.admin-control-box{
+    text-align: right;
+}
+.admin-control{
+    float: right;
+}
+.admin-control:hover{
+    text-decoration : underline;
+    font-weight: bold;
+    cursor: pointer;
 }

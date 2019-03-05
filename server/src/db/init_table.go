@@ -109,11 +109,12 @@ func initAllTable() {
 	username text NOT NULL,
 	password text NOT NULL,
 	role text NOT NULL,
+	isdelete text NOT NULL default '0',
 	PRIMARY KEY ("id")
 	);`)
 	if err != nil {
 		log.Panicln("init table blog.loginuser failed " + err.Error())
-	}else{
+	} else {
 		log.Println("table blog.loginuser has been created")
 	}
 	//文章数据库
@@ -124,11 +125,12 @@ func initAllTable() {
 	content text NOT NULL default '',
 	time timestamp NOT NULL default now(),
 	tag text NOT NULL default '',
+	isdelete text NOT NULL default '0',
 	PRIMARY KEY ("id")
 	);`)
 	if err != nil {
 		log.Panicln("init table blog.essay failed " + err.Error())
-	}else{
+	} else {
 		log.Println("table blog.essay has been created")
 	}
 	//游戏数据库
@@ -140,36 +142,52 @@ func initAllTable() {
 	content text NOT NULL default '',
 	time timestamp NOT NULL default now(),
 	tag text NOT NULL default '',
+	isdelete text NOT NULL default '0',
 	PRIMARY KEY ("id")
 	);`)
 	if err != nil {
 		log.Panicln("init table blog.game failed " + err.Error())
-	}else{
+	} else {
 		log.Println("table blog.game has been created")
 	}
 	err = execSQL(`CREATE TABLE IF NOT EXISTS blog.sentence(
 	id SERIAL NOT NULL,
 	content text NOT NULL default '',
 	time timestamp NOT NULL default now(),
+	tag text NOT NULL default '',
+	isdelete text NOT NULL default '0',
 	PRIMARY KEY ("id")
 	);`)
 	if err != nil {
 		log.Panicln("init table blog.sentence failed " + err.Error())
-	}else{
+	} else {
 		log.Println("table blog.sentence has been created")
 	}
-		err = execSQL(`CREATE TABLE IF NOT EXISTS blog.drawpicture(
+	err = execSQL(`CREATE TABLE IF NOT EXISTS blog.drawpicture(
 		id SERIAL NOT NULL,
         title text NOT NULL,
 		src text NOT NULL default '',
 		time timestamp NOT NULL default now(),
+		isdelete text NOT NULL default '0',
 		PRIMARY KEY ("id")
 		);`)
-		if err != nil {
-			log.Panicln("init table blog.drawpicture failed " + err.Error())
-		}else{
-			log.Println("table blog.drawpicture has been created")
-		}
+	if err != nil {
+		log.Panicln("init table blog.drawpicture failed " + err.Error())
+	} else {
+		log.Println("table blog.drawpicture has been created")
+	}
+	err = execSQL(`CREATE TABLE IF NOT EXISTS blog.userdata(
+		id SERIAL NOT NULL,
+        name text NOT NULL,
+		headpicture text,
+		info text NOT NULL,
+		PRIMARY KEY ("id")
+		);`)
+	if err != nil {
+		log.Panicln("init table blog.user failed " + err.Error())
+	} else {
+		log.Println("table blog.user has been created")
+	}
 }
 
 func execSQL(sql string) error {

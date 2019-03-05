@@ -20,6 +20,8 @@ import (
 	"controllers/drawController"
 	//"utils"
 	"utils"
+	"controllers/userController"
+	"conf"
 )
 
 var path,err=utils.GetProDir()
@@ -35,26 +37,17 @@ func SetRouter() *mux.Router {
 
 	//path+=`\files`
 	//fmt.Println(path)
-	filesever:=http.StripPrefix("/static/", http.FileServer(http.Dir(path+`\files`)))
-	Router.PathPrefix("/static/").HandlerFunc(filesever.ServeHTTP)
+	filesever:=http.StripPrefix(conf.App.FileDownloadHost, http.FileServer(http.Dir(path+conf.App.FileDownloadPrefix)))
+	Router.PathPrefix(conf.App.FileDownloadHost).HandlerFunc(filesever.ServeHTTP)
 
 
 	Router.PathPrefix("/static").Handler(http.StripPrefix("/static",http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
-		//http.FileServer(http.Dir("F:\\CST\\会议视频系统\\Videoconference\\html\\dist")).ServeHTTP(w,r)
-		http.FileServer(http.Dir(path+`/dist/htmlpage`)).ServeHTTP(w,r)
-		//http.FileServer(http.Dir("/root/videoconference/html")).ServeHTTP(w,r)
+		http.FileServer(http.Dir(conf.App.TemplateDir+`htmlpage`)).ServeHTTP(w,r)
 	})))
 	Router.PathPrefix("/assets").Handler(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
-		//http.FileServer(http.Dir("F:\\CST\\会议视频系统\\Videoconference\\html\\dist")).ServeHTTP(w,r)
-		http.FileServer(http.Dir(path+`/dist/htmlpage`)).ServeHTTP(w,r)
-		//http.FileServer(http.Dir("/root/videoconference/html")).ServeHTTP(w,r)
+		http.FileServer(http.Dir(conf.App.TemplateDir+`htmlpage`)).ServeHTTP(w,r)
 	}))
 	Router.NotFoundHandler =  http.HandlerFunc(notFound)
-	//Router.PathPrefix("/assets").Handler(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
-	//	//http.FileServer(http.Dir("F:\\CST\\会议视频系统\\Videoconference\\html\\dist")).ServeHTTP(w,r)
-	//	http.FileServer(http.Dir("D:\\SoloWork\\web-show\\blog\\htmlpage\\dist")).ServeHTTP(w,r)
-	//	//http.FileServer(http.Dir("/root/videoconference/html")).ServeHTTP(w,r)
-	//}))
 
 
 	Router.HandleFunc("/api/login", AllowOrigin(loginController.Login)).Methods("POST","OPTIONS")
@@ -63,21 +56,40 @@ func SetRouter() *mux.Router {
 	Router.HandleFunc("/api/writeblogessay", AllowOrigin(GateWay(blogController.WriteBlogEssay))).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getallblogessay", AllowOrigin(blogController.GetAllBlogEssay)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getoneblogessay", AllowOrigin(blogController.GetOneBlogEssay)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getblogessaythetag", AllowOrigin(blogController.GetBlogEssayTag)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getblogessaythetime", AllowOrigin(blogController.GetBlogEssayTime)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateoneblogessay", AllowOrigin(blogController.UpdateBlogEssay)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteoneblogessay", AllowOrigin(blogController.DeleteBlogEssay)).Methods("GET","OPTIONS")
 
 	Router.HandleFunc("/api/writegameessay", AllowOrigin(gameController.WriteGameEssay)).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getallgameessay", AllowOrigin(gameController.GetAllGameEssay)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getonegameessay", AllowOrigin(gameController.GetOneGameEssay)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getgameessaythetag", AllowOrigin(gameController.GetGameEssayTag)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getgameessaythetime", AllowOrigin(gameController.GetGameEssayTime)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateonegameessay", AllowOrigin(gameController.UpdateGameEssay)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteonegameessay", AllowOrigin(gameController.DeleteGameEssay)).Methods("GET","OPTIONS")
 
 	Router.HandleFunc("/api/writesentence", AllowOrigin(sentenceController.WriteSentence)).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getallsentence", AllowOrigin(sentenceController.GetAllSentence)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getonesentence", AllowOrigin(sentenceController.GetOneSentence)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getsentencethetime", AllowOrigin(sentenceController.GetSentenceTime)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateonesentence", AllowOrigin(sentenceController.UpdateSentence)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteonesentence", AllowOrigin(sentenceController.DeleteSentence)).Methods("GET","OPTIONS")
 
 	Router.HandleFunc("/api/writedrawpicture", AllowOrigin(drawController.WriteDrawPicture)).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getalldrawpicture", AllowOrigin(drawController.GetAllDrawPicture)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getonedrawpicture", AllowOrigin(drawController.GetOneDrawPicture)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getdrawpicturethetag", AllowOrigin(drawController.GetDrawPictureTag)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/getdrawpicturethetime", AllowOrigin(drawController.GetDrawPictureTime)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateonedrawpicture", AllowOrigin(drawController.UpdateDrawPicture)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteonedrawpicture", AllowOrigin(drawController.DeleteDrawPicture)).Methods("GET","OPTIONS")
 
 	Router.HandleFunc("/api/uploadimage",AllowOrigin(imgController.UploadPic)).Methods("POST","OPTIONS")
 
 	Router.HandleFunc("/api/getrole",AllowOrigin(sessionController.GetRole)).Methods("GET","OPTIONS")
+
+	Router.HandleFunc("/api/getuserdata",AllowOrigin(userController.GetUserData)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateuserdata",AllowOrigin(userController.UpdateUserData)).Methods("POST","OPTIONS")
 	//Router.HandleFunc("/api/getoneblogessay", AllowOrigin(blogController.GetOneBlogEssay)).Methods("GET")
 	//r.HandleFunc("/api/get", loginController.Get).Methods("POST")
 

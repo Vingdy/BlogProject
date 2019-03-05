@@ -12,6 +12,7 @@ import (
 	"time"
 	"crypto/rand"
 	"github.com/go-redis/redis"
+	"conf"
 )
 
 //session管理器结构体
@@ -28,11 +29,11 @@ const (
 )
 
 func Init() {
-	cookieName = "VingB2by"
-	maxLifeTime = 7200
-	path = "/"
-	httpOnly = true
-	maxAge = 432000
+	cookieName = conf.App.SessionKey
+	maxLifeTime = conf.App.MaxLifeTime
+	path = conf.App.Path
+	httpOnly = conf.App.HTTPOnly
+	maxAge = conf.App.MaxAge
 }
 
 func SetSession(w http.ResponseWriter, r *http.Request, session *constant.Session) error {

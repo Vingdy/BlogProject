@@ -1,4 +1,9 @@
-server/bin
+server/bin/files
+server/bin/logs
+server/bin/dist
+server/bin/main
+server/bin/go_build_main_go.exe
 server/pkg
+server/src/main
 html/node_modules
 html/e2e

@@ -10,21 +10,12 @@ import (
 
 //返回内容处理
 
-
-
-type FeedBack struct {
-	DistWriter http.ResponseWriter `json:"-"`
-	Code int `json:"code"`
-	Msg string `json:"msg,omitempty"`
-	Data interface{} `json:"data,omitempty"`
-	Total int `json:"total,omitempty"`
-}
 //
-//type feedBack struct {
+//type FeedBack struct {
 //	DistWriter http.ResponseWriter `json:"-"`
-//	FbCode     int                 `json:"code"`
-//	FbMsg      string              `json:"msg,omitempty"`
-//	FbData     interface{}         `json:"data,omitempty"`
+//	Code     int                 `json:"code"`
+//	Msg      string              `json:"msg,omitempty"`
+//	Data     interface{}         `json:"data,omitempty"`
 //}
 //func NewFeedBack(w http.ResponseWriter){
 //	return &feedBack{DistWriter:w}

@@ -3,8 +3,6 @@ package conf
 import (
 	"os"
 
-	"time"
-
 	"github.com/BurntSushi/toml"
 	"constant"
 )
@@ -28,9 +26,6 @@ type srvFile struct {
 	ServerHost     string `toml:"serverHost"`
 	ServerPort     string `toml:"serverPort"`
 	ServerTestPort string `toml:"serverTestPort"`
-
-	WebPageHost     string `toml:"WebPageHost"`
-	WebPageTestHost string `toml:"WebPageTestHost"`
 
 	//log
 	OutPutPath    string `toml:"outPutPath"`
@@ -59,8 +54,6 @@ type srvFile struct {
 	SignKey string `toml:"SignKey"`
 
 	SignSwitch bool `toml:"SignSwitch"`
-
-	LocationCacheStay time.Duration `toml:"LocationCacheStay"`
 
 	TemplateDir string
 	ProDir      string

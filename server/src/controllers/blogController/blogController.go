@@ -65,6 +65,7 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 	//member:=queryForm["member"][0]
 	offset:=queryForm["offset"][0]
 	limit:=queryForm["limit"][0]
+	searchstring:=queryForm["searchstring"][0]
 	limitint, err := strconv.Atoi(limit)
 	if err!=nil{
 		msg:="limit to int failed:"+err.Error()
@@ -87,7 +88,7 @@ func GetAllBlogEssay(w http.ResponseWriter,r *http.Request){
 		//fmt.Fprintln(w,string(data))
 		return
 	}
-	Allbloginfo,AllblogCounter,err:=blogModel.GetAllBlogEssay(limitint,offsetint)
+	Allbloginfo,AllblogCounter,err:=blogModel.GetAllBlogEssay(limitint,offsetint,searchstring)
 	if err!=nil {
 		msg := "blogModel GetAllBlogEssay run fail:"+err.Error()
 		//log.Println(msg)
@@ -131,6 +132,135 @@ func GetOneBlogEssay(w http.ResponseWriter,r *http.Request){
 	//log.Println(msg)
 	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("该博客获取成功").FbData(Onebloginfo).Response()
+}
+
+func GetBlogEssayTag(w http.ResponseWriter,r *http.Request){
+	fb:=feedback.NewFeedBack(w)
+	//queryForm,err:=url.ParseQuery(r.URL.RawQuery)
+	//essayid:=queryForm["sreach"][0]
+	blogtag,err:=blogModel.GetBlogEssayTag()
+	if err!=nil {
+		msg := "blogModel GetBlogEssayTag run fail:"+err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.SYS_ERR).FbMsg("GetBlogEssayTag运行错误").Response()
+		return
+	}
+	msg:="GetBlogTag success"
+	//logger.Logger.Info(msg)
+	//log.Println(msg)
+	logger.Info(msg)
+	fb.FbCode(constant.SUCCESS).FbMsg("博客标签归档获取成功").FbData(blogtag).Response()
+}
+
+func GetBlogEssayTime(w http.ResponseWriter,r *http.Request){
+	fb:=feedback.NewFeedBack(w)
+	//queryForm,err:=url.ParseQuery(r.URL.RawQuery)
+	//essayid:=queryForm["sreach"][0]
+	//fmt.Println("tst")
+	blogtag,err:=blogModel.GetBlogEssayTime()
+	if err!=nil {
+		msg := "blogModel GetBlogEssayTime run fail:"+err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.SYS_ERR).FbMsg("GetBlogEssayTime运行错误").Response()
+		return
+	}
+	msg:="GetBlogTime success"
+	//logger.Logger.Info(msg)
+	//log.Println(msg)
+	logger.Info(msg)
+	fb.FbCode(constant.SUCCESS).FbMsg("博客时间归档获取成功").FbData(blogtag).Response()
+}
+
+func UpdateBlogEssay(w http.ResponseWriter,r *http.Request){
+	fb:=feedback.NewFeedBack(w)
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		msg := "ReadAll failed:" + err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.PARA_ERR).FbMsg("请求body获取错误").Response()
+		return
+	}
+	var essayinfo constant.BlogEssayInfo
+	err = json.Unmarshal(body, &essayinfo)
+	if err != nil {
+		msg := "json Unmarshal failed:" + err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.PARA_ERR).FbMsg("请求body解析json错误").Response()
+		//fb.Response(w, constant.PARA_ERR, "请求body解析json错误", nil)
+		return
+	}
+	//id:=essayinfo.Id
+	//new:=id.Trim(essayinfo.Id,"\"")
+	//fmt.Println(essayinfo.Id)
+	id, err := strconv.Atoi(essayinfo.Id)
+	if err!=nil{
+		msg:="essayinfo.Id to int failed:"+err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.PARA_ERR).FbMsg("essayinfo.Id转换错误").Response()
+		//data:=model.FeedBackErrorHandle(501,msg)
+		//fmt.Fprintln(w,string(data))
+		return
+	}
+	blogwrite,err:=blogModel.UpdateBlogEssay(essayinfo.Title,essayinfo.Author,essayinfo.Content,essayinfo.Time,essayinfo.Tag,id)
+	if err!=nil {
+		msg := "blogModel UpdateBlogEssay run fail:"+err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.SYS_ERR).FbMsg("UpdateBlogEssay运行错误").Response()
+		return
+	}
+	if !blogwrite{
+		msg:="UpdateBlog success"
+		//log.Println(msg)
+		//logger.Logger.Info(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.EVENT_NOT_FOUND).FbMsg("该博客修改失败").Response()
+		return
+	}
+	msg:="UpdateBlog success"
+	//log.Println(msg)
+	//logger.Logger.Info(msg)
+	logger.Info(msg)
+	fb.FbCode(constant.SUCCESS).FbMsg("该博客修改成功").Response()
+}
+
+func DeleteBlogEssay(w http.ResponseWriter,r *http.Request){
+	fb:=feedback.NewFeedBack(w)
+	queryForm,err:=url.ParseQuery(r.URL.RawQuery)
+	essayid:=queryForm["essayid"][0]
+	bloginfo,err:=blogModel.DeleteBlogEssay(essayid)
+	if err!=nil {
+		msg := "blogModel DeleteBlogEssay run fail:"+err.Error()
+		//log.Println(msg)
+		//logger.Logger.Error(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.SYS_ERR).FbMsg("DeleteBlogEssay运行错误").Response()
+		return
+	}
+	if !bloginfo{
+		msg:="DeleteBlog success"
+		//log.Println(msg)
+		//logger.Logger.Info(msg)
+		logger.Info(msg)
+		fb.FbCode(constant.EVENT_NOT_FOUND).FbMsg("该博客删除失败").Response()
+		return
+	}
+	msg:="DeleteBlog success"
+	//log.Println(msg)
+	//logger.Logger.Info(msg)
+	logger.Info(msg)
+	fb.FbCode(constant.SUCCESS).FbMsg("该博客删除成功").Response()
 }
 
 

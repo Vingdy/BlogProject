@@ -22,10 +22,25 @@
                     </div>
                 </div>
         </div>
+        <div class="input-box">
+                <label class="label">标签</label>
+                    <input type="text" class="input" [(ngModel)]="NewDrawpicture.tag" #tag="ngModel" required >
+                    <div *ngIf="tag.invalid && (tag.dirty || tag.touched)" class="small-alert alert-danger">
+                        <div *ngIf="tag?.errors.required">
+                            标签不能为空
+                        </div>
+                    </div>
+            </div>
         <div class="button-box">
-            <button type="button" [ngClass]="{'write-button':!title.invalid,'disable-write-button':title.invalid}"
-            [disabled]="title.invalid" (click)="NewDrawpicturePush(this.NewDrawpicture)">完成</button>
-            <button type="button" class="write-button" (click)="ToBackDrawpicture()">返回</button>
+            <button type="button" *ngIf="!essayid" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
+            [disabled]="!(!title.invalid&&!tag.invalid)" (click)="NewDrawpicturePush(this.NewDrawpicture)">完成</button>
+            <button type="button" *ngIf="!essayid" class="write-button" (click)="ToBackDrawpicture()">返回</button>
+
+            <button type="button" *ngIf="essayid" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
+            [disabled]="!(!title.invalid&&!tag.invalid)" (click)="UpdateDrawpicture(this.NewDrawpicture)">修改</button>
+            <a [routerLink]="['/drawpicture']"  [queryParams] = "{essayid:essayid}">
+                <button type="button" *ngIf="essayid" class="write-button">返回</button>
+            </a>
         </div>
     </div>
 </div>

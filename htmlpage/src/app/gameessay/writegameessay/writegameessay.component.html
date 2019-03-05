@@ -39,9 +39,15 @@
             </div>
 
             <div class="button-box">
-                <button type="button" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
+                <button type="button" *ngIf="!essayid" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
                  [disabled]="!(!title.invalid&&!tag.invalid)" (click)="NewGameEssayPush(this.NewGameEssay)">完成</button>
-                <button type="button" class="write-button" (click)="ToBackEssay()">返回</button>
-            </div>
+                <button type="button" *ngIf="!essayid" class="write-button" (click)="ToBackEssay()">返回</button>
+
+                <button type="button" *ngIf="essayid" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
+                [disabled]="!(!title.invalid&&!tag.invalid)" (click)="UpdateGameEssay(this.NewGameEssay)">修改</button>
+                <a [routerLink]="['/onegameessay']"  [queryParams] = "{essayid:essayid}">
+                    <button type="button" *ngIf="essayid" class="write-button">返回</button>
+                </a>
         </div>
     </div>
+</div>

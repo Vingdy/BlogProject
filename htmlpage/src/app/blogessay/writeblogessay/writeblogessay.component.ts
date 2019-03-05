@@ -1,5 +1,5 @@
-import { Component,OnInit,ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component,OnInit } from '@angular/core';
+import { Router,ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 import { BlogEssayStruct } from '../../data/blogessayStruct'
@@ -20,6 +20,8 @@ import { ROUTES } from '../../config/route-api'
 })
 export class WriteBlogEssayComponent implements OnInit {
   Role:number
+  essayid:string
+
   NewBlogEssay:BlogEssayStruct
     constructor(
       private router:Router,
@@ -27,6 +29,7 @@ export class WriteBlogEssayComponent implements OnInit {
       private datePipe: DatePipe,
       private toastrservice:ToastrService,
       private sessionservice:SessionService,
+      private activatedroute:ActivatedRoute,
     ) {}
     ngOnInit(){
       this.sessionservice.GetRole().subscribe(
@@ -40,6 +43,22 @@ export class WriteBlogEssayComponent implements OnInit {
         err=>{
             this.Role=0
         })
+      this.activatedroute.queryParams.subscribe(params => {
+          this.essayid = params['essayid'];  
+      });
+      if(this.essayid){
+        this.blogessayservice.GetOneBlogEssayInfo(this.essayid).subscribe(
+          fb=>{
+            this.NewBlogEssay.title=fb["data"][0]["title"]
+            this.NewBlogEssay.content=fb["data"][0]["content"]
+            this.NewBlogEssay.time=fb["data"][0]["time"]
+            this.NewBlogEssay.tag=fb["data"][0]["tag"]
+          },
+          err=>{
+
+          }
+        )
+      }
       this.NewBlogEssay=new BlogEssayStruct
       this.NewBlogEssay.author="左糖"
     }
@@ -119,6 +138,7 @@ export class WriteBlogEssayComponent implements OnInit {
       this.blogessayservice.WriteNewBlogEssay(blogessayinfo).subscribe(
         fb=>{
           this.toastrservice.success('上传成功')
+          this.router.navigate([ROUTES.showblogessay.route])
         },
         err=>{
           this.toastrservice.error('上传失败')
@@ -128,11 +148,29 @@ export class WriteBlogEssayComponent implements OnInit {
     ToBackEssay(){
       this.router.navigate([ROUTES.showblogessay.route])
     }
-    // ToBackList(){
-    //   let CurrentPage=Number((Number(this.essayid)/5).toFixed(0))
-    //   let Para=(Number(this.essayid)/5)
-    //   if(CurrentPage-Para<0){
-    //       CurrentPage+=1
-    //     return CurrentPage
-    // }
+    UpdateBlogEssay(blogessayinfo:BlogEssayStruct){
+      if(!blogessayinfo.title){
+        this.toastrservice.error('标题不能为空')
+        return
+      }
+      if(!blogessayinfo.content){
+        this.toastrservice.error('内容不能为空')
+        return
+      }
+      if(!blogessayinfo.tag){
+        this.toastrservice.error('标签不能为空')
+        return
+      }
+      blogessayinfo.id=this.essayid
+      this.blogessayservice.UpdateOneBlogEssay(blogessayinfo).subscribe(
+        fb=>{
+          this.ToBackEssay()
+          this.toastrservice.success('修改成功')
+          this.router.navigate([ROUTES.showblogessay.route])
+        },
+        err=>{
+          this.toastrservice.error('修改失败')
+        }
+      )
+    }
 }

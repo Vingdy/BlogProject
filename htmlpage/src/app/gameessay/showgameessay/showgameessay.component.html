@@ -1,11 +1,13 @@
-<div class="main-box">
+<div class="main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
         <div class="button-box">
             <button type="button" class="write-button" (click)="ToWriteGameEssay()" *ngIf="Role>5">有想法了？</button>
         </div>
         <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
         <div class="essay-listbox" *ngFor="let array of GameEssayArray">
             <div class="title-box">
-                {{array.title}}
+                <a [routerLink]="['/onegameessay']"  [queryParams]="{essayid:array.id}" class="title-check">
+                    {{array.title}}
+                </a>
             </div>
             <div class="cover-box">
                 <img src={{array.cover}} class="cover-image">
@@ -23,6 +25,16 @@
             </div>
         </div>
         <div class="page-box">
-            <page [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
+            <page *ngIf="!IsEmpty" [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
         </div>
     </div>
+<div class="tag-filing-box" *ngIf="!IsEmpty">
+    <div class=tag-filing *ngFor="let array of TagArray">
+        <a class="check" (click)="GetGameEssayAboutTag(array.name)">{{array.name}}({{array.number}})</a>
+    </div>
+</div>
+<div class="time-filing-box" *ngIf="!IsEmpty">
+    <div class=time-filing *ngFor="let array of TimeArray">
+        <a class="check" (click)="GetGameEssayAboutTime(array.name)">{{array.name | date:'yyyy年MM月'}}({{array.number}})</a>
+    </div>
+</div>

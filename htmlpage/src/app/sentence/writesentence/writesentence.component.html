@@ -11,9 +11,15 @@
                     </div>
                 </div>
             <div class="button-box">
-                <button type="button" [ngClass]="{'write-button':!content.invalid,'disable-write-button':content.invalid}"
+                <button type="button" *ngIf="!essayid" [ngClass]="{'write-button':!content.invalid,'disable-write-button':content.invalid}"
                  [disabled]="content.invalid" (click)="NewSentencePush(this.NewSentence)">完成</button>
-                <button type="button" class="write-button" (click)="ToBackEssay()">返回</button>
+                <button type="button" *ngIf="!essayid" class="write-button" (click)="ToBackEssay()">返回</button>
+
+                <button type="button" *ngIf="essayid" [ngClass]="{'write-button':!content.invalid,'disable-write-button':content.invalid}"
+                [disabled]="content.invalid" (click)="UpdateSentence(this.NewSentence)">修改</button>
+                <a [routerLink]="['/drawpicture']"  [queryParams] = "{essayid:essayid}">
+                    <button type="button" *ngIf="essayid" class="write-button">返回</button>
+                </a>
             </div>
         </div>
     </div>

@@ -3,4 +3,5 @@ export class DrawpictureStruct{
     title:string
     src:string
     time:string
+    tag:string
   }

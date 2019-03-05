@@ -4,6 +4,7 @@ import (
 	"github.com/go-redis/redis"
 	"log"
 	"fmt"
+	"conf"
 )
 
 var Cache *redis.Client
@@ -17,9 +18,9 @@ func Init() {
 
 func makeConnect() {
 	Cache = redis.NewClient(&redis.Options{
-		Addr:     "127.0.0.1" + ":" + "6379",
-		Password: "",
-		DB:       0,
+		Addr:     conf.App.RedisHost + ":" + conf.App.RedisPort,
+		Password: conf.App.RedisPwd,
+		DB:       conf.App.RedisDB,
 	})
 
 	result, err := Cache.Ping().Result()

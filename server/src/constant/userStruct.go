@@ -1,7 +1,8 @@
 package constant
 
-type LoginInfo struct {
-	LoginAccount  string `json:"loginaccount"`
-	LoginPassword string `json:"loginpassword"`
-	Role          string `json:"role"`
+type UserInfo struct {
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	Headpicture string `json:"headpicture"`
+	Info        string `json:"info"`
 }

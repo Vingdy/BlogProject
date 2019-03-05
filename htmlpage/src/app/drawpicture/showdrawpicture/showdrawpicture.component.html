@@ -1,20 +1,46 @@
-<div class="main-box">
-        <div class="button-box">
-            <button type="button" class="write-button" (click)="ToWriteDrawpicture()" *ngIf="Role>5">有想法了？</button>
+<div class="main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
+    <div class="button-box">
+        <button type="button" class="write-button" (click)="ToWriteDrawpicture()" *ngIf="Role>5">有想法了？</button>
+    </div>
+    <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
+    <div class="essay-listbox" *ngFor="let array of DrawpictureArray">
+        <div class="title-box">
+            {{array.title}}
         </div>
-        <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
-        <div class="essay-listbox" *ngFor="let array of DrawpictureArray">
-            <div class="title-box">
-                {{array.title}}
-            </div>
-            <div class="image-box">
-                <img src="{{array.src}}" class="show-image">
-            </div>
-            <div class="time-box">
-                {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
-            </div>
+        <div class="image-box">
+            <img src="{{array.src}}" class="show-image">
         </div>
-        <div class="page-box">
-            <page [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
+        <div class="time-box">
+            {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
+            <span class="divider">|</span>
+            {{array.tag}}
+            <div *ngIf="Role>5" class="admin-control-box">
+                <!-- <span class="divider">|</span> -->
+                <a>
+                    <div class="admin-control" [routerLink]="['/writedrawpicture']"  [queryParams] = "{essayid:array.id}">
+                        修改
+                    </div>
+                </a>
+                <div class="admin-control">
+                    <span class="divider">|</span>
+                </div>
+                <div class="admin-control" (click)="openModalWithComponent(array.id)">
+                    删除
+                </div>
+            </div>
         </div>
     </div>
+    <div class="page-box">
+        <page *ngIf="!IsEmpty" [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
+    </div>
+</div>
+<div class="tag-filing-box" *ngIf="!IsEmpty">
+    <div class=tag-filing *ngFor="let array of TagArray">
+        <a class="check" (click)="GetDrawpictureAboutTag(array.name)">{{array.name}}({{array.number}})</a>
+    </div>
+</div>
+<div class="time-filing-box" *ngIf="!IsEmpty">
+    <div class=time-filing *ngFor="let array of TimeArray">
+        <a class="check" (click)="GetDrawpictureAboutTime(array.name)">{{array.name | date:'yyyy年MM月'}}({{array.number}})</a>
+    </div>
+</div>

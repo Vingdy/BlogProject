@@ -1,0 +1,58 @@
+.modal-button-box{
+    text-align: center;
+}
+.modal-write-button{
+    position: relative;
+    /* top:10px; */
+    /* right:10px; */
+    /* bottom:10px; */
+    width: 181px;
+    height: 38px;
+    background-color:rgba(59,180,242);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    transition: 0.5s linear;
+    margin-left:20px;
+    margin-right:20px;
+    margin-bottom: 10px;
+}
+.modal-write-button:hover{
+    width:181px;
+    height:38px;
+    background-color:#19a7f0;
+    color:#FFFFFF;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width:1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    margin-left:20px;
+    margin-right:20px;
+}
+.modal-content{
+    text-align: center;
+    margin:20px 0;
+    border: none;
+}
+.modal-main-box{
+    text-align: center;
+    /* height: 1000%; */
+}

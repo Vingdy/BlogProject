@@ -14,6 +14,7 @@ import (
 	"utils"
 	"fmt"
 	"logger"
+	"conf"
 )
 
 var file = make(map[string]bool)
@@ -140,7 +141,7 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	pic:=Pic{}
 
 	//pic.Link="http://111.230.186.233:80/static/"+CreateFileid+"."+fileSuffix
-	pic.Link="http://localhost:80/static/"+CreateFileid+"."+fileSuffix
+	pic.Link=conf.App.ServerHost+":"+conf.App.ServerPort+conf.App.FileDownloadHost+CreateFileid+"."+fileSuffix
 	data,_:=json.Marshal(pic)
 
 	w.Write(data)

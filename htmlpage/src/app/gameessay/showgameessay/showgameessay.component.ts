@@ -25,6 +25,8 @@ export class ShowGameEssayComponent implements OnInit {
   limit:string
   offset:string
   GameEssayArray:GameEssayStruct[]
+  TagArray=new Array()
+  TimeArray=new Array()
 
   constructor(
     private router:Router,
@@ -52,7 +54,7 @@ export class ShowGameEssayComponent implements OnInit {
     this.limit="5"
     this.offset="0"
     this.searchstring=""
-    this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset).subscribe(
+    this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
         this.GameEssayArray=fb["data"]
         if(fb["code"]==1000)
@@ -89,7 +91,7 @@ export class ShowGameEssayComponent implements OnInit {
   ChangePage(choosepage){
     this.GameEssayArray=[]
     this.offset=String(Number(this.limit)*(choosepage-1))
-    this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset).subscribe(
+    this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
         this.GameEssayArray=fb["data"]
         if(this.GameEssayArray.length>0){
@@ -109,5 +111,71 @@ export class ShowGameEssayComponent implements OnInit {
       }
     )
 }
+CreateFiling(){
+    this.gameessayservice.GetGameEssayTag().subscribe(
+      fb=>{
+        this.TagArray=fb["data"]
+      },
+      err=>{
+
+      }
+    )
+    this.gameessayservice.GetGameEssayTime().subscribe(
+      fb=>{
+        this.TimeArray=fb["data"]
+      },
+      err=>{
+
+      }
+    )
+  }
+GetGameEssayAboutTime(Time){
+    // console.log(Time)
+    this.GameEssayArray=[]
+    this.searchstring=Time
+    this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
+      fb=>{
+        this.GameEssayArray=fb["data"]
+        if(this.GameEssayArray.length>0){
+          for(let i=0;i<this.GameEssayArray.length;i++){
+            this.GameEssayArray[i].time = this.GameEssayArray[i].time.replace('Z','+08:00')
+          }
+          this.TotalPage=fb["total"]
+        }
+        for(let i=0;i<this.GameEssayArray.length;i++){
+          this.GameEssayArray[i].content = this.GameEssayArray[i].content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, '[图片]')
+          if(this.GameEssayArray[i].content.length >= 100){
+            this.GameEssayArray[i].content = this.GameEssayArray[i].content.substring(0,100) + '...';
+          }
+        }
+      },
+      err=>{
+      }
+    )
+  }
+  GetGameEssayAboutTag(Tag){
+    // console.log(Tag)
+    this.GameEssayArray=[]
+    this.searchstring=Tag
+    this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
+      fb=>{
+        this.GameEssayArray=fb["data"]
+        if(this.GameEssayArray.length>0){
+          for(let i=0;i<this.GameEssayArray.length;i++){
+            this.GameEssayArray[i].time = this.GameEssayArray[i].time.replace('Z','+08:00')
+          }
+          this.TotalPage=fb["total"]
+        }
+        for(let i=0;i<this.GameEssayArray.length;i++){
+          this.GameEssayArray[i].content = this.GameEssayArray[i].content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, '[图片]')
+          if(this.GameEssayArray[i].content.length >= 100){
+            this.GameEssayArray[i].content = this.GameEssayArray[i].content.substring(0,100) + '...';
+          }
+        }
+      },
+      err=>{
+      }
+    )
+  }
 }
 

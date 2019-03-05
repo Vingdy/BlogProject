@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"db"
 	"constant"
+	"logger"
 )
 
 var QuerySql string
@@ -26,10 +27,12 @@ func CheckLoginAcc(username string)(isexist bool,err error) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			log.Println("loginModel CheckLoginAcc not account found")
+			logger.Info("loginModel CheckLoginAcc not account found")
 			//logger.Logger.Error("loginModel CheckLoginAcc not account found")
 			return false,nil
 		} else {
 			log.Println("loginModel CheckLoginAcc Querysql query fail"+err.Error())
+			//logger.Info("loginModel CheckLoginAcc Querysql query fail"+err.Error())
 			//logger.Logger.Error("loginModel CheckLoginAcc Querysql query fail"+err.Error())
 			return false,err
 		}

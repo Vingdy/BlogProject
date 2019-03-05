@@ -1,5 +1,5 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 import { GameEssayStruct } from '../../data/gameessayStruct'
@@ -19,6 +19,7 @@ import { ROUTES } from '../../config/route-api'
   providers:[DatePipe]
 })
 export class WriteGameEssayComponent implements OnInit {
+  essayid:string
     data: any;
     cropperSettings: CropperSettings;
     Role:number
@@ -39,7 +40,7 @@ export class WriteGameEssayComponent implements OnInit {
       private datePipe: DatePipe,
       private toastrservice:ToastrService,
       private sessionservice:SessionService,
-      
+      private activatedroute:ActivatedRoute
     ) { 
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.width = 720;
@@ -64,8 +65,32 @@ export class WriteGameEssayComponent implements OnInit {
             err=>{
                 this.Role=0
             })
+
       this.NewGameEssay=new GameEssayStruct
       this.NewGameEssay.author="左糖"
+      this.activatedroute.queryParams.subscribe(params => {
+        this.essayid = params['essayid']; 
+        // this.moduleTitle = params['moduleTitle']; 
+      });
+      if(this.essayid){
+        // console.log("ss")
+        this.OpenCover=true
+        this.gameessayservice.GetOneGameEssayInfo(this.essayid).subscribe(
+          fb=>{
+            // console.log(fb)
+            this.NewGameEssay.title=fb["data"][0]["title"]
+            this.NewGameEssay.cover=fb["data"][0]["cover"]
+            this.NewGameEssay.content=fb["data"][0]["content"]
+            this.NewGameEssay.time=fb["data"][0]["time"]
+            this.NewGameEssay.tag=fb["data"][0]["tag"]
+            // console.log(this.NewBlogEssay)
+            this.data.image=fb["data"][0]["cover"]
+          },
+          err=>{
+
+          }
+        )
+      }
     }
     quillconfig={
         toolbar: [
@@ -146,6 +171,7 @@ export class WriteGameEssayComponent implements OnInit {
       this.gameessayservice.WriteNewGameEssay(gameessayinfo).subscribe(
         fb=>{
             this.toastrservice.success('上传成功')
+            this.router.navigate([ROUTES.showgameessay.route])
           },
           err=>{
             this.toastrservice.error('上传失败')
@@ -194,5 +220,30 @@ export class WriteGameEssayComponent implements OnInit {
           u8arr[n] = bstr.charCodeAt(n);
         }
         return new File([u8arr],mime.replace("/","."));
+      }
+      UpdateGameEssay(gameessayinfo:GameEssayStruct){
+        if(!gameessayinfo.title){
+          this.toastrservice.error('标题不能为空')
+          return
+        }
+        if(!gameessayinfo.content){
+          this.toastrservice.error('内容不能为空')
+          return
+        }
+        if(!gameessayinfo.tag){
+          this.toastrservice.error('标签不能为空')
+          return
+        }
+        gameessayinfo.id=this.essayid
+        this.gameessayservice.UpdateOneGameEssay(gameessayinfo).subscribe(
+          fb=>{
+            this.ToBackEssay()
+            this.toastrservice.success('修改成功')
+            this.router.navigate([ROUTES.showgameessay.route])
+          },
+          err=>{
+            this.toastrservice.error('修改失败')
+          }
+        )
       }
 }

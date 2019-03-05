@@ -1,6 +1,10 @@
 <div class="main-box">
         <div class="content-box">
-            <a><div class="back-icon-box" [routerLink]="['/gameessay']"  [queryParams] = "{CurrentPage:this.ToBackList()}">
+            <div class="button-box">
+                <a><button type="button" class="write-button" [routerLink]="['/writegameessay']"  [queryParams] = "{essayid:this.essayid}" *ngIf="Role>5">修改</button></a>
+                <button type="button" class="write-button" (click)="openModalWithComponent()" *ngIf="Role>5">删除</button>
+            </div>
+            <a><div class="back-icon-box" [routerLink]="['/gameessay']">
                 <img class="back-icon" src="../../../assets/返回.png">
             </div></a>
             <div class="title-box">

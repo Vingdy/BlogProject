@@ -27,11 +27,11 @@
     word-wrap: break-word;
 }
 .top-nav-title-content{
-    font-family: 'Arial Normal', 'Arial';
+    font-family: 'YouYuan';
     font-weight: 400;
     font-style: normal;
     font-size: 24px;
-    color: #FFFFFF;
+    color: #fb7299;
     text-align: center;
 }
 .top-nav-route-main-box{
@@ -89,9 +89,9 @@
     position: relative;
     top:72px;
     width:100%;
-    min-width: 1000px;
+    min-width: 600px;
     height:100%;
-    min-height: 880px;
+    min-height: 600px;
 }
 .top-nav-right-box{
     /* left:82%; */
@@ -257,13 +257,199 @@
     font-weight: 400;
     font-style: normal;
 }
-.icon-box{
+.login-icon-box{
     position: absolute;
     top:170px;
     left:-5px;
     text-align: left;
 }
-.back-icon{
+.login-back-icon{
     width:30px;
     height:50px;
+}
+.user-data-box{
+    position: absolute;
+    background-color:rgba(255,255,255,0.7);
+    width:13%;
+    left:10%; 
+    top:92px; 
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    padding:10px;
+}
+.user-data{
+    font-size: 12px;
+    text-align: center;
+}
+.user-main-box{
+    position: fixed;
+    width:550px;
+    height:500px;
+    top:200px;
+    right:0px;
+    text-align: center;
+    background-color:hsla(0,100%,100%,0.88);
+    border-radius: 5px;
+    box-shadow: -3px 4px 15px #333333;
+    z-index: 9999;
+}
+.user-box{
+    position: absolute;
+    width:510px;
+    height:460px;
+    margin:20px 20px;
+}
+.user-title{
+    margin-top:60px;
+    font-size:18px;
+    font-weight:bold;
+    font-family: YouYuan;
+}
+.user-div{
+    margin-top:30px;
+}
+.user-label{
+    font-family: YouYuan;
+}
+.user-input{
+    width:300px;
+    margin:0 10px;
+    padding:0 12px;
+    font-size: 12px;
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    background-color: hsla(100%,0%,100%,0.88);
+    border-radius: 4px;
+}
+.user-button{
+    margin-top: 30px;
+    bottom: 10px;
+    width: 141px;
+    height: 38px;
+    background-color: rgba(59,180,242);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+}
+.user-icon-box{
+    position: absolute;
+    top:170px;
+    left:-5px;
+    text-align: left;
+}
+.user-back-icon{
+    width:30px;
+    height:50px;
+}
+.write-button{
+    position: relative;
+    top:10px;
+    right:10px;
+    bottom:10px;
+    width: 181px;
+    height: 38px;
+    background-color:rgba(59,180,242);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    transition: 0.5s linear;
+    margin-left:10px;
+    margin-right:10px;
+}
+.write-button:hover{
+    width:181px;
+    height:38px;
+    background-color:#19a7f0;
+    color:#FFFFFF;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width:1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    margin-left:10px;
+    margin-right:10px;
+}
+.cover{
+    margin:20px 0;
+    text-align: center;
+}
+.user-write-button{
+    position: relative;
+    top:10px;
+    right:10px;
+    bottom:10px;
+    width: 101px;
+    height: 38px;
+    background-color:rgba(59,180,242);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    transition: 0.5s linear;
+    margin-left:10px;
+    margin-right:10px;
+}
+.user-write-button:hover{
+    width:101px;
+    height:38px;
+    background-color:#19a7f0;
+    color:#FFFFFF;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width:1px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15.6px;
+    text-align: center;
+    line-height: normal;
+    cursor: pointer;
+    margin-left:10px;
+    margin-right:10px;
+}
+.user-data-name{
+    font-size:18px;
+    font-family: 'youyuan';
+    font-weight:bold;
+    color:#222;
+}
+.user-data-info{
+    font-size:14px;
+    word-wrap: break-word;
+    font-family: 'youyuan';
+    color:#222;
 }

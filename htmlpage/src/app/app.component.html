@@ -3,7 +3,7 @@
     <div class="top-nav-left-box">
         <div class="top-nav-title-box">
             <div class="top-nav-title-content">
-                左糖
+                只是一个写东西的地方
             </div>
         </div>
         <div class="top-nav-route-main-box">
@@ -32,6 +32,7 @@
     </div>
     <div class="top-nav-right-box">
         <div class="top-nav-button-box">
+            <button type="button"  class="top-nav-button" (click)="ChangeUserBox()" *ngIf="Role>5">修改资料</button>
             <button type="button"  class="top-nav-button" (click)="ChangeLoginBox()" *ngIf="Role==0">主人登录</button>
             <button type="button"  class="top-nav-button" (click)="LogOut()" *ngIf="Role>5">退出</button>
         </div>
@@ -41,9 +42,9 @@
 <div class="main-content">
 <router-outlet></router-outlet>
 </div>
-<div class="login-main-box" [@EnterLeave]="IsShowLoginBox?'open':'closed'">
-    <div class="icon-box">
-        <img class="back-icon" src="../assets/YDUI-前进.png" (click)="HideLoginBox()">
+<div class="login-main-box" [@LoginEnterLeave]="IsShowLoginBox?'open':'closed'">
+    <div class="login-icon-box">
+        <img class="login-back-icon" src="../assets/YDUI-前进.png" (click)="HideLoginBox()">
     </div>
     <div class="login-box">
         <label class="login-title">是时候了</label>
@@ -56,5 +57,41 @@
             <input type="text" class="login-input" [(ngModel)]="LoginPassword">
         </div>
         <button type="button" class="login-button" (click)="Login()">登录</button>
+    </div>
+</div>
+<div class="user-main-box" [@UserEnterLeave]="IsShowUserBox?'open':'closed'">
+    <div class="user-icon-box">
+        <img class="user-back-icon" src="../assets/YDUI-前进.png" (click)="HideUserBox()">
+    </div>
+        <div class="user-box">
+        <div class="user-div">
+            <label class="user-label">名字</label>
+            <input type="text" class="user-input" [(ngModel)]="this.UserData.name">
+        </div>
+        <div class="cover">
+            <button type="button" class="user-write-button" (click)="IsChangeCover()">上传头像</button>
+            <img-cropper #cropper [image]="data" [settings]="cropperSettings" *ngIf="ChangeCover"></img-cropper><br>
+            <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight" *ngIf="OpenCover">
+            <button type="button" class="user-write-button" (click)="ChangeCoverOK()" *ngIf="ChangeCover">确认</button>
+            <button type="button" class="user-write-button" (click)="ChangeCoverCancel()" *ngIf="ChangeCover">取消</button>
+        </div>
+        <div class="user-div">
+            <label class="user-label">信息</label>
+            <input type="text" class="user-input" [(ngModel)]="this.UserData.info">
+        </div>
+        <button type="button" class="user-button" (click)="UpdateUserData()">修改</button>
+    </div>
+</div>
+<div *ngIf="ShowUserData(this.router)" class="user-data-box">
+    <div class="user-data">
+        <div class="user-data-headpicture">
+            <img src={{this.UserHeadpicture}} style="width:100px;height:100px;">
+        </div>
+        <div class="user-data-name">
+            {{this.UserName}}
+        </div>
+        <div class="user-data-info" *ngFor="let info of UserInfoArray">
+            {{info}}
+        </div>
     </div>
 </div>

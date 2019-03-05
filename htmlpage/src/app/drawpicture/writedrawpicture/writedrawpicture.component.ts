@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
     
 import { DrawpictureStruct } from '../../data/drawpictureStruct'
@@ -18,7 +18,7 @@ import { ROUTES } from '../../config/route-api'
     providers:[DatePipe]
   })
   export class WriteDrawpictureComponent implements OnInit {
-
+    essayid:string
     IsChooseImage:boolean
 
     Image:FormData
@@ -32,6 +32,7 @@ import { ROUTES } from '../../config/route-api'
         private datePipe: DatePipe,
         private toastrservice:ToastrService,
         private sessionservice:SessionService,
+        private activatedroute:ActivatedRoute,
       ) { }
       ngOnInit(){
         this.IsChooseImage=false
@@ -47,13 +48,32 @@ import { ROUTES } from '../../config/route-api'
           err=>{
               this.Role=0
           })
-      }
+          this.activatedroute.queryParams.subscribe(params => {
+            this.essayid = params['essayid']; 
+          });
+          if(this.essayid){
+            this.drawpictureservice.GetOneDrawpictureInfo(this.essayid).subscribe(
+              fb=>{
+                this.NewDrawpicture.title=fb["data"][0]["title"]
+                this.NewDrawpicture.src=fb["data"][0]["src"]
+                this.NewDrawpicture.time=fb["data"][0]["time"]
+                this.NewDrawpicture.tag=fb["data"][0]["tag"]
+                this.ImageData=fb["data"][0]["src"]
+              },
+              err=>{
+    
+              }
+            )
+        }
+     }
       NewDrawpicturePush(drawpictureinfo:DrawpictureStruct){
         if(!drawpictureinfo.src){
           this.toastrservice.error("未上传图片")
+          return
         }
         if(!drawpictureinfo.title){
           this.toastrservice.error("标题为空")
+          return
         }
         drawpictureinfo.time=Date.now().toString()
         drawpictureinfo.time=this.datePipe.transform(drawpictureinfo.time, 'yyyy-MM-dd HH:mm:ss')
@@ -98,6 +118,23 @@ import { ROUTES } from '../../config/route-api'
       this.Image=null
       this.ImageData=null
       this.IsChooseImage=false
+    }
+    UpdateDrawpicture(drawpictureinfo:DrawpictureStruct){
+      if(!drawpictureinfo.src){
+        this.toastrservice.error("未上传图片")
+      }
+      if(!drawpictureinfo.title){
+        this.toastrservice.error("标题为空")
+      }
+      this.drawpictureservice.UpdateOneDrawpicture(drawpictureinfo).subscribe(
+        fb=>{
+          this.toastrservice.success('修改成功')
+          this.router.navigate([ROUTES.showdrawpicture.route])
+        },
+        err=>{
+          this.toastrservice.error('修改失败')
+        }
+      )
     }
   }
   

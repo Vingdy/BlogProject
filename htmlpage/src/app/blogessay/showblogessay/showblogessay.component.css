@@ -2,9 +2,8 @@
 .main-box{
     position: absolute;
     background-color:rgba(255,255,255,0.7);
-    width: 60%;
+    width: 50%;
     left:50%; 
-    top:20px; 
     transform: translateX(-50%);
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
 }
@@ -19,7 +18,7 @@
     margin-top:10px;
     margin-left:5px;
     padding-left:5px;
-    color: #21759b
+    color: #21759b;
 }
 .content-box{
     font-size: 12px;
@@ -90,6 +89,43 @@
 }
 .empty{
     position: relative;
-    margin:30px 43%;
+    margin:30px 42%;
     font-size:20px;
+}
+.tag-filing-box{
+    position: relative;
+    background-color:rgba(255,255,255,0.7);
+    width:13%;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    padding:10px;
+    margin-top:20px;
+    margin-left:77%; 
+}
+.tag-filing{
+    font-size: 12px;
+}
+.time-filing-box{
+    position: relative;
+    background-color:rgba(255,255,255,0.7);
+    width:13%;
+    left:77%; 
+    top:20px; 
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    padding:10px;
+}
+.time-filing{
+    font-size: 12px;
+}
+.check:hover{
+    text-decoration : underline;
+    font-weight: bold;
+    cursor: pointer;
+}
+.title-check{
+    color: #21759b;
+}
+.title-check:hover{
+    color: #21759b;
+    text-decoration : underline;
+    cursor: pointer;
 }

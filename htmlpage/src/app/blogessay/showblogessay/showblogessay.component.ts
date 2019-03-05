@@ -23,6 +23,8 @@ export class ShowBlogEssayComponent implements OnInit {
   limit:string
   offset:string
   BlogEssayArray:BlogEssayStruct[]
+  TagArray=new Array()
+  TimeArray=new Array()
 
   constructor(
     private router:Router,
@@ -50,8 +52,9 @@ export class ShowBlogEssayComponent implements OnInit {
     this.limit="5"
     this.offset=((this.CurrentPage-1)*5).toString()
     this.searchstring=""
-    this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset).subscribe(
+    this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
+        // console.log(fb)
         this.BlogEssayArray=fb["data"]
         if(fb["code"]==1000){
         if(this.BlogEssayArray.length>0){
@@ -76,6 +79,7 @@ export class ShowBlogEssayComponent implements OnInit {
       }
     )
     this.limit="5"
+    this.CreateFiling()
   }
   ToWriteBlogEssay(){
     this.router.navigate([ROUTES.writeblogessay.route])
@@ -88,7 +92,7 @@ export class ShowBlogEssayComponent implements OnInit {
   ChangePage(choosepage){
     this.BlogEssayArray=[]
     this.offset=String(Number(this.limit)*(choosepage-1))
-    this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset).subscribe(
+    this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
         this.BlogEssayArray=fb["data"]
         if(this.BlogEssayArray.length>0){
@@ -107,6 +111,72 @@ export class ShowBlogEssayComponent implements OnInit {
       err=>{
       }
     )
-}
+  }
+  CreateFiling(){
+    this.blogessayservice.GetBlogEssayTag().subscribe(
+      fb=>{
+        this.TagArray=fb["data"]
+      },
+      err=>{
+
+      }
+    )
+    this.blogessayservice.GetBlogEssayTime().subscribe(
+      fb=>{
+        this.TimeArray=fb["data"]
+      },
+      err=>{
+
+      }
+    )
+  }
+  GetBlogEssayAboutTime(Time){
+    // console.log(Time)
+    this.BlogEssayArray=[]
+    this.searchstring=Time
+    this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
+      fb=>{
+        this.BlogEssayArray=fb["data"]
+        if(this.BlogEssayArray.length>0){
+          for(let i=0;i<this.BlogEssayArray.length;i++){
+            this.BlogEssayArray[i].time = this.BlogEssayArray[i].time.replace('Z','+08:00')
+          }
+          this.TotalPage=fb["total"]
+        }
+        for(let i=0;i<this.BlogEssayArray.length;i++){
+          this.BlogEssayArray[i].content = this.BlogEssayArray[i].content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, '[图片]')
+          if(this.BlogEssayArray[i].content.length >= 100){
+            this.BlogEssayArray[i].content = this.BlogEssayArray[i].content.substring(0,100) + '...';
+          }
+        }
+      },
+      err=>{
+      }
+    )
+  }
+  GetBlogEssayAboutTag(Tag){
+    // console.log(Tag)
+    this.BlogEssayArray=[]
+    this.searchstring=Tag
+    this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
+      fb=>{
+        this.BlogEssayArray=fb["data"]
+        if(this.BlogEssayArray.length>0){
+          for(let i=0;i<this.BlogEssayArray.length;i++){
+            this.BlogEssayArray[i].time = this.BlogEssayArray[i].time.replace('Z','+08:00')
+          }
+          this.TotalPage=fb["total"]
+        }
+        for(let i=0;i<this.BlogEssayArray.length;i++){
+          this.BlogEssayArray[i].content = this.BlogEssayArray[i].content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, '[图片]')
+          if(this.BlogEssayArray[i].content.length >= 100){
+            this.BlogEssayArray[i].content = this.BlogEssayArray[i].content.substring(0,100) + '...';
+          }
+        }
+      },
+      err=>{
+      }
+    )
+  }
 }
 

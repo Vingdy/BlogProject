@@ -7,6 +7,7 @@ import { BuildingComponent } from './building/building.component'
 import { ShowBlogEssayComponent } from './blogessay/showblogessay/showblogessay.component'
 import { WriteBlogEssayComponent } from './blogessay/writeblogessay/writeblogessay.component'
 import { OneBlogEssayComponent } from './blogessay/oneblogessay/oneblogessay.component'
+// import { UpdateBlogEssayComponent } from './blogessay/updateblogessay/updateblogessay.component'
 
 import { ShowGameEssayComponent } from './gameessay/showgameessay/showgameessay.component'
 import { WriteGameEssayComponent } from './gameessay/writegameessay/writegameessay.component'
@@ -29,7 +30,8 @@ export const AppRoute: Routes = [
     },
     {
         path: 'building',
-        component: BuildingComponent
+        component: BuildingComponent,
+        // ShowUserData
     },
     {
         path:'blogessay',

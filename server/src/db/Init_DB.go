@@ -12,10 +12,10 @@ import (
 var Db *sql.DB//持续连接
 
 func InitDB(host, port, user, pwd, dbName, driverName string) {
-	log.Println("=====启动连接数据库=====")
+	//log.Println("=====启动连接数据库=====")
 	//构建连接字符串
 	dateSource := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, pwd, dbName)
-	fmt.Println(dateSource)
+	//fmt.Println(dateSource)
 	db, err := sql.Open(driverName, dateSource)
 	if err != nil {
 		log.Panicln(err)
