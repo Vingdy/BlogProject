@@ -5,5 +5,6 @@ server/bin/main
 server/bin/go_build_main_go.exe
 server/pkg
 server/src/main
-html/node_modules
-html/e2e
+htmlpage/node_modules
+htmlpage/e2e
+htmlpage/dist
