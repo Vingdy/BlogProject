@@ -26,7 +26,7 @@ export const GET_ALL_GAME_ESSAY="/api/getallgameessay"
 export const WRITE_GAME_ESSAY="/api/writegameessay"
 export const GET_ONE_GAME_ESSAY="/api/getonegameessay"
 export const GET_GAME_ESSAY_TAG="/api/getgameessaythetag"
-export const GET_GAME_ESSAY_TIME="/api/getgameessythetime"
+export const GET_GAME_ESSAY_TIME="/api/getgameessaythetime"
 export const UPDATE_ONE_GAME_ESSAY="/api/updateonegameessay"
 export const DELETE_ONE_GAME_ESSAY="/api/deleteonegameessay"
 

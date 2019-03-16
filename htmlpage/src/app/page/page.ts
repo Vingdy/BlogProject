@@ -42,13 +42,8 @@ InitPageList(currentpage,totalnumber:number,limit){
     }
     this.PageCount=Number(totalpage)+1
     this.PageList=[]
-
-    if(this.PageCount<5){
+    if(this.PageCount<=6){
         for (let i = 1; i < this.PageCount; i++) {
-            this.PageList.push(i);
-        }
-    }else if(currentpage<3 ){
-        for (let i = 1; i < 6; i++) {
             this.PageList.push(i);
         }
     }else if((this.PageCount-currentpage)<5){

@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'Rxjs'
@@ -21,6 +21,7 @@ import { ModalComponent } from '../../modal/modal-pop.component'
   selector: 'app-showdrawpicture',
   templateUrl: './showdrawpicture.component.html',
   styleUrls: ['./showdrawpicture.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ShowDrawpictureComponent implements OnInit {
     IsEmpty:boolean
@@ -69,6 +70,7 @@ export class ShowDrawpictureComponent implements OnInit {
             this.DrawpictureArray[i].time = this.DrawpictureArray[i].time.replace('Z','+08:00')
           }
           this.TotalPage=fb["total"]
+          this.CreateFiling()
         }
     }       
      else{
@@ -79,7 +81,7 @@ export class ShowDrawpictureComponent implements OnInit {
       }
     )
     this.limit="5"
-    this.CreateFiling()
+
   }
   ToWriteDrawpicture(){
     this.router.navigate([ROUTES.writedrawpicture.route])
@@ -109,6 +111,7 @@ CreateFiling(){
     this.drawpictureservice.GetDrawpictureTag().subscribe(
       fb=>{
         this.TagArray=fb["data"]
+        this.TagArray[this.TagArray.length]={name:'全部',number:this.TotalPage}
       },
       err=>{
 
@@ -127,6 +130,9 @@ GetDrawpictureAboutTime(Time){
     // console.log(Time)
     this.DrawpictureArray=[]
     this.searchstring=Time
+    if(this.searchstring=="全部"){
+      this.searchstring=""
+    }
     this.drawpictureservice.GetAllDrawpictureInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
         this.DrawpictureArray=fb["data"]

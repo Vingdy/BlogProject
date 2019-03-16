@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 
 import { GameEssayStruct } from '../../data/gameessayStruct'
@@ -12,6 +12,7 @@ import { ROUTES } from '../../config/route-api'
   selector: 'app-showgameessay',
   templateUrl: './showgameessay.component.html',
   styleUrls: ['./showgameessay.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ShowGameEssayComponent implements OnInit {
     Role:number
@@ -70,6 +71,7 @@ export class ShowGameEssayComponent implements OnInit {
                   this.GameEssayArray[i].content = this.GameEssayArray[i].content.substring(0,100) + '...';
                 }
           }
+          this.CreateFiling()
         }
         }
         else{
@@ -115,6 +117,7 @@ CreateFiling(){
     this.gameessayservice.GetGameEssayTag().subscribe(
       fb=>{
         this.TagArray=fb["data"]
+        this.TagArray[this.TagArray.length]={name:'全部',number:this.TotalPage}
       },
       err=>{
 
@@ -157,6 +160,9 @@ GetGameEssayAboutTime(Time){
     // console.log(Tag)
     this.GameEssayArray=[]
     this.searchstring=Tag
+    if(this.searchstring=="全部"){
+      this.searchstring=""
+    }
     this.gameessayservice.GetAllGameEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
         this.GameEssayArray=fb["data"]

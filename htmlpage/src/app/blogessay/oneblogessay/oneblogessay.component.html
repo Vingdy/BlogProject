@@ -1,21 +1,21 @@
-<div class="main-box">
-    <div class="content-box">
-        <div class="button-box">
+<div class="one-main-box">
+    <div class="one-content-box">
+        <div class="one-button-box">
             <a><button type="button" class="write-button" [routerLink]="['/writeblogessay']"  [queryParams] = "{essayid:this.essayid}" *ngIf="Role>5">修改</button></a>
             <button type="button" class="write-button" (click)="openModalWithComponent()" *ngIf="Role>5">删除</button>
         </div>
-        <a><div class="back-icon-box" [routerLink]="['/blogessay']">
-            <img class="back-icon" src="../../../assets/返回.png">
+        <a><div class="one-back-icon-box" [routerLink]="['/blogessay']">
+            <img class="one-back-icon" src="../../../assets/返回.png">
         </div></a>
-        <div class="title-box">
+        <div class="one-title-box">
             {{this.BlogEssayInfo.title}}
         </div>
-        <div class="data-box">
+        <div class="one-data-box">
             {{this.BlogEssayInfo.time| date:'yyyy/MM/dd HH:mm:ss'}}
-            <span class="divider">|</span>
+            <span class="one-divider">|</span>
             {{this.BlogEssayInfo.tag}}
         </div>
-        <div class="content-box">
+        <div class="one-content-box">
             <span [innerHTML]="this.BlogEssayInfo.content | safeHtml"></span>
         </div>
     </div>

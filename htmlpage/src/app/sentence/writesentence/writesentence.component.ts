@@ -83,6 +83,7 @@ export class WriteSentenceComponent implements OnInit {
       this.router.navigate([ROUTES.showsentence.route])
     }
     UpdateSentence(sentenceinfo:SentenceStruct){
+      sentenceinfo.id=this.essayid
       if(!sentenceinfo.content){
         this.toastrservice.error("未上传图片")
       }

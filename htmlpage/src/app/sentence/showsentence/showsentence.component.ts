@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SentenceStruct } from '../../data/sentenceStruct'
@@ -18,6 +18,7 @@ import { ROUTES } from '../../config/route-api'
   selector: 'app-showsentence',
   templateUrl: './showsentence.component.html',
   styleUrls: ['./showsentence.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ShowSentenceComponent implements OnInit {
     IsEmpty:boolean

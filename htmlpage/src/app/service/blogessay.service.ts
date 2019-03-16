@@ -15,6 +15,7 @@ export class BlogEssayService {
         // public httpservice:HttpService
     ) { }
     GetAllBlogEssayInfo(limit:string,offset:string,searchstring:string){
+        // console.log(searchstring)
         return this.httpclient.get(SITE_HOST_URL+GET_ALL_BLOG_ESSAY+"?limit="+limit+"&offset="+offset+"&searchstring="+searchstring);
     }
     GetOneBlogEssayInfo(essayid:string){

@@ -1,10 +1,10 @@
-<div class="main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
-        <div class="button-box">
+<div class="show-main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
+        <div class="show-button-box">
             <button type="button" class="write-button" (click)="ToWriteGameEssay()" *ngIf="Role>5">有想法了？</button>
         </div>
         <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
         <div class="essay-listbox" *ngFor="let array of GameEssayArray">
-            <div class="title-box">
+            <div class="show-title-box">
                 <a [routerLink]="['/onegameessay']"  [queryParams]="{essayid:array.id}" class="title-check">
                     {{array.title}}
                 </a>
@@ -12,15 +12,15 @@
             <div class="cover-box">
                 <img src={{array.cover}} class="cover-image">
             </div>
-            <div class="content-box">
+            <div class="show-content-box">
                 <div [innerHTML]="array.content"></div>
                 <a [routerLink]="['/onegameessay']"  [queryParams] = "{essayid:array.id}" class="link-text">
                     查看全部
                 </a>
             </div>
-            <div class="time-box">
+            <div class="show-time-box">
                 {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
-                <span class="divider">|</span>
+                <span class="show-divider">|</span>
                 {{array.tag}}
             </div>
         </div>

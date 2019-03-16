@@ -1,24 +1,24 @@
-<div class="main-box">
-        <div class="content-box">
-            <div class="button-box">
+<div class="one-main-box">
+        <div class="one-content-box">
+            <div class="one-button-box">
                 <a><button type="button" class="write-button" [routerLink]="['/writegameessay']"  [queryParams] = "{essayid:this.essayid}" *ngIf="Role>5">修改</button></a>
                 <button type="button" class="write-button" (click)="openModalWithComponent()" *ngIf="Role>5">删除</button>
             </div>
-            <a><div class="back-icon-box" [routerLink]="['/gameessay']">
-                <img class="back-icon" src="../../../assets/返回.png">
+            <a><div class="one-back-icon-box" [routerLink]="['/gameessay']">
+                <img class="one-back-icon" src="../../../assets/返回.png">
             </div></a>
-            <div class="title-box">
+            <div class="one-title-box">
                 {{this.GameEssayInfo.title}}
             </div>
-            <div class="data-box">
+            <div class="one-data-box">
                 {{this.GameEssayInfo.time| date:'yyyy/MM/dd HH:mm:ss'}}
-                <span class="divider">|</span>
+                <span class="one-divider">|</span>
                 {{this.GameEssayInfo.tag}}
             </div>
-            <div class="cover-box">
+            <div class="one-cover-box">
                 <img src={{this.GameEssayInfo.cover}} class="cover-image">
             </div>
-            <div class="content-box">
+            <div class="one-content-box">
                 <div [innerHTML]="this.GameEssayInfo.content | safeHtml">
             </div>
         </div>

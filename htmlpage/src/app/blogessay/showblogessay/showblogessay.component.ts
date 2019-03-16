@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 
 import { BlogEssayStruct } from '../../data/blogessayStruct'
@@ -12,6 +12,7 @@ import { ROUTES } from '../../config/route-api'
   selector: 'app-showblogessay',
   templateUrl: './showblogessay.component.html',
   styleUrls: ['./showblogessay.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ShowBlogEssayComponent implements OnInit {
   IsEmpty:boolean
@@ -69,7 +70,7 @@ export class ShowBlogEssayComponent implements OnInit {
             }
           }
         }
-
+        this.CreateFiling()
       }
       else{
           this.IsEmpty=true;
@@ -79,7 +80,7 @@ export class ShowBlogEssayComponent implements OnInit {
       }
     )
     this.limit="5"
-    this.CreateFiling()
+    
   }
   ToWriteBlogEssay(){
     this.router.navigate([ROUTES.writeblogessay.route])
@@ -116,6 +117,7 @@ export class ShowBlogEssayComponent implements OnInit {
     this.blogessayservice.GetBlogEssayTag().subscribe(
       fb=>{
         this.TagArray=fb["data"]
+        this.TagArray[this.TagArray.length]={name:'全部',number:this.TotalPage}
       },
       err=>{
 
@@ -158,6 +160,9 @@ export class ShowBlogEssayComponent implements OnInit {
     // console.log(Tag)
     this.BlogEssayArray=[]
     this.searchstring=Tag
+    if(this.searchstring=="全部"){
+      this.searchstring=""
+    }
     this.blogessayservice.GetAllBlogEssayInfo(this.limit,this.offset,this.searchstring).subscribe(
       fb=>{
         this.BlogEssayArray=fb["data"]

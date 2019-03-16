@@ -120,6 +120,7 @@ import { ROUTES } from '../../config/route-api'
       this.IsChooseImage=false
     }
     UpdateDrawpicture(drawpictureinfo:DrawpictureStruct){
+      drawpictureinfo.id=this.essayid
       if(!drawpictureinfo.src){
         this.toastrservice.error("未上传图片")
       }

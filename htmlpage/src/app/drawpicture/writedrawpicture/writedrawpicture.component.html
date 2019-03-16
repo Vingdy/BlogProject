@@ -38,7 +38,7 @@
 
             <button type="button" *ngIf="essayid" [ngClass]="{'write-button':!title.invalid&&!tag.invalid,'disable-write-button':!(!title.invalid&&!tag.invalid)}"
             [disabled]="!(!title.invalid&&!tag.invalid)" (click)="UpdateDrawpicture(this.NewDrawpicture)">修改</button>
-            <a [routerLink]="['/drawpicture']"  [queryParams] = "{essayid:essayid}">
+            <a [routerLink]="['/drawpicture']">
                 <button type="button" *ngIf="essayid" class="write-button">返回</button>
             </a>
         </div>

@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		log.Panicln("Get ProDir err: " + err.Error())
 	}
-	conf.Init(proDir,constant.BUILD_TYPE_PROD)
+	conf.Init(proDir,constant.BUILD_TYPE_DEV)
 	//fmt.Println(conf.App.DBHost)
 	//fmt.Println(conf.App.DBDriver)
 	db.InitDB(conf.App.DBHost,conf.App.DBPort, conf.App.DBUser, conf.App.DBPassword,conf.App.DBName,conf.App.DBDriver)

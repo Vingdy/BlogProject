@@ -17,7 +17,7 @@
 
                 <button type="button" *ngIf="essayid" [ngClass]="{'write-button':!content.invalid,'disable-write-button':content.invalid}"
                 [disabled]="content.invalid" (click)="UpdateSentence(this.NewSentence)">修改</button>
-                <a [routerLink]="['/drawpicture']"  [queryParams] = "{essayid:essayid}">
+                <a [routerLink]="['/sentence']">
                     <button type="button" *ngIf="essayid" class="write-button">返回</button>
                 </a>
             </div>

@@ -174,13 +174,17 @@ export class AppComponent implements OnInit {
     this.NewLogin={loginaccount:this.LoginAccount,loginpassword:this.LoginPassword}
     this.loginservice.AdminLogin(this.NewLogin).subscribe(
       fb=>{
-        console.log(fb)
+        // console.log(fb)
         if(fb["code"]==1000){
+          console.log(fb["code"])
           this.sessionservice.GetRole().subscribe(
+            
             fb=>{
+              console.log(fb["code"])
                 if(fb["code"]!=1000){
                   this.Role=0
                 }else{
+
                     this.Role=fb["data"]
                     LoginStatus.isLogin=true;
                     window.location.reload();
@@ -188,6 +192,7 @@ export class AppComponent implements OnInit {
                 }
             },
             err=>{
+              console.log("test")
                 this.Role=0
             })
         }else{
