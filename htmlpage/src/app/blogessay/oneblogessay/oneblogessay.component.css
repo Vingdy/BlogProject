@@ -1,6 +1,7 @@
 
 .one-main-box{
-    position: absolute;
+    padding:20px;
+    position: relative;
     background-color:rgba(255,255,255,0.7);
     width: 60%;
     left:50%; 

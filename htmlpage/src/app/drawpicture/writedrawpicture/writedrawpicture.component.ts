@@ -18,6 +18,7 @@ import { ROUTES } from '../../config/route-api'
     providers:[DatePipe]
   })
   export class WriteDrawpictureComponent implements OnInit {
+    isCommit:boolean
     essayid:string
     IsChooseImage:boolean
 
@@ -35,6 +36,7 @@ import { ROUTES } from '../../config/route-api'
         private activatedroute:ActivatedRoute,
       ) { }
       ngOnInit(){
+        this.isCommit=false
         this.IsChooseImage=false
         this.NewDrawpicture=new DrawpictureStruct
         this.sessionservice.GetRole().subscribe(
@@ -77,14 +79,21 @@ import { ROUTES } from '../../config/route-api'
         }
         drawpictureinfo.time=Date.now().toString()
         drawpictureinfo.time=this.datePipe.transform(drawpictureinfo.time, 'yyyy-MM-dd HH:mm:ss')
-        this.drawpictureservice.WriteNewDrawpicture(drawpictureinfo).subscribe(
-          fb=>{
-            this.toastrservice.success('写入成功')
-          },
-          err=>{
-            this.toastrservice.error('写入失败')
-          }
-        )
+        if(this.isCommit==false){
+          this.isCommit=true
+          this.drawpictureservice.WriteNewDrawpicture(drawpictureinfo).subscribe(
+            fb=>{
+              this.toastrservice.success('写入成功')
+              this.router.navigate([ROUTES.showdrawpicture.route])
+            },
+            err=>{
+              this.toastrservice.error('写入失败')
+            }
+          )
+        }else{
+          this.toastrservice.error('请勿重复提交')
+        }
+
       }
       ToBackDrawpicture(){
         this.router.navigate([ROUTES.showdrawpicture.route])

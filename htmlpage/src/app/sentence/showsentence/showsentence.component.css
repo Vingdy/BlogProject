@@ -1,6 +1,6 @@
 
-.main-box{
-    position: absolute;
+.show-sentence-main-box{
+    position: relative;
     background-color:rgba(255,255,255,0.7);
     width: 50%;
     left:50%; 
@@ -8,13 +8,14 @@
     transform: translateX(-50%);
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
     margin-bottom: 20px;
+    float:left;
 }
-.essay-listbox{
+.show-sentence-essay-listbox{
     font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
     width:94%;
     margin:30px auto;
 }
-.title-box{
+.show-sentence-title-box{
     margin-bottom: 10px;
     font-size: 20px;
     margin-top:10px;
@@ -22,7 +23,7 @@
     padding-left:5px;
     color: #21759b
 }
-.content-box{
+.show-sentence-content-box{
     font-size: 12px;
     padding-left:5px;
     padding-right:5px;
@@ -36,7 +37,7 @@
     display:inline;
     font-size: 12px;
 }
-.time-box{
+.show-sentence-time-box{
     font-size: 12px;
     padding-left:5px;
     padding-right:5px;
@@ -97,12 +98,12 @@
     margin:30px 42%;
     font-size:20px;
 }
-.time-filing-box{
+.showsentence-time-filing-box{
     position: relative;
     background-color:rgba(255,255,255,0.7);
     width:13%;
-    left:77%; 
-    /* margin-top:20px;  */
+    margin-left:77%; 
+    margin-top:20px; 
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
     padding:10px;
 }
@@ -117,7 +118,7 @@
 .divider{
     margin: 0 0.5em;
 }
-.admin-control-box{
+.show-sentence-```````admin-control-box{
     text-align: left;
     font-size:12px;
     margin-left: 0px;

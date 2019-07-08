@@ -80,7 +80,7 @@ export class OneBlogEssayComponent implements OnInit {
 ToDeleteBlogEssay(){
     this.blogessayservice.DeleteOneBlogEssay(this.essayid).subscribe(
         fb=>{
-            // console.log(fb)
+            console.log(fb)
             if(fb["code"]==1000){
                 this.router.navigate([ROUTES.showblogessay.route])
                 this.toastrservice.success("删除成功")
@@ -89,6 +89,7 @@ ToDeleteBlogEssay(){
             }
         },
         err=>{
+            console.log(err)
             this.toastrservice.error("删除失败")
         }
     )

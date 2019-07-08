@@ -49,6 +49,8 @@ import { BsModalService,BsModalRef } from 'ngx-bootstrap/modal';
 import { PageComponent } from './page/page'
 import { ModalComponent } from './modal/modal-pop.component'
 
+import { IcpComponent } from './icp/icp.component'
+
 import { SafeHtmlPipe } from './pipe/html.pipe'
 
 
@@ -72,6 +74,7 @@ import { SafeHtmlPipe } from './pipe/html.pipe'
     ShowDrawpictureComponent,
     WriteDrawpictureComponent,
     ModalComponent,
+    IcpComponent,
   ],
   imports: [
     BrowserModule,

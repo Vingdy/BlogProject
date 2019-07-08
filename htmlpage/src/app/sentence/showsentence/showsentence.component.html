@@ -1,16 +1,16 @@
-<div class="main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
+<div class="show-sentence-main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
         <div class="button-box">
             <button type="button" class="write-button" (click)="ToWriteSentence()" *ngIf="Role>5">有想法了？</button>
         </div>
         <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
-        <div class="essay-listbox" *ngFor="let array of SentenceArray">
-            <div class="content-box">
+        <div class="show-sentence-essay-listbox" *ngFor="let array of SentenceArray">
+            <div class="show-sentence-content-box">
                 <div [innerHTML]="array.content"></div>
             </div>
-            <div class="time-box">
+            <div class="show-sentence-time-box">
                 {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
             </div>
-            <div *ngIf="Role>5" class="admin-control-box">
+            <div *ngIf="Role>5" class="show-sentence-admin-control-box">
                 <a>
                     <div class="admin-control" [routerLink]="['/writesentence']"  [queryParams] = "{essayid:array.id}">
                         修改
@@ -28,7 +28,7 @@
             <page *ngIf="!IsEmpty" [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
         </div>
     </div>
-<div class="time-filing-box" *ngIf="!IsEmpty">
+<div class="showsentence-time-filing-box" *ngIf="!IsEmpty">
     <div class=time-filing *ngFor="let array of TimeArray">
         <a class="check" (click)="GetSentenceAboutTime(array.name)">{{array.name | date:'yyyy年MM月'}}({{array.number}})</a>
     </div>

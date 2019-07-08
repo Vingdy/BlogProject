@@ -19,6 +19,7 @@ import { ROUTES } from '../../config/route-api'
   providers:[DatePipe,RouteguardService]
 })
 export class WriteBlogEssayComponent implements OnInit {
+  isCommit:boolean
   Role:number
   essayid:string
 
@@ -32,6 +33,7 @@ export class WriteBlogEssayComponent implements OnInit {
       private activatedroute:ActivatedRoute,
     ) {}
     ngOnInit(){
+      this.isCommit=false
       this.sessionservice.GetRole().subscribe(
         fb=>{
             if(fb["code"]!=1000){
@@ -135,15 +137,21 @@ export class WriteBlogEssayComponent implements OnInit {
       }
       blogessayinfo.time=Date.now().toString()
       blogessayinfo.time=this.datePipe.transform(blogessayinfo.time, 'yyyy-MM-dd HH:mm:ss')
-      this.blogessayservice.WriteNewBlogEssay(blogessayinfo).subscribe(
-        fb=>{
-          this.toastrservice.success('上传成功')
-          this.router.navigate([ROUTES.showblogessay.route])
-        },
-        err=>{
-          this.toastrservice.error('上传失败')
-        }
-      )
+      if(this.isCommit==false){
+        this.isCommit=true
+        this.blogessayservice.WriteNewBlogEssay(blogessayinfo).subscribe(
+          fb=>{
+            this.toastrservice.success('上传成功')
+            this.router.navigate([ROUTES.showblogessay.route])
+          },
+          err=>{
+            this.toastrservice.error('上传失败')
+          }
+        )
+      }else{
+        this.toastrservice.error('请勿重复提交')
+      }
+
     }
     ToBackEssay(){
       this.router.navigate([ROUTES.showblogessay.route])

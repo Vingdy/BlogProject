@@ -12,8 +12,8 @@ RedisPwd = ""
 RedisDB = 0
 
 #服务器地址
-serverHost="http://127.0.0.1"
-serverPort="80"
+serverHost="https://127.0.0.1"
+serverPort="443"
 
 #支持的文件后缀
 suffixes = [

@@ -28,7 +28,10 @@ export class SentenceService {
         return this.httpclient.post(SITE_HOST_URL+UPDATE_SENTENCE_ESSAY,JSON.stringify(sentenceinfo))
     }
     DeleteOneSentence(essayid:string){
-        return this.httpclient.get(SITE_HOST_URL+DELETE_SENTENCE_ESSAY+"?essayid="+essayid)
+        const data = {
+            "essayid": essayid,
+          };
+        return this.httpclient.post(SITE_HOST_URL+DELETE_SENTENCE_ESSAY,JSON.stringify(data))
     }
     GetUserData(){
         return this.httpclient.get(SITE_HOST_URL+GET_USER_DATA)

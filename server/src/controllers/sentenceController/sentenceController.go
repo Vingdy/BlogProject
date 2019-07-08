@@ -210,8 +210,28 @@ func UpdateSentence(w http.ResponseWriter,r *http.Request){
 
 func DeleteSentence(w http.ResponseWriter,r *http.Request){
 	fb:=feedback.NewFeedBack(w)
-	queryForm,err:=url.ParseQuery(r.URL.RawQuery)
-	essayid:=queryForm["essayid"][0]
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		msg := "ReadAll failed:" + err.Error()
+		logger.Info(msg)
+		fb.FbCode(constant.PARA_ERR).FbMsg("请求body获取错误").Response()
+		return
+	}
+	var essayinfo map[string]interface{}
+	err = json.Unmarshal(body, &essayinfo)
+	if err != nil {
+		msg := "json Unmarshal failed:" + err.Error()
+		logger.Info(msg)
+		fb.FbCode(constant.PARA_ERR).FbMsg("请求body解析json错误").Response()
+		return
+	}
+	essayid,ok:=essayinfo["essayid"].(string)
+	if !ok{
+		msg := "get map key failed:" + err.Error()
+		logger.Info(msg)
+		fb.FbCode(constant.PARA_ERR).FbMsg("发送body中不存在key值").Response()
+		return
+	}
 	sentenceinfo,err:=sentenceModel.DeleteSentence(essayid)
 	if err!=nil {
 		msg := "sentenceModel DeleteSentence run fail:"+err.Error()

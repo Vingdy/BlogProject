@@ -1,19 +1,20 @@
 
-.show-main-box{
-    position: absolute;
+.show-blog-main-box{
+    position: relative;
     background-color:rgba(255,255,255,0.7);
     width: 50%;
     left:50%; 
     transform: translateX(-50%);
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
     margin-bottom: 20px;
+    float: left;
 }
 .essay-listbox{
     font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
     width:94%;
     margin:30px auto;
 }
-.show-title-box{
+.show-blog-title-box{
     margin-bottom: 10px;
     font-size: 20px;
     margin-top:10px;
@@ -22,7 +23,7 @@
     text-align: left;
     font-weight: bold;
 }
-.show-content-box{
+.show-blog-content-box{
     font-size: 12px;
     padding-left:5px;
     padding-right:5px;
@@ -38,7 +39,7 @@ p{
     display:inline;
     font-size: 12px;
 }
-.show-time-box{
+.show-blog-time-box{
     font-size: 12px;
     padding-left:5px;
     padding-right:5px;
@@ -46,10 +47,10 @@ p{
     margin-left:0px;
     margin-right: 0px;
 }
-.show-button-box{
+.show-blog-button-box{
     text-align: right;
 }
-.write-button{
+.write-blog-button{
     position: relative;
     top:10px;
     right:10px;
@@ -72,7 +73,7 @@ p{
     cursor: pointer;
     transition: 0.5s linear;
 }
-.write-button:hover{
+.write-blog-button:hover{
     width:181px;
     height:38px;
     background-color:#19a7f0;
@@ -90,7 +91,7 @@ p{
     line-height: normal;
     cursor: pointer;
 }
-.page-box{
+.page-blog-box{
     text-align: center;
 }
 .show-divider{
@@ -117,8 +118,8 @@ p{
     position: relative;
     background-color:rgba(255,255,255,0.7);
     width:13%;
-    left:77%; 
-    top:20px; 
+    margin-left:77%; 
+    margin-top:20px; 
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
     padding:10px;
 }

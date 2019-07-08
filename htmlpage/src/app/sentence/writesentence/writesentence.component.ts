@@ -21,6 +21,7 @@ export class WriteSentenceComponent implements OnInit {
   essayid:string
   Role:number
   editorContent:string
+  isCommit:boolean
   NewSentence:SentenceStruct
     constructor(
       private router:Router,
@@ -31,6 +32,7 @@ export class WriteSentenceComponent implements OnInit {
       private activatedroute:ActivatedRoute
     ) { }
     ngOnInit(){
+      this.isCommit=false
       this.NewSentence=new SentenceStruct
       this.sessionservice.GetRole().subscribe(
         fb=>{
@@ -69,15 +71,20 @@ export class WriteSentenceComponent implements OnInit {
       }(sentenceinfo.content)
       sentenceinfo.time=Date.now().toString()
       sentenceinfo.time=this.datePipe.transform(sentenceinfo.time, 'yyyy-MM-dd HH:mm:ss')
-      this.sentenceservice.WriteNewSentence(sentenceinfo).subscribe(
-        fb=>{
-          this.toastrservice.success('上传成功')
-          this.router.navigate([ROUTES.showsentence.route])
-        },
-        err=>{
-          this.toastrservice.error('上传失败')
-        }
-      )
+      if(this.isCommit==false){
+        this.isCommit=true
+        this.sentenceservice.WriteNewSentence(sentenceinfo).subscribe(
+          fb=>{
+            this.toastrservice.success('上传成功')
+            this.router.navigate([ROUTES.showsentence.route])
+          },
+          err=>{
+            this.toastrservice.error('上传失败')
+          }
+        )
+      }else{
+        this.toastrservice.error('请勿重复提交')
+      }
     }
     ToBackEssay(){
       this.router.navigate([ROUTES.showsentence.route])

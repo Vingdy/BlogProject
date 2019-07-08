@@ -4,7 +4,7 @@
         </div></a>
         <div class="content-box">
             <quill-editor [(ngModel)]="NewSentence.content" [modules]="quillconfig"
-             [style]="{'height':'360px'}" placeholder="输入内容" #content="ngModel" required ></quill-editor>
+             [style]="{'height':'500px'}" placeholder="输入内容" #content="ngModel" required ></quill-editor>
             <div *ngIf="content.invalid && (content.dirty || content.touched)" class="alert alert-danger">
                     <div *ngIf="content?.errors.required">
                         内容不能为空

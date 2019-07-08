@@ -19,6 +19,7 @@ import { ROUTES } from '../../config/route-api'
   providers:[DatePipe]
 })
 export class WriteGameEssayComponent implements OnInit {
+  isCommit:boolean
   essayid:string
     data: any;
     cropperSettings: CropperSettings;
@@ -52,6 +53,7 @@ export class WriteGameEssayComponent implements OnInit {
         this.data = {};
     }
     ngOnInit(){
+      this.isCommit=false
         this.OpenCover=false
         this.ChangeCover=false
         this.sessionservice.GetRole().subscribe(
@@ -168,15 +170,21 @@ export class WriteGameEssayComponent implements OnInit {
           }
       gameessayinfo.time=Date.now().toString()
       gameessayinfo.time=this.datePipe.transform(gameessayinfo.time, 'yyyy-MM-dd HH:mm:ss')
-      this.gameessayservice.WriteNewGameEssay(gameessayinfo).subscribe(
-        fb=>{
-            this.toastrservice.success('上传成功')
-            this.router.navigate([ROUTES.showgameessay.route])
-          },
-          err=>{
-            this.toastrservice.error('上传失败')
-          }
-      )
+      if(this.isCommit==false){
+        this.isCommit=true
+        this.gameessayservice.WriteNewGameEssay(gameessayinfo).subscribe(
+          fb=>{
+              this.toastrservice.success('上传成功')
+              this.router.navigate([ROUTES.showgameessay.route])
+            },
+            err=>{
+              this.toastrservice.error('上传失败')
+            }
+        )
+      }else{
+        this.toastrservice.error('请勿重复提交')
+      }
+
     }
     ToBackEssay(){
       this.router.navigate([ROUTES.showgameessay.route])

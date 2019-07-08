@@ -13,7 +13,7 @@
                 </div>
             </div>
             <quill-editor [(ngModel)]="NewBlogEssay.content" [modules]="quillconfig" 
-            (onEditorCreated)="EditorCreated($event)" [style]="{'height':'360px'}"
+            (onEditorCreated)="EditorCreated($event)" [style]="{'height':'500px'}"
             placeholder="输入内容" #content="ngModel" required 
             ></quill-editor>
             <div *ngIf="content.invalid && (content.dirty || content.touched)" class="alert alert-danger">

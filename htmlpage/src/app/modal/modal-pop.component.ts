@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 export class ModalComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef) {
-    console.log(this.bsModalRef.content);
+//     console.log(this.bsModalRef.content);
   }
   public value: string = "确认删除吗";
   ngOnInit() {

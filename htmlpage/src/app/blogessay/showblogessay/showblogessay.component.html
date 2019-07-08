@@ -1,27 +1,27 @@
-<div class="show-main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
-    <div class="show-button-box">
-        <button type="button" class="write-button" (click)="ToWriteBlogEssay()" *ngIf="Role>5">有想法了？</button>
+<div class="show-blog-main-box" [ngStyle]="{'top':IsEmpty == true ?'20px':'0px'}">
+    <div class="show-blog-button-box">
+        <button type="button" class="write-blog-button" (click)="ToWriteBlogEssay()" *ngIf="Role>5">有想法了？</button>
     </div>
     <div class="empty" *ngIf="IsEmpty">目前列表为空</div>
     <div class="essay-listbox" *ngFor="let array of BlogEssayArray">
-        <div class="show-title-box">
+        <div class="show-blog-title-box">
                 <a [routerLink]="['/oneblogessay']"  [queryParams]="{essayid:array.id}" class="title-check">
                     {{array.title}}
                 </a>
         </div>
-        <div class="show-content-box">
+        <div class="show-blog-content-box">
             <div [innerHTML]="array.content"></div>
             <a [routerLink]="['/oneblogessay']"  [queryParams] = "{essayid:array.id}" class="link-text">
                 查看全部
             </a>
         </div>
-        <div class="show-time-box">
+        <div class="show-blog-time-box">
             {{array.time| date:'yyyy/MM/dd HH:mm:ss'}}
             <span class="show-divider">|</span>
             {{array.tag}}
         </div>
     </div>
-    <div class="page-box">
+    <div class="page-blog-box">
         <page *ngIf="!IsEmpty" [pageParams]="{limit:this.limit,CurrentPage:this.CurrentPage,TotalPage:this.TotalPage}" (change)="CurrentPageOut($event)" class="page"></page>
     </div>
 </div>
@@ -35,3 +35,4 @@
         <a class="check" (click)="GetBlogEssayAboutTime(array.name)">{{array.name | date:'yyyy年MM月'}}({{array.number}})</a>
     </div>
 </div>
+

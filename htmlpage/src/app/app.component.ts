@@ -1,4 +1,4 @@
-import { Component,OnInit,ViewChild } from '@angular/core';
+import { Component,OnInit,ViewChild,OnChanges } from '@angular/core';
 // import { element } from 'protractor';
 import { Location } from '@angular/common';
 import { Router,ActivatedRoute,Params,ActivatedRouteSnapshot } from '@angular/router'
@@ -79,6 +79,9 @@ export class AppComponent implements OnInit {
   OpenCover:boolean
   ChangeCover:boolean
 
+  // public mySrcollContainer:ElementRef
+  @ViewChild('srroll') mySrcollContainer;
+
   @ViewChild('cropper', undefined)
   cropper:ImageCropperComponent;
 
@@ -105,8 +108,13 @@ export class AppComponent implements OnInit {
     this.data = {};
     
   }
+  ngOnChanges(){
+    console.log(window.innerHeight)
+  }
   ngOnInit(){
-    this.title.setTitle('左糖的日记本')
+    console.log(document.body.scrollHeight)
+    console.log(window.innerHeight)
+    console.log(this.mySrcollContainer)
     this.dropmeun_on= false;
     document.body.style.margin="0";
     this.IsShowLoginBox= false;
@@ -305,7 +313,7 @@ ShowUserData(router: Router): boolean{
     }else{
       return false;
     }
-  }
+  }  
 }
 
 //ng build --prod --deploy-url /static

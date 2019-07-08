@@ -24,7 +24,6 @@ export class LoginService {
         return this.httpclient.get(SITE_HOST_URL+GET_USER_DATA)
     }
     UpdateUserData(userinfo:UserStruct){
-        console.log(userinfo)
         return this.httpclient.post(SITE_HOST_URL+UPDATE_USER_DATA,JSON.stringify(userinfo))
     }
 }

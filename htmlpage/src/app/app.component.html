@@ -1,4 +1,5 @@
 <img src="../assets/026fdca2f76a3fcf91a4f9160b5ef7f7.jpg" class="background">
+<div class="wrapper">
 <div class="top-nav-box" style="top:0;">
     <div class="top-nav-left-box">
         <div class="top-nav-title-box">
@@ -13,16 +14,16 @@
             <div class="top-nav-route-content" (click)="ToBlogEssay()">
                 日志
             </div>
-            <div class="top-nav-route-content" (click)="ToGameEssay()">
+            <div class="top-nav-route-content" (click)="ToGameEssay()" *ngIf="Role>5">
                 测评
             </div>
             <!-- <div class="top-nav-route-content" (click)="ToDance()">
                 舞蹈
             </div> -->
-            <div class="top-nav-route-content" (click)="ToDrawing()">
+            <div class="top-nav-route-content" (click)="ToDrawing()" *ngIf="Role>5">
                 摸鱼
             </div>
-            <div class="top-nav-route-content" (click)="ToSentence()">
+            <div class="top-nav-route-content" (click)="ToSentence()" *ngIf="Role>5">
                 随笔
             </div>
             <div class="top-nav-route-content" (click)="ToTest()">
@@ -40,7 +41,12 @@
 
 </div>
 <div class="main-content">
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet> 
+    <div class="open-box">
+        <!-- <a class="ICP" href="http://www.miitbeian.gov.cn">粤ICP备19024727号-1</a> -->
+    </div>
+    <div class="footer">
+    </div>
 </div>
 <div class="login-main-box" [@LoginEnterLeave]="IsShowLoginBox?'open':'closed'">
     <div class="login-icon-box">
@@ -95,3 +101,10 @@
         </div>
     </div>
 </div>
+<div class="push"></div>
+</div>
+<div class="ICP-box">
+    <a class="ICP" href="http://www.miitbeian.gov.cn">粤ICP备19024727号-1</a>
+</div>
+
+

@@ -46,6 +46,11 @@ InitPageList(currentpage,totalnumber:number,limit){
         for (let i = 1; i < this.PageCount; i++) {
             this.PageList.push(i);
         }
+        
+    }else if(currentpage<3){
+        for (let i = 1; i < 6; i++) {
+            this.PageList.push(i);
+        }
     }else if((this.PageCount-currentpage)<5){
         for (let i = this.PageCount-5; i < this.PageCount; i++) {
             this.PageList.push(i);

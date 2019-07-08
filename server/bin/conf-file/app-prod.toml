@@ -10,10 +10,9 @@ RedisHost = "127.0.0.1"
 RedisPort = "6379"
 RedisPwd = ""
 RedisDB = 0
-
 #服务器地址
-serverHost="http://111.230.186.233"
-serverPort="80"
+serverHost="https://vingdream.cn"
+serverPort="443"
 
 #支持的文件后缀
 suffixes = [
@@ -38,7 +37,6 @@ MaxFileSize = 500
 
 #文件下载的域名
 FileDownloadHost="/static/"
-#FileDownloadHost="http://127.0.0.1:6608"
 
 FileDownloadPrefix="/files"
 

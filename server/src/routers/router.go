@@ -30,7 +30,7 @@ var path,err=utils.GetProDir()
 
 func SetRouter() *mux.Router {
 	Router:=mux.NewRouter()
-
+	Router.Schemes("https")
 	if err!=nil{
 		return Router
 	}
@@ -58,38 +58,38 @@ func SetRouter() *mux.Router {
 	Router.HandleFunc("/api/getoneblogessay", AllowOrigin(blogController.GetOneBlogEssay)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getblogessaythetag", AllowOrigin(blogController.GetBlogEssayTag)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getblogessaythetime", AllowOrigin(blogController.GetBlogEssayTime)).Methods("GET","OPTIONS")
-	Router.HandleFunc("/api/updateoneblogessay", AllowOrigin(blogController.UpdateBlogEssay)).Methods("POST","OPTIONS")
-	Router.HandleFunc("/api/deleteoneblogessay", AllowOrigin(blogController.DeleteBlogEssay)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateoneblogessay", AllowOrigin(GateWay(blogController.UpdateBlogEssay))).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteoneblogessay", AllowOrigin(GateWay(blogController.DeleteBlogEssay))).Methods("POST","OPTIONS")
 
-	Router.HandleFunc("/api/writegameessay", AllowOrigin(gameController.WriteGameEssay)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/writegameessay", AllowOrigin(GateWay(gameController.WriteGameEssay))).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getallgameessay", AllowOrigin(gameController.GetAllGameEssay)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getonegameessay", AllowOrigin(gameController.GetOneGameEssay)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getgameessaythetag", AllowOrigin(gameController.GetGameEssayTag)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getgameessaythetime", AllowOrigin(gameController.GetGameEssayTime)).Methods("GET","OPTIONS")
-	Router.HandleFunc("/api/updateonegameessay", AllowOrigin(gameController.UpdateGameEssay)).Methods("POST","OPTIONS")
-	Router.HandleFunc("/api/deleteonegameessay", AllowOrigin(gameController.DeleteGameEssay)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateonegameessay", AllowOrigin(GateWay(gameController.UpdateGameEssay))).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteonegameessay", AllowOrigin(GateWay(gameController.DeleteGameEssay))).Methods("POST","OPTIONS")
 
-	Router.HandleFunc("/api/writesentence", AllowOrigin(sentenceController.WriteSentence)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/writesentence", AllowOrigin(GateWay(sentenceController.WriteSentence))).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getallsentence", AllowOrigin(sentenceController.GetAllSentence)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getonesentence", AllowOrigin(sentenceController.GetOneSentence)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getsentencethetime", AllowOrigin(sentenceController.GetSentenceTime)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/updateonesentence", AllowOrigin(sentenceController.UpdateSentence)).Methods("POST","OPTIONS")
-	Router.HandleFunc("/api/deleteonesentence", AllowOrigin(sentenceController.DeleteSentence)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/deleteonesentence", AllowOrigin(GateWay(sentenceController.DeleteSentence))).Methods("POST","OPTIONS")
 
-	Router.HandleFunc("/api/writedrawpicture", AllowOrigin(drawController.WriteDrawPicture)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/writedrawpicture", AllowOrigin(GateWay(drawController.WriteDrawPicture))).Methods("POST","OPTIONS")
 	Router.HandleFunc("/api/getalldrawpicture", AllowOrigin(drawController.GetAllDrawPicture)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getonedrawpicture", AllowOrigin(drawController.GetOneDrawPicture)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getdrawpicturethetag", AllowOrigin(drawController.GetDrawPictureTag)).Methods("GET","OPTIONS")
 	Router.HandleFunc("/api/getdrawpicturethetime", AllowOrigin(drawController.GetDrawPictureTime)).Methods("GET","OPTIONS")
-	Router.HandleFunc("/api/updateonedrawpicture", AllowOrigin(drawController.UpdateDrawPicture)).Methods("POST","OPTIONS")
-	Router.HandleFunc("/api/deleteonedrawpicture", AllowOrigin(drawController.DeleteDrawPicture)).Methods("GET","OPTIONS")
+	Router.HandleFunc("/api/updateonedrawpicture", AllowOrigin(GateWay(drawController.UpdateDrawPicture))).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/deleteonedrawpicture", AllowOrigin(GateWay(drawController.DeleteDrawPicture))).Methods("POST","OPTIONS")
 
-	Router.HandleFunc("/api/uploadimage",AllowOrigin(imgController.UploadPic)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/uploadimage",AllowOrigin(GateWay(imgController.UploadPic))).Methods("POST","OPTIONS")
 
 	Router.HandleFunc("/api/getrole",AllowOrigin(sessionController.GetRole)).Methods("GET","OPTIONS")
 
 	Router.HandleFunc("/api/getuserdata",AllowOrigin(userController.GetUserData)).Methods("GET","OPTIONS")
-	Router.HandleFunc("/api/updateuserdata",AllowOrigin(userController.UpdateUserData)).Methods("POST","OPTIONS")
+	Router.HandleFunc("/api/updateuserdata",AllowOrigin(GateWay(userController.UpdateUserData))).Methods("POST","OPTIONS")
 	//Router.HandleFunc("/api/getoneblogessay", AllowOrigin(blogController.GetOneBlogEssay)).Methods("GET")
 	//r.HandleFunc("/api/get", loginController.Get).Methods("POST")
 
@@ -111,9 +111,7 @@ func MiddleWareHandler(next http.Handler)http.Handler{
 //	})
 //}
 func notFound(w http.ResponseWriter, r *http.Request){
-	//http.ServeFile(w,r,"F:\\CST\\会议视频系统\\Videoconference\\html\\dist\\index.html")
 	http.ServeFile(w,r,path+`/dist/htmlpage`)
-	//http.ServeFile(w,r,"/root/videoconference/html")
 }
 
 func GateWay(next http.HandlerFunc)http.HandlerFunc {
@@ -123,7 +121,7 @@ func GateWay(next http.HandlerFunc)http.HandlerFunc {
 		if r.Method=="OPTIONS"{
 			return
 		}
-		start:=time.Now()
+		//start:=time.Now()
 		defer handlePanic()
 		if w==nil || r==nil{
 			log.Println("gate fail: w or r nil")
@@ -144,7 +142,7 @@ func GateWay(next http.HandlerFunc)http.HandlerFunc {
 			fb.FbCode(constant.SESSION_EXPIRED).Response()
 			return
 		}
-		fmt.Println(sess)
+		//fmt.Println(sess)
 		//level := sess.Role
 		if sess.Role>5{
 			next(w,r)
@@ -152,10 +150,10 @@ func GateWay(next http.HandlerFunc)http.HandlerFunc {
 			fb.FbCode(constant.NO_AUTH).Response()
 			return
 		}
-		end:=time.Now()
-		endtime:=end.Sub(start)
+		//end:=time.Now()
+		//endtime:=end.Sub(start)
 		//Todo after mux
-		fmt.Println(endtime)
+		//fmt.Println(endtime)
 	})
 }
 
@@ -175,8 +173,6 @@ func handlePanic() {
 		runtime.Stack(stack, false)
 		stack = bytes.Replace(stack, []byte("\u0000"), []byte(""), -1)
 		fmt.Println(formatErr)
-		//ioutil.WriteFile(conf.App.ProDir+"/panic", bytes.Join([][]byte{[]byte(formatErr), stack}, []byte("\n")), 0644)
-		//logger.Error(fmt.Sprintf("%s\n%s", err, stack))
 	}
 }
 

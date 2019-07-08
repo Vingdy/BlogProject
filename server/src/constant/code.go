@@ -20,13 +20,6 @@ const (
 	ADMIN_PWD_WRONG     = 2001 //管理员登陆账号密码不正确
 	ADMIN_FILE_WRONG    = 2002 //文件内容不正确
 	ADMIN_NOT_EXIST     = 2003 //管理员不存在
-	ADMIN_SEND_SMS_FAIL = 2004 //推送短信失败
-)
-
-const (
-	PLAYER_INFO_NOEXIST   = 3001 //参赛者信息不存在
-	PLAYER_BAN_FAIL       = 3002 //参赛者已经被禁赛或者参赛者不存在
-	PLAYER_EVENT_NOTEXIST = 3003 //找不到参赛者对应的活动记录
 )
 
 const (
@@ -39,10 +32,6 @@ const (
 	FILE_SIZE_TOO_LARGE   = 5002 //文件过大
 	FILE_HAS_EXISTED      = 5003 //文件已存在
 	FILE_HAS_NOT_EXISTED  = 5004 //文件已存在
-)
-
-const (
-	LOCATION_NOT_EXISTS = 6001 //找不到location(通常因为位置信息未授权而引起)
 )
 
 const (

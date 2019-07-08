@@ -7,8 +7,6 @@ import (
 )
 
 func WriteSentence(content string,time string)(essayinsertok bool, err error){
-	//essayinfo=[]*constant.SentenceInfo{}
-	//var args = []interface{}{}
 	InsertSql:="insert into blog.sentence(content,time) values($1,$2);"
 	stmt,err:=db.Db.Prepare(InsertSql)
 	if err != nil {
@@ -21,15 +19,6 @@ func WriteSentence(content string,time string)(essayinsertok bool, err error){
 		log.Println("SentenceModel WriteSentence exce fail")
 		return false, err
 	}
-	//fmt.Println(rows,err)
-	//for rows.Next() {
-	//	var user constant.LoginInfo
-	//	err := rows.Scan(&user.LoginAccount, &user.LoginPassword, &user.Role)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	logininfo = append(logininfo,&user)
-	//}
 	return true,nil
 }
 

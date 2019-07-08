@@ -36,7 +36,10 @@ export class GameEssayService {
         return this.httpclient.post(SITE_HOST_URL+UPDATE_ONE_GAME_ESSAY,JSON.stringify(gameessayinfo))
     }
     DeleteOneGameEssay(essayid:string){
-        return this.httpclient.get(SITE_HOST_URL+DELETE_ONE_GAME_ESSAY+"?essayid="+essayid)
+        const data = {
+            "essayid": essayid,
+          };
+        return this.httpclient.post(SITE_HOST_URL+DELETE_ONE_GAME_ESSAY,JSON.stringify(data))
     }
     GetUserData(){
         return this.httpclient.get(SITE_HOST_URL+GET_USER_DATA)

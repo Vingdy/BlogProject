@@ -2,7 +2,7 @@
     height:72px;
     width:100%;
     background-color:hsla(0,0%,100%,0.6);
-    position: absolute;
+    position: relative;
     z-index: 99;
     min-width: 1180px;
     border: none;
@@ -87,11 +87,10 @@
 .main-content{
     z-index: 100;
     position: relative;
-    top:72px;
+    /* top:72px; */
     width:100%;
     min-width: 600px;
     height:100%;
-    min-height: 600px;
 }
 .top-nav-right-box{
     /* left:82%; */
@@ -260,7 +259,7 @@
 .login-icon-box{
     position: absolute;
     top:170px;
-    left:-5px;
+    left:0px;
     text-align: left;
 }
 .login-back-icon{
@@ -340,7 +339,7 @@
 .user-icon-box{
     position: absolute;
     top:170px;
-    left:-5px;
+    left:0px;
     text-align: left;
 }
 .user-back-icon{
@@ -397,7 +396,7 @@
     text-align: center;
 }
 .user-write-button{
-    position: relative;
+    /* position: relative; */
     top:10px;
     right:10px;
     bottom:10px;
@@ -420,6 +419,7 @@
     transition: 0.5s linear;
     margin-left:10px;
     margin-right:10px;
+    margin-bottom:10px;
 }
 .user-write-button:hover{
     width:101px;
@@ -453,3 +453,43 @@
     font-family: 'youyuan';
     color:#222;
 }
+.ICP-box{
+    z-index: 999;
+    font-size: 12px;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    clear: both;
+    text-align: center;
+    margin-bottom:0px;
+}
+/* .ICP-1box{
+    z-index: 999;
+    font-size: 12px;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    clear: both;
+    text-align: center;
+    margin-bottom:0px;
+} */
+.ICP{
+    color: #000000;
+}
+/* .footer{
+    bottom: 0px;
+    position: absolute;
+} */
+.wrapper {
+    min-height: 100%;
+  
+    /* Equal to height of footer */
+    /* But also accounting for potential margin-bottom of last child */
+    margin-bottom: -18px;
+  }
+  .footer,
+  .push {
+    height: 12px;
+  }

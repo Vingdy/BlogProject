@@ -1,6 +1,6 @@
-export var BUILD_TYPE = 'DEV';  
+// export var BUILD_TYPE = 'LOCAL';  
 // export var BUILD_TYPE = 'DEV';  
-//  export var BUILD_TYPE = 'DEPLOY';  //部署模式
+export var BUILD_TYPE = 'DEPLOY';  //部署模式
 
 export var SITE_HOST_URL;
 if (BUILD_TYPE == 'LOCAL'){
@@ -8,10 +8,10 @@ if (BUILD_TYPE == 'LOCAL'){
     
 }
 if (BUILD_TYPE == 'DEV'){
-    SITE_HOST_URL = 'http://111.230.186.233:80';
+    SITE_HOST_URL = 'https://111.230.186.233:443';
 }
 if (BUILD_TYPE == 'DEPLOY'){
-    SITE_HOST_URL = '';
+    SITE_HOST_URL = 'https://vingdream.cn';
 }
 
 export const GET_ALL_BLOG_ESSAY="/api/getallblogessay"

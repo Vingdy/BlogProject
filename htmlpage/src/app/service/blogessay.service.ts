@@ -37,7 +37,10 @@ export class BlogEssayService {
         return this.httpclient.post(SITE_HOST_URL+UPDATE_ONE_BLOG_ESSAY,JSON.stringify(blogessayinfo))
     }
     DeleteOneBlogEssay(essayid:string){
-        return this.httpclient.get(SITE_HOST_URL+DELETE_ONE_BLOG_ESSAY+"?essayid="+essayid)
+        const data = {
+            "essayid": essayid,
+          };
+        return this.httpclient.post(SITE_HOST_URL+DELETE_ONE_BLOG_ESSAY,JSON.stringify(data))
     }
     GetUserData(){
         return this.httpclient.get(SITE_HOST_URL+GET_USER_DATA)

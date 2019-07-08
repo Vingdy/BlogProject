@@ -37,7 +37,10 @@ export class DrawpictureService {
         return this.httpclient.post(SITE_HOST_URL+UPDATE_ONE_DRAWPICTURE,JSON.stringify(drawpictureinfo))
     }
     DeleteOneDrawpicture(essayid:string){
-        return this.httpclient.get(SITE_HOST_URL+DELETE_ONE_DRAWPICTURE+"?essayid="+essayid)
+        const data = {
+            "essayid": essayid,
+          };
+        return this.httpclient.post(SITE_HOST_URL+DELETE_ONE_DRAWPICTURE,JSON.stringify(data))
     }
     GetUserData(){
         return this.httpclient.get(SITE_HOST_URL+GET_USER_DATA)
