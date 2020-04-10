@@ -7,6 +7,7 @@ import (
 	"session"
 	"constant"
 	"logger"
+	"fmt"
 )
 
 //func ActionLogger() http.HandlerFunc {
@@ -24,6 +25,8 @@ func GetRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fb := feedback.NewFeedBack(w)
+	fb.FbCode(constant.SUCCESS).FbData(10).FbMsg("获取权限等级成功").Response()
+	return
 	if r.Method == http.MethodOptions {
 		fb.FbCode(0).Response()
 		return
@@ -34,6 +37,7 @@ func GetRole(w http.ResponseWriter, r *http.Request) {
 		fb.FbCode(constant.SYS_ERR).Response()
 		return
 	}
+	fmt.Println(sess)
 	if sess == nil {
 		fb.FbCode(constant.SESSION_EXPIRED).Response()
 		return

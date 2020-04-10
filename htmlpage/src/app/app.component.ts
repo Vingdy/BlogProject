@@ -186,13 +186,11 @@ export class AppComponent implements OnInit {
         if(fb["code"]==1000){
           console.log(fb["code"])
           this.sessionservice.GetRole().subscribe(
-            
             fb=>{
               console.log(fb["code"])
                 if(fb["code"]!=1000){
                   this.Role=0
                 }else{
-
                     this.Role=fb["data"]
                     LoginStatus.isLogin=true;
                     window.location.reload();

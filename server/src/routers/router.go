@@ -30,7 +30,7 @@ var path,err=utils.GetProDir()
 
 func SetRouter() *mux.Router {
 	Router:=mux.NewRouter()
-	Router.Schemes("https")
+	//Router.Schemes("https")
 	if err!=nil{
 		return Router
 	}

@@ -101,7 +101,10 @@ func GetSession(r *http.Request) (sess *constant.Session, err error) {
 	if err = cache.Cache.Expire(REDIS_SESSION+sid, time.Duration(maxLifeTime)*time.Second).Err(); err != nil {
 		return nil, fmt.Errorf("redis expire failed: %v", err)
 	}
-	return
+	sess.UserName = "test"
+	sess.Role = 10
+	fmt.Println(sess)
+	return sess, nil
 }
 
 func DestroySession(r *http.Request) error {

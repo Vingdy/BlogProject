@@ -31,6 +31,8 @@ import (
 	"constant"
 	"net/http"
 	"routers"
+	"github.com/gin-gonic/gin"
+	"github.com/unrolled/secure"
 )
 
 //var sessionMgr *session.SessionManager = nil
@@ -47,13 +49,40 @@ func main() {
 	err=logger.InitLogger(proDir)
 
 	defer db.Db.Close()
+	go http.ListenAndServe(":80", http.HandlerFunc(redirect))
 	//defer logger.Close()
 	err=http.ListenAndServeTLS(":"+conf.App.ServerPort,"1_vingdream.cn_bundle.crt","2_vingdream.cn.key",routers.SetRouter())
+
 	//err=http.ListenAndServe(":80",routers.SetRouter())
-	log.Println(err)
-	if err != nil{
-		log.Println("开启"+conf.App.ServerPort+"端口服务")
-	}else{
+	if err == nil{
 		log.Println(err)
 	}
+}
+
+func TlsHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		secureMiddleware := secure.New(secure.Options{
+			SSLRedirect: true,
+			SSLHost:     "vingdream.cn:443",
+		})
+
+		err := secureMiddleware.Process(c.Writer, c.Request)
+		if err != nil {
+			return
+		}
+
+		c.Next()
+	}
+}
+
+func redirect(w http.ResponseWriter, r *http.Request) {
+	/*_host := strings.Split(req.Host, ":")
+	_host[1] = "443"
+
+	target := "https://" + strings.Join(_host, ":") + req.URL.Path
+	if len(req.URL.RawQuery) > 0 {
+		target += "?" + req.URL.RawQuery
+	}*/
+
+	http.Redirect(w, r, "https://vingdream.cn"+r.RequestURI, http.StatusTemporaryRedirect)
 }
