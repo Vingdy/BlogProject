@@ -1,10 +1,10 @@
 package cache
 
 import (
+	"conf"
+	"fmt"
 	"github.com/go-redis/redis"
 	"log"
-	"fmt"
-	"conf"
 )
 
 var Cache *redis.Client
@@ -29,4 +29,3 @@ func makeConnect() {
 		return
 	}
 }
-

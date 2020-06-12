@@ -1,31 +1,31 @@
 package userController
 
 import (
+	"constant"
+	"encoding/json"
+	"io/ioutil"
+	"logger"
+	"models/userModel"
 	"net/http"
 	"utils/feedback"
-	"logger"
-	"constant"
-	"models/userModel"
-	"io/ioutil"
-	"encoding/json"
 )
 
-func GetUserData(w http.ResponseWriter,r *http.Request){
-	fb:=feedback.NewFeedBack(w)
-	userdata,err:=userModel.GetUserData()
-	if err!=nil {
-		msg := "userModel GetUserData run fail:"+err.Error()
+func GetUserData(w http.ResponseWriter, r *http.Request) {
+	fb := feedback.NewFeedBack(w)
+	userdata, err := userModel.GetUserData()
+	if err != nil {
+		msg := "userModel GetUserData run fail:" + err.Error()
 		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("GetUserData运行错误").Response()
 		return
 	}
-	msg:="GetUserData success"
+	msg := "GetUserData success"
 	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("个人资料获取成功").FbData(userdata).Response()
 }
 
-func UpdateUserData(w http.ResponseWriter,r *http.Request){
-	fb:=feedback.NewFeedBack(w)
+func UpdateUserData(w http.ResponseWriter, r *http.Request) {
+	fb := feedback.NewFeedBack(w)
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		msg := "ReadAll failed:" + err.Error()
@@ -46,14 +46,14 @@ func UpdateUserData(w http.ResponseWriter,r *http.Request){
 		//fb.Response(w, constant.PARA_ERR, "请求body解析json错误", nil)
 		return
 	}
-	userdataok,err:=userModel.UpdateUserData(userdatainfo.Name,userdatainfo.Headpicture,userdatainfo.Info)
-	if err!=nil {
-		msg := "userModel UpdateUserData run fail:"+err.Error()
+	userdataok, err := userModel.UpdateUserData(userdatainfo.Name, userdatainfo.Headpicture, userdatainfo.Info)
+	if err != nil {
+		msg := "userModel UpdateUserData run fail:" + err.Error()
 		logger.Info(msg)
 		fb.FbCode(constant.SYS_ERR).FbMsg("GetUserData运行错误").Response()
 		return
 	}
-	msg:="UpdateUserData success"
+	msg := "UpdateUserData success"
 	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("个人资料更新成功").FbData(userdataok).Response()
 }

@@ -112,14 +112,15 @@ export class AppComponent implements OnInit {
     console.log(window.innerHeight)
   }
   ngOnInit(){
-    console.log(document.body.scrollHeight)
+    /*console.log(document.body.scrollHeight)
     console.log(window.innerHeight)
-    console.log(this.mySrcollContainer)
+    console.log(this.mySrcollContainer)*/
     this.dropmeun_on= false;
     document.body.style.margin="0";
     this.IsShowLoginBox= false;
     this.IsShowUserBox= false;
     // this.IsShowUserData=true;
+    this.Role = 0
     this.acivatedroute.params.subscribe((params: Params) => {
       // params
       console.log(params)
@@ -132,6 +133,7 @@ export class AppComponent implements OnInit {
               this.Role=fb["data"]
               LoginStatus.isLogin=true;
           }
+        console.log(this.Role, LoginStatus.isLogin)
       },
       err=>{
           this.Role=0
@@ -228,10 +230,11 @@ export class AppComponent implements OnInit {
           if(fb["code"]!=1000){
             this.Role=0
           }else{
-              this.Role=fb["data"]
+              this.Role=0
               LoginStatus.isLogin=false;
               window.location.reload();
           }
+          console.log(this.Role, fb)
       },
       err=>{
         this.toastrservice.error('退出失败')

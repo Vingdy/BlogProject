@@ -4,12 +4,12 @@ package db
 
 import (
 	"database/sql"
-	_ "github.com/lib/pq"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
 )
 
-var Db *sql.DB//持续连接
+var Db *sql.DB //持续连接
 
 func InitDB(host, port, user, pwd, dbName, driverName string) {
 	//log.Println("=====启动连接数据库=====")
@@ -19,7 +19,7 @@ func InitDB(host, port, user, pwd, dbName, driverName string) {
 	db, err := sql.Open(driverName, dateSource)
 	if err != nil {
 		log.Panicln(err)
-}
+	}
 	Db = db
 	err = Db.Ping()
 	if err != nil {

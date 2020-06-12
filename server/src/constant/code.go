@@ -17,9 +17,9 @@ const (
 )
 
 const (
-	ADMIN_PWD_WRONG     = 2001 //管理员登陆账号密码不正确
-	ADMIN_FILE_WRONG    = 2002 //文件内容不正确
-	ADMIN_NOT_EXIST     = 2003 //管理员不存在
+	ADMIN_PWD_WRONG  = 2001 //管理员登陆账号密码不正确
+	ADMIN_FILE_WRONG = 2002 //文件内容不正确
+	ADMIN_NOT_EXIST  = 2003 //管理员不存在
 )
 
 const (

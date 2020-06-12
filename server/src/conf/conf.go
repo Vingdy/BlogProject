@@ -3,8 +3,8 @@ package conf
 import (
 	"os"
 
-	"github.com/BurntSushi/toml"
 	"constant"
+	"github.com/BurntSushi/toml"
 )
 
 type srvFile struct {
@@ -113,4 +113,3 @@ func mkdirProDir() error {
 
 	return nil
 }
-

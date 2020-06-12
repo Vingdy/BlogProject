@@ -1,15 +1,15 @@
 package loginController
 
 import (
-	"net/http"
+	"constant"
 	"encoding/json"
 	"io/ioutil"
-	"utils/feedback"
+	"logger"
 	"models/loginModel"
-	"constant"
+	"net/http"
 	"session"
 	"strconv"
-	"logger"
+	"utils/feedback"
 )
 
 //func ActionLogger() http.HandlerFunc {
@@ -21,7 +21,7 @@ import (
 func Login(w http.ResponseWriter, r *http.Request) {
 
 	//var fb feedback.FeedBack
-	fb:=feedback.NewFeedBack(w)
+	fb := feedback.NewFeedBack(w)
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		msg := "ReadAll failed:" + err.Error()
@@ -48,16 +48,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	//password:=logininfo.LoginPassword
 	//role:=logininfo.Role
 	//fmt.Println(logininfo.LoginAccount,logininfo.LoginPassword,logininfo.Role)
-	if len(logininfo.LoginAccount)<0{
-		msg:="LoginAccount is empty"
+	if len(logininfo.LoginAccount) < 0 {
+		msg := "LoginAccount is empty"
 		//logger.Logger.Error(msg)
 		//log.Println(msg)
 		logger.Info(msg)
 		fb.FbCode(constant.PARA_ERR).FbMsg("LoginAccount参数为空").Response()
 		return
 	}
-	if len(logininfo.LoginPassword)<0{
-		msg:="LoginPassword is empty"
+	if len(logininfo.LoginPassword) < 0 {
+		msg := "LoginPassword is empty"
 		//logger.Logger.Error(msg)
 		//log.Println(msg)
 		logger.Info(msg)
@@ -90,10 +90,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		//fb.Response(w, constant.ADMIN_NOT_EXIST, "账号不存在", nil)
 		return
 	}
-	loginok,err := loginModel.Login(logininfo.LoginAccount, logininfo.LoginPassword)
+	loginok, err := loginModel.Login(logininfo.LoginAccount, logininfo.LoginPassword)
 	//fmt.Println(err)
 	if err != nil {
-		msg := "LoginModel run failed:"+err.Error()
+		msg := "LoginModel run failed:" + err.Error()
 		//log.Println(msg)
 		//logger.Logger.Error(msg)
 		logger.Info(msg)
@@ -101,7 +101,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		//fb.Response(w, constant.DB_ERR, msg, nil)
 		return
 	}
-	if len(loginok)==0{
+	if len(loginok) == 0 {
 		msg := "LoginAccount is not exist"
 		//log.Println(msg)
 		//logger.Logger.Error(msg)
@@ -110,19 +110,19 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		//fb.Response(w, constant.ADMIN_NOT_EXIST, "账号不存在", nil)
 		return
 	}
-//if loginok[0].LoginPassword!=logininfo.LoginPassword{
-//		msg := "LoginPassword is wrong"
-//		log.Println(msg)
-//		fb.FbCode(constant.ADMIN_PWD_WRONG).FbMsg("密码错误").Response()
-//		//fb.Response(w, constant.ADMIN_NOT_EXIST, "账号不存在", nil)
-//		return
-//	}
+	//if loginok[0].LoginPassword!=logininfo.LoginPassword{
+	//		msg := "LoginPassword is wrong"
+	//		log.Println(msg)
+	//		fb.FbCode(constant.ADMIN_PWD_WRONG).FbMsg("密码错误").Response()
+	//		//fb.Response(w, constant.ADMIN_NOT_EXIST, "账号不存在", nil)
+	//		return
+	//	}
 	msg := "Login success"
 	//log.Println(msg)
 	//logger.Info(msg)
 	role_int, err := strconv.Atoi(loginok[0].Role)
 	err = session.SetSession(w, r, &constant.Session{
-		 loginok[0].LoginAccount, role_int,
+		loginok[0].LoginAccount, role_int,
 	})
 	//sess,_:=session.GetSession(r)
 	//fmt.Println(sess)
@@ -133,11 +133,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 }
 
-func LogOut(w http.ResponseWriter,r *http.Request){
-	fb:=feedback.NewFeedBack(w)
-	err:=session.DestroySession(r)
-	if err!=nil{
-		msg:="LogOut DestroySession Failed"
+func LogOut(w http.ResponseWriter, r *http.Request) {
+	fb := feedback.NewFeedBack(w)
+	err := session.DestroySession(r)
+	if err != nil {
+		msg := "LogOut DestroySession Failed"
 		//log.Println(msg)
 		//logger.Logger.Error(msg)
 		logger.Info(msg)
@@ -151,4 +151,3 @@ func LogOut(w http.ResponseWriter,r *http.Request){
 	logger.Info(msg)
 	fb.FbCode(constant.SUCCESS).FbMsg("退出成功").Response()
 }
-

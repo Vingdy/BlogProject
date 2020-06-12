@@ -8,3 +8,7 @@ server/src/main
 htmlpage/node_modules
 htmlpage/e2e
 htmlpage/dist
+server/bin
+server/src/github.com
+server/src/gopkg.in
+server/src/golang.org

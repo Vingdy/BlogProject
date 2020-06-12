@@ -1,13 +1,13 @@
 package sessionController
 
 import (
-	"net/http"
-	"log"
-	"utils/feedback"
-	"session"
 	"constant"
-	"logger"
 	"fmt"
+	"log"
+	"logger"
+	"net/http"
+	"session"
+	"utils/feedback"
 )
 
 //func ActionLogger() http.HandlerFunc {
@@ -17,16 +17,14 @@ import (
 //}
 
 func GetRole(w http.ResponseWriter, r *http.Request) {
-	if r.Method=="OPTIONS"{
+	if r.Method == "OPTIONS" {
 		return
 	}
-	if w==nil || r==nil{
+	if w == nil || r == nil {
 		log.Println("gate fail: w or r nil")
 		return
 	}
 	fb := feedback.NewFeedBack(w)
-	fb.FbCode(constant.SUCCESS).FbData(10).FbMsg("获取权限等级成功").Response()
-	return
 	if r.Method == http.MethodOptions {
 		fb.FbCode(0).Response()
 		return
@@ -42,13 +40,11 @@ func GetRole(w http.ResponseWriter, r *http.Request) {
 		fb.FbCode(constant.SESSION_EXPIRED).Response()
 		return
 	}
-	role:=sess.Role
-	msg:="GetRole Success"
+	role := sess.Role
+	msg := "GetRole Success"
 	//logger.Logger.Error(msg)
 	logger.Info(msg)
 	//log.Println(msg)
 	fb.FbCode(constant.SUCCESS).FbData(role).FbMsg("获取权限等级成功").Response()
 	defer r.Body.Close()
 }
-
-

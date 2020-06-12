@@ -1,28 +1,29 @@
 package imgController
 
 import (
-	"net/http"
-	"log"
-	"strings"
-	"io/ioutil"
-	"encoding/json"
+	"conf"
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"logger"
+	"net/http"
 	"os"
 	"path/filepath"
-	"errors"
+	"strings"
 	"utils"
-	"fmt"
-	"logger"
-	"conf"
 )
 
 var file = make(map[string]bool)
+
 type Pic struct {
 	Link string `json:"link"`
 }
 
-func UploadPic(w http.ResponseWriter,r *http.Request) {
+func UploadPic(w http.ResponseWriter, r *http.Request) {
 
 	//上传文件类型规定
 	TypeProvision()
@@ -31,8 +32,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	File, FileHeader, err := r.FormFile("file")
 	//fmt.Println(File)
 	fmt.Println(FileHeader.Filename)
-	if err!=nil{
-		msg:="获取前端图片失败"
+	if err != nil {
+		msg := "获取前端图片失败"
 		//log.Println(msg)
 		//log.Println(err)
 		logger.Info(msg)
@@ -52,8 +53,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 
 	//判断文件大小
 	if FileHeader.Size/1024 <= 10240 {
-		if !file[fileSuffix]{
-			msg:="图片格式不符合要求"
+		if !file[fileSuffix] {
+			msg := "图片格式不符合要求"
 			//log.Println(msg)
 			//log.Println(err)
 			logger.Info(msg)
@@ -61,8 +62,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 			//fmt.Fprintln(w,string(data))
 			return
 		}
-	}else{
-		msg:="图片大小不符合要求"
+	} else {
+		msg := "图片大小不符合要求"
 		//log.Println(msg)
 		//log.Println(err)
 		logger.Info(msg)
@@ -73,8 +74,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 
 	//读取文件
 	FileByte, err := ioutil.ReadAll(File)
-	if err!=nil{
-		msg:="读取字节错误"
+	if err != nil {
+		msg := "读取字节错误"
 		//log.Println(msg)
 		//log.Println(err)
 		logger.Info(msg)
@@ -85,8 +86,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 
 	//根据文件字节作为文件标识命名
 	FileId, err := GetFileMD5(FileByte)
-	if err!=nil{
-		msg:="图片名字加密错误"
+	if err != nil {
+		msg := "图片名字加密错误"
 		//log.Println(msg)
 		//log.Println(err)
 		logger.Info(msg)
@@ -96,9 +97,9 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	}
 
 	//规定文件标识长度
-	CreateFileid,err:=Substr(FileId,0,250);
-	if err!=nil{
-		msg:="命名图片错误"
+	CreateFileid, err := Substr(FileId, 0, 250)
+	if err != nil {
+		msg := "命名图片错误"
 		//log.Println(msg)
 		//log.Println(err)
 		logger.Info(msg)
@@ -108,14 +109,14 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	}
 
 	//获取可执行文件的绝对路径
-	PATH,err:=exepath()
+	PATH, err := exepath()
 
 	//kyoma2187
 	//shuaibirunfa
 	//创建存放文件的文件夹
 	err = utils.Mkdir(PATH)
-	if err!=nil{
-		msg:="创建存放文件的文件夹失败"
+	if err != nil {
+		msg := "创建存放文件的文件夹失败"
 		//log.Println(msg)
 		//log.Println(err)
 		logger.Info(msg)
@@ -127,8 +128,8 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	//创建文件
 	err = createfile(PATH+CreateFileid+"."+fileSuffix, FileByte)
 	//fmt.Println(PATH)
-	if err!=nil{
-		msg:="创建文件错误"
+	if err != nil {
+		msg := "创建文件错误"
 		logger.Info(msg)
 		//log.Println(msg)
 		//log.Println(err)
@@ -138,37 +139,40 @@ func UploadPic(w http.ResponseWriter,r *http.Request) {
 	}
 
 	//返回前端上传图片的地址
-	pic:=Pic{}
+	pic := Pic{}
 
 	//pic.Link="http://111.230.186.233:80/static/"+CreateFileid+"."+fileSuffix
-	pic.Link=conf.App.ServerHost+":"+conf.App.ServerPort+conf.App.FileDownloadHost+CreateFileid+"."+fileSuffix
-	data,_:=json.Marshal(pic)
+	pic.Link = conf.App.ServerHost + ":" + conf.App.ServerPort + conf.App.FileDownloadHost + CreateFileid + "." + fileSuffix
+	data, _ := json.Marshal(pic)
 
 	w.Write(data)
-	msg:="上传图片成功"
+	msg := "上传图片成功"
 	log.Println(msg)
 	//log.Println(err)
 	//data:=model.FeedBackSuccessHandle(600,msg,datas)
 	//fmt.Fprintln(w,string(data))
 	return
 }
+
 //上传图片类型规定
 func TypeProvision() {
-	file["jpg"]  = true
+	file["jpg"] = true
 	file["jpeg"] = true
-	file["png"]  = true
-	file["gif"]  = true
+	file["png"] = true
+	file["gif"] = true
 }
+
 //MD5加密
 func GetFileMD5(fbyte []byte) (string, error) {
 	hash := md5.New()
-	_,err:=hash.Write(fbyte)
-	if err!=nil{
-		return "",err
+	_, err := hash.Write(fbyte)
+	if err != nil {
+		return "", err
 	}
 	result := hash.Sum(nil)
 	return hex.EncodeToString(result), nil
 }
+
 //创建文件
 func createfile(fileurl string, filebyte []byte) error {
 	file, err := os.Create(fileurl)
@@ -181,6 +185,7 @@ func createfile(fileurl string, filebyte []byte) error {
 	}
 	return nil
 }
+
 //获取可执行文件的绝对路径
 func exepath() (string, error) {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
@@ -190,32 +195,33 @@ func exepath() (string, error) {
 	dir += "\\files"
 	return strings.Replace(dir, "\\", "/", -1) + "/", nil
 }
+
 //截取字符串
-func Substr(str string, start int, length int) (string,error) {
+func Substr(str string, start int, length int) (string, error) {
 	RuneStr := []rune(str)
 	RuneLen := len(RuneStr)
-	if RuneLen==0{
-		return "",errors.New("文件字节长度为零")
+	if RuneLen == 0 {
+		return "", errors.New("文件字节长度为零")
 	}
 	if start < 0 {
 		start = 0
 	}
-	if length==0{
-		return "",errors.New("文件名长度为零")
+	if length == 0 {
+		return "", errors.New("文件名长度为零")
 	}
-	if length<0{
-		return "",errors.New("文件名长度为负数")
+	if length < 0 {
+		return "", errors.New("文件名长度为负数")
 	}
 
 	end := start + length
 
 	if start > RuneLen {
-		return "",errors.New("文件名取值起始位置越界")
+		return "", errors.New("文件名取值起始位置越界")
 	}
 
 	if end > RuneLen {
 		end = RuneLen
 	}
 
-	return string(RuneStr[start:end]),nil
+	return string(RuneStr[start:end]), nil
 }

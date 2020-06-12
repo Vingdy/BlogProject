@@ -1,8 +1,8 @@
 package db
 
 import (
-	"log"
 	"errors"
+	"log"
 )
 
 //func initAllTable() {
